@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import './LoginPage.css';
+import { Link } from 'react-router-dom/cjs/react-router-dom.min';
 
 const LoginPage = () => {
 
@@ -47,7 +48,7 @@ const LoginPage = () => {
                     </div>
                 </div>
                 <button className='FormButton' onClick={handleLogin}>ログイン</button><br />
-                <button className='FormButton'><a href="#">新規登録</a></button><br />
+                <button className='FormButton'><Link to="/SignUpPage">新規登録</Link></button><br />
             </div>
         </div>
     );

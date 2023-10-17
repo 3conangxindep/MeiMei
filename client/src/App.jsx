@@ -6,6 +6,7 @@ import LogOutScreen from './components/LogOutScreen';
 import { AuthProvider } from './components/AuthContext';
 import { SelectedOptionsProvider } from './components/Body/UpdateData/SelectedOptionsContext';
 import LoginPage from './components/LoginPage/LoginPage';
+import SignUpPage from './components/SignUpPage/SignUpPage';
 
 function App() {
 
@@ -15,7 +16,7 @@ function App() {
       <Router>
         <Switch>
           <Route path="/Main"><Main /></Route>
-          <Route path="/"><LogOutScreen /></Route>
+          <Route path="/"><SignUpPage /></Route>
         </Switch>
       </Router>
       </SelectedOptionsProvider>

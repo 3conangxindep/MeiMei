@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import SetTimes from './SetTimes';
 import GenderTheme from './GenderTheme';
-import './SignUpPage.css';
+import '../SignUpPage/SignUpPage.css';
 
 const SignUpPage = () => {
     const [Firstname, setFirstname] = useState('');
