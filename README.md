@@ -14,4 +14,5 @@ php artisan serve
 #client
 
 npm i
+
 npm start
