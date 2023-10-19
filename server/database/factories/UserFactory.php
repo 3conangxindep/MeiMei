@@ -17,11 +17,12 @@ class UserFactory extends Factory
     public function definition()
     {
         return [
-            'user_name' => fake()->name(),
-            'email' => fake()->unique()->safeEmail(),
-            'gender' => fake()->randomElement(['male', 'female']),
-            'password' => bcrypt('password', []), // password
-            'birthday' => fake()->date(),
+            'id_card' => $this->faker->randomNumber(6),
+            'user_name' => $this->faker->name(),
+            'email' => $this->faker->unique()->safeEmail(),
+            'gender' => $this->faker->randomElement(['male', 'female']),
+            'password' => bcrypt('password'), // password
+            'birthday' => $this->faker->date(),
         ];
     }
 
