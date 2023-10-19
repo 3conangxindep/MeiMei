@@ -1,9 +1,9 @@
 # MeiMei
 #server
 
-cd server
-composer install \n
-php artisan migrate \n
+#cd server
+#composer install 
+php artisan migrate 
 php artisan db:seed --class=UserSeeder
 php artisan serve
 
