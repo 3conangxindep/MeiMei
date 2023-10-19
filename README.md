@@ -3,7 +3,7 @@
 
 cd server
 composer install \n
-php artisan migrate
+php artisan migrate \n
 php artisan db:seed --class=UserSeeder
 php artisan serve
 
