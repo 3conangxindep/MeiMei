@@ -28,6 +28,8 @@ class CreateUserTable extends Migration
             $table->string('x')->nullable();
             $table->text('description')->nullable();
             $table->timestamps();
+            $table->softDeletes();
+
         });
     }
 

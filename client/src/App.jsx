@@ -16,7 +16,7 @@ function App() {
       <Router>
         <Switch>
           <Route path="/Main"><Main /></Route>
-          <Route path="/"><SignUpPage /></Route>
+          <Route path="/"><LoginPage /></Route>
         </Switch>
       </Router>
       </SelectedOptionsProvider>
