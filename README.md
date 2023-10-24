@@ -5,7 +5,7 @@ cd server
 
 composer install 
 
-php artisan migrate 
+php artisan migrate (tạo database meimei trước khi nhập câu lệnh này)
 
 php artisan db:seed --class=UserSeeder
 
