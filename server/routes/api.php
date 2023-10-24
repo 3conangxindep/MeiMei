@@ -19,3 +19,10 @@ use App\Http\Controllers\UserController;
 Route::get('/user', [UserController::class, 'index']);
 Route::get('/user/{id}', [UserController::class, 'show']);
 
+//Login
+Route::post('/login', [UserController::class, 'login']);
+
+//Logout
+Route::post('/logout', [UserController::class, 'logout'])->middleware('auth:sanctum');
+
+
