@@ -13,7 +13,7 @@ function LogOutScreen() {
           <div className='card'>
               <div className='child-card'>CARD</div>
           </div>
-          <button style={{border:'none',backgroundColor:'transparent'}} onClick={login}><div className='text-style'><Link to="/Main">始める</Link></div></button>
+          <button style={{border:'none',backgroundColor:'transparent'}} onClick={login}><div className='text-style'><Link to="/main">始める</Link></div></button>
       </div>
     </div>
   );

@@ -1,55 +1,104 @@
-import React, { useState } from 'react';
+import React, { Fragment, useState } from 'react';
 import './LoginPage.css';
+import { Link, useHistory } from 'react-router-dom';
+import axios from "axios";
+
 
 const LoginPage = () => {
+    const history = useHistory();
+    const http = axios.create({
+        baseURL: "http://localhost:8000",
+    
+        headers: {
+          "X-Requested-with": "XMLHttpRequest",
+        },
+    
+        withCredentials: true,
+    });
+  
+  //handle Login
+  const [user, setUser] = useState(
+    localStorage.hasOwnProperty("currentUser") === true
+      ? JSON.parse(localStorage.getItem("currentUser"))
+      : null
+  );
 
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-    const [emailErrorMessage, setEmailErrorMessage] = useState('');
-    const [passwordErrorMessage, setPasswordErrorMessage] = useState('');
-    const handleLogin =() => {
-        if (email === '' || password === '') {
-            if (email === '') {
-                setEmailErrorMessage('メールアドレスを入力してください');
-            }
-            if (password === '') {
-                setPasswordErrorMessage('パスワードを入力してください');
-            }
-            return;
-        }
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
 
-        console.log('ログイン：', email, password);
-    };
+  const handleLogin = async (e) => {
+    e.preventDefault();
+    try {
+      setErrorMessage("");
+      setLoading(true);
+      const csrf = await http.get("/sanctum/csrf-cookie");
+      const login = await http.post("/api/login", {
+        email: email,
+        password: password,
+      });
+
+      const current = localStorage.setItem(
+        "currentUser",
+        JSON.stringify(login)
+      );
+
+      setUser(login);
+      history.push('/main');
+      console.log("dang nhap thanh cong")
+    } catch (error) {
+      setErrorMessage("メールアドレスかパスワードか間違っています");
+      console.error("Login failed:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
     return (
-        <div className='Container'>
+        <Fragment>
+          <div className='Container'>
             <div className='LoginBorder'>
-                <h2 className='FormHeader'>ログイン</h2>
+              <h2 className='FormHeader'>ログイン</h2>
+              <form onSubmit={handleLogin}>
                 <div className='LoginForm'>
-                    <div className='FormGroup'>
-                        <label className='FormLabel'>メールアドレス</label>
-                            <input
-                                type="email"
-                                className='FormInput'
-                                value={email}
-                                onChange={(e) => setEmail(e.target.value)}
-                            />
-                        {emailErrorMessage && <p className='FormError'>{emailErrorMessage}</p>}
-                    </div>
-                    <div className='FormGroup'>
-                        <label className='FormLabel'>パスワード</label>
-                            <input
-                                type="password"
-                                className='FormInput'
-                                value={password}
-                                onChange={(e) => setPassword(e.target.value)}
-                            />
-                        {passwordErrorMessage && <p className='FormError'>{passwordErrorMessage}</p>}
-                    </div>
+                  <div className='FormGroup'>
+                    <label className='FormLabel'>メールアドレス</label>
+                    <input
+                      type="email"
+                      className='FormInput'
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                      placeholder="meimei@gmail.com"
+                      required
+                    />
+                  </div>
+                  <div className='FormGroup'>
+                    <label className='FormLabel'>パスワード</label>
+                    <input
+                      type="password"
+                      className='FormInput'
+                      value={password}
+                      onChange={(e) => setPassword(e.target.value)}
+                      placeholder="********"
+                      required
+                    />
+                  </div>
                 </div>
-                <button className='FormButton' onClick={handleLogin}>ログイン</button><br />
-                <button className='FormButton'><a href="#">新規登録</a></button><br />
+                  <button className='FormButton' type='submit'>ログイン</button><br/>
+              </form>
+              <Link to="/signUpPage" className='FormButton'>新規登録</Link><br/>
+              {loading && (
+                  <div role="status" className="pt-4 flex">
+                      <span className="sr-only">Loading...</span>
+                  </div>
+              )}
+              <br/>
+              {errorMessage && <div className="ErrorMessage">{errorMessage}</div>}
             </div>
-        </div>
+          </div>
+            
+        </Fragment>
     );
 };
 

@@ -2,10 +2,10 @@ import React, { useState } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import './App.css';
 import Main from './components/Main';
-import LogOutScreen from './components/LogOutScreen';
 import { AuthProvider } from './components/AuthContext';
 import { SelectedOptionsProvider } from './components/Body/UpdateData/SelectedOptionsContext';
 import LoginPage from './components/LoginPage/LoginPage';
+import SignUpPage from './components/SignUpPage/SignUpPage';
 
 function App() {
 
@@ -14,8 +14,10 @@ function App() {
     <SelectedOptionsProvider>
       <Router>
         <Switch>
-          <Route path="/Main"><Main /></Route>
-          <Route path="/"><LogOutScreen /></Route>
+          <Route path="/main" component={Main} />
+          <Route path="/signUpPage" component={SignUpPage} />
+          <Route path="/loginPage" component={LoginPage} />
+          <LoginPage/>
         </Switch>
       </Router>
       </SelectedOptionsProvider>
