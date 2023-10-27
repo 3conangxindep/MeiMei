@@ -7,15 +7,20 @@ import UpdateData from './Body/UpdateData/UpdateData';
 import { SelectedOptionsProvider } from './Body/UpdateData/SelectedOptionsContext';
 
 
+//test
+import test from './Body/test';
+
 const Main = () => {
     return (
         <SelectedOptionsProvider>
             <Router>
                 <Header />
                 <Switch>
-                <Route path="/information" component={Information} />
-                <Route path="/updateData" component={UpdateData} />
-                    <Body />
+                <Route path="/Information/"><Information /></Route>
+                <Route path="/UpdateData" component={UpdateData} />
+                <Route path="/test/" component={test} />
+
+                <Body />
                 </Switch>
             </Router>
         </SelectedOptionsProvider>
