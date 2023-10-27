@@ -26,15 +26,17 @@ const LoginPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
 
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
+      setErrorMessage("");
       setLoading(true);
       const csrf = await http.get("/sanctum/csrf-cookie");
       const login = await http.post("/api/login", {
         email: email,
-        password: password
+        password: password,
       });
 
       const current = localStorage.setItem(
@@ -46,6 +48,7 @@ const LoginPage = () => {
       history.push('/main');
       console.log("dang nhap thanh cong")
     } catch (error) {
+      setErrorMessage("メールアドレスかパスワードか間違っています");
       console.error("Login failed:", error);
     } finally {
       setLoading(false);
@@ -54,46 +57,46 @@ const LoginPage = () => {
 
     return (
         <Fragment>
-            <div className='Container'>
-                <div className='LoginBorder'>
-                    <h2 className='FormHeader'>ログイン</h2>
-                    <form onSubmit={handleLogin}>
-                        <div className='LoginForm'>
-                            <div className='FormGroup'>
-                                <label className='FormLabel'>メールアドレス</label>
-                                    <input
-                                        type="email"
-                                        className='FormInput'
-                                        value={email}
-                                        onChange={(e) => setEmail(e.target.value)}
-                                        placeholder="meimei@gmail.com"
-                                        required
-                                    />
-                                
-                            </div>
-                            <div className='FormGroup'>
-                                <label className='FormLabel'>パスワード</label>
-                                    <input
-                                        type="password"
-                                        className='FormInput'
-                                        value={password}
-                                        onChange={(e) => setPassword(e.target.value)}
-                                        placeholder="******"
-                                        required
-                                    />
-                                
-                            </div>
-                        </div>
-                        <button className='FormButton' type='submit'>ログイン</button><br />
-                        <button className='FormButton'><Link to="/SignUpPage">新規登録</Link></button><br />
-                    </form>
-                    {loading && (
-                        <div role="status" className="pt-4 flex">
-                            <span className="sr-only">Loading...</span>
-                        </div>
-                    )}
+          <div className='Container'>
+            <div className='LoginBorder'>
+              <h2 className='FormHeader'>ログイン</h2>
+              <form onSubmit={handleLogin}>
+                <div className='LoginForm'>
+                  <div className='FormGroup'>
+                    <label className='FormLabel'>メールアドレス</label>
+                    <input
+                      type="email"
+                      className='FormInput'
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                      placeholder="meimei@gmail.com"
+                      required
+                    />
+                  </div>
+                  <div className='FormGroup'>
+                    <label className='FormLabel'>パスワード</label>
+                    <input
+                      type="password"
+                      className='FormInput'
+                      value={password}
+                      onChange={(e) => setPassword(e.target.value)}
+                      placeholder="********"
+                      required
+                    />
+                  </div>
                 </div>
+                  <button className='FormButton' type='submit'>ログイン</button><br/>
+              </form>
+              <Link to="/signUpPage" className='FormButton'>新規登録</Link><br/>
+              {loading && (
+                  <div role="status" className="pt-4 flex">
+                      <span className="sr-only">Loading...</span>
+                  </div>
+              )}
+              <br/>
+              {errorMessage && <div className="ErrorMessage">{errorMessage}</div>}
             </div>
+          </div>
             
         </Fragment>
     );
