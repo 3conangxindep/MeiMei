@@ -53,47 +53,56 @@ const LoginPage = () => {
   };
 
     return (
-        <Fragment>
-            <div className='Container'>
-                <div className='LoginBorder'>
-                    <h2 className='FormHeader'>ログイン</h2>
-                    <form onSubmit={handleLogin}>
-                        <div className='LoginForm'>
+        <Fragment>   
+          {/* <div className='Border-me'> */}
+          <div className='Container'>
+            <div className='Border'>
+                  <div className='Border-con'>
+                    <div className='LoginBorder'>
+                      <h2 className='FormHeader'>ログイン</h2>
+                        <form onSubmit={handleLogin}>
+                          <div className='LoginForm'>
                             <div className='FormGroup'>
-                                <label className='FormLabel'>メールアドレス</label>
-                                    <input
-                                        type="email"
-                                        className='FormInput'
-                                        value={email}
-                                        onChange={(e) => setEmail(e.target.value)}
-                                        placeholder="meimei@gmail.com"
-                                        required
-                                    />
-                                
+                              <input
+                                type="email"
+                                className='FormInput'
+                                id="email"
+                                value={email}
+                                onChange={(e) => setEmail(e.target.value)}
+                                // placeholder="meimei@gmail.com"
+                                required
+                              />
+                              <label for="email" className='Label'>メールアドレス</label>       
+                              </div>
+                              <div className='FormGroup'>
+                                <input
+                                 type="password"
+                                 id="password"
+                                 className='FormInput'
+                                 value={password}
+                                 onChange={(e) => setPassword(e.target.value)}
+                                 // placeholder="******"
+                                 required
+                                />
+                                <label for='password' className='Label'>パスワード</label>                    
+                              </div>
                             </div>
-                            <div className='FormGroup'>
-                                <label className='FormLabel'>パスワード</label>
-                                    <input
-                                        type="password"
-                                        className='FormInput'
-                                        value={password}
-                                        onChange={(e) => setPassword(e.target.value)}
-                                        placeholder="******"
-                                        required
-                                    />
-                                
+                            <button className='LoginButton' type='submit'>ログイン</button><br />
+                            <button className='CreateButton'><Link to="/SignUpPage">新規登録</Link></button><br />
+                        </form>
+                        {loading && (
+                            <div role="status" className="pt-4 flex">
+                                <span className="sr-only">Loading...</span>
                             </div>
-                        </div>
-                        <button className='FormButton' type='submit'>ログイン</button><br />
-                        <button className='FormButton'><Link to="/SignUpPage">新規登録</Link></button><br />
-                    </form>
-                    {loading && (
-                        <div role="status" className="pt-4 flex">
-                            <span className="sr-only">Loading...</span>
-                        </div>
-                    )}
-                </div>
+                        )}
+                    </div>
+                    <div className='Appname'>
+                      MeiMei
+                    </div>
+                  </div>
             </div>
+          </div>
+            {/* </div> */}
             
         </Fragment>
     );
