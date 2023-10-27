@@ -53,8 +53,7 @@ const LoginPage = () => {
     } finally {
       setLoading(false);
     }
-  };
-
+  }
     return (
         <Fragment>   
           {/* <div className='Border-me'> */}
@@ -73,7 +72,7 @@ const LoginPage = () => {
                                 value={email}
                                 onChange={(e) => setEmail(e.target.value)}
                                 // placeholder="meimei@gmail.com"
-                                required
+                                // required
                               />
                               <label for="email" className='Label'>メールアドレス</label>       
                               </div>
@@ -85,7 +84,7 @@ const LoginPage = () => {
                                  value={password}
                                  onChange={(e) => setPassword(e.target.value)}
                                  // placeholder="******"
-                                 required
+                                //  required
                                 />
                                 <label for='password' className='Label'>パスワード</label>                    
                               </div>
