@@ -26,15 +26,17 @@ const LoginPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
 
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
+      setErrorMessage("");
       setLoading(true);
       const csrf = await http.get("/sanctum/csrf-cookie");
       const login = await http.post("/api/login", {
         email: email,
-        password: password
+        password: password,
       });
 
       const current = localStorage.setItem(
@@ -46,6 +48,7 @@ const LoginPage = () => {
       history.push('/main');
       console.log("dang nhap thanh cong")
     } catch (error) {
+      setErrorMessage("メールアドレスかパスワードか間違っています");
       console.error("Login failed:", error);
     } finally {
       setLoading(false);
@@ -95,6 +98,8 @@ const LoginPage = () => {
                                 <span className="sr-only">Loading...</span>
                             </div>
                         )}
+                         <br/>
+                      {errorMessage && <div className="ErrorMessage">{errorMessage}</div>}
                     </div>
                     <div className='Appname'>
                       MeiMei
@@ -102,8 +107,7 @@ const LoginPage = () => {
                   </div>
             </div>
           </div>
-            {/* </div> */}
-            
+            {/* </div> */}         
         </Fragment>
     );
 };
