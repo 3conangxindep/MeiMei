@@ -5,13 +5,15 @@ cd server
 
 composer install 
 
-php artisan migrate (tạo database meimei trước khi nhập câu lệnh này)
+php artisan key:generate
 
-php artisan db:seed --class=UserSeeder
+php artisan migrate (tạo database meimei trước khi nhập câu lệnh này)
 
 php artisan serve
 
 #client
+
+cd client
 
 npm i
 
