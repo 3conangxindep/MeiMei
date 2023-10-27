@@ -7,6 +7,9 @@ import RecentAccounts from './RecentAccounts';
 import Following from './Following';
 import GroupMembers from './GroupMembers';
 
+//test
+import Test from './test';
+
 const Body = () => {
     return (
         <div className='body'>
@@ -17,15 +20,22 @@ const Body = () => {
                 </div>
                 <div className='section'>
                     <div className='section-left'>
+                        
                         <div className='section-item'>
                             <Link to="/Main/RecentAccounts" style={{color:'black'}}>最近見たアカウント</Link>
                         </div>
                         <div className='section-item'>
                             <Link to="/Main/Following" style={{color:'black'}}>フォロー中</Link>
                         </div>
-                        <div className='section-item' style={{borderRight:'none'}}>
+                        {/* <div className='section-item' style={{borderRight:'none'}}>
                             <Link to="/Main/GroupMembers" style={{color:'black'}}>グルーブ</Link>
+                        </div> */}
+
+                         {/* test */}
+                         <div className='section-item'>
+                            <Link to="/Main/test" style={{color:'black'}}>Test Information</Link>
                         </div>
+                    
                     </div>
                 </div>
             </div>
@@ -33,6 +43,7 @@ const Body = () => {
             <Route path="/Main/RecentAccounts"><RecentAccounts /></Route>
             <Route path="/Main/Following"><Following /></Route>
             <Route path="/Main/GroupMembers"><GroupMembers /></Route>
+            <Route path="/Main/test"><Test /></Route>
             </Switch>
         </div>
     );
