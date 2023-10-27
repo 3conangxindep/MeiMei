@@ -105,76 +105,78 @@ const SignUpPage = () => {
     };
 
     return (
-        <div className='Container'>
-            <div className='SignUpBorder'>
-                <h2 className='FormHeader'>新規登録</h2>
-                <form onSubmit={handleSignup}>
-                    <div className='SignUpForm'>
-                        <div className='FormGroup'>
-                            <label className='FormLabel'>ID CARD</label>
-                            <input
-                                type="text"
-                                className='FormInput'
-                                value={idCard}
-                                onChange={(e) => setIdCard(e.target.value)}
-                                placeholder="123456"
+        <div className='border-bg'>
+            <div className='Container-signUp'>
+                <div className='SignUpBorder'>
+                    <h4 className='SignUp'>新規登録</h4>
+                    <form onSubmit={handleSignup}>
+                        <div className='SignUpForm'>
+                            <div className='FormGroup'>
+                                <label className='FormLabel'>ID CARD</label>
+                                <input
+                                    type="text"
+                                    className='FormInput'
+                                    value={idCard}
+                                    onChange={(e) => setIdCard(e.target.value)}
+                                    placeholder="123456"
+                                />
+                                {idCardErrorMessage && <p className='FormError'>{idCardErrorMessage}</p>}
+                            </div>
+                            <div className='FormGroup'>
+                                <label className='FormLabel'>NAME</label>
+                                <input
+                                    type="text"
+                                    className='FormInput'
+                                    value={userName}
+                                    onChange={(e) => setUserName(e.target.value)}
+                                    placeholder="MeiMei"
+                                />
+                                {userNameErrorMessage && <p className='FormError'>{userNameErrorMessage}</p>}
+                            </div>
+                            <div className='FormGroup'>
+                                <label className='FormLabel'>メールアドレス</label>
+                                <input
+                                    type="email"
+                                    className='FormInput'
+                                    value={email}
+                                    onChange={(e) => setEmail(e.target.value)}
+                                    placeholder="meimei@gmail.com"
+                                />
+                                {emailErrorMessage && <p className='FormError'>{emailErrorMessage}</p>}
+                            </div>
+                            <div className='FormGroup'>
+                                <label className='FormLabel'>パスワード</label>
+                                <input
+                                    type="password"
+                                    className='FormInput'
+                                    value={password}
+                                    onChange={(e) => setPassword(e.target.value)}
+                                    placeholder="********"
+                                />
+                                {passwordErrorMessage && <p className='FormError'>{passwordErrorMessage}</p>}
+                            </div>
+                            
+                            <SetTimes
+                                setCurrentMonth={setBirthMonth}
+                                setCurrentDay={setBirthDay}
+                                setCurrentYear={setBirthYear}
                             />
-                            {idCardErrorMessage && <p className='FormError'>{idCardErrorMessage}</p>}
-                        </div>
-                        <div className='FormGroup'>
-                            <label className='FormLabel'>NAME</label>
-                            <input
-                                type="text"
-                                className='FormInput'
-                                value={userName}
-                                onChange={(e) => setUserName(e.target.value)}
-                                placeholder="MeiMei"
-                            />
-                            {userNameErrorMessage && <p className='FormError'>{userNameErrorMessage}</p>}
-                        </div>
-                        <div className='FormGroup'>
-                            <label className='FormLabel'>メールアドレス</label>
-                            <input
-                                type="email"
-                                className='FormInput'
-                                value={email}
-                                onChange={(e) => setEmail(e.target.value)}
-                                placeholder="meimei@gmail.com"
-                            />
-                            {emailErrorMessage && <p className='FormError'>{emailErrorMessage}</p>}
-                        </div>
-                        <div className='FormGroup'>
-                            <label className='FormLabel'>パスワード</label>
-                            <input
-                                type="password"
-                                className='FormInput'
-                                value={password}
-                                onChange={(e) => setPassword(e.target.value)}
-                                placeholder="********"
-                            />
-                            {passwordErrorMessage && <p className='FormError'>{passwordErrorMessage}</p>}
-                        </div>
-                        
-                        <SetTimes
-                            setCurrentMonth={setBirthMonth}
-                            setCurrentDay={setBirthDay}
-                            setCurrentYear={setBirthYear}
-                        />
 
-                        <div className='FormGroup'>
-                            <GenderTheme setSelectedOption={setGender}></GenderTheme>
-                            {genderErrorMessage && <p className='FormError'>{genderErrorMessage}</p>}
+                            <div className='FormGroup'>
+                                <GenderTheme setSelectedOption={setGender}></GenderTheme>
+                                {genderErrorMessage && <p className='FormError'>{genderErrorMessage}</p>}
+                            </div>
                         </div>
+                        <br/>
+                        <button className='FormButton' type='submit'>新規登録</button><br />
+                    </form>
+                    <Link to="/loginPage" className='FormButton'>ログイン</Link>
+                    {loading && (
+                    <div role="status" className="pt-4 flex">
+                        <span className="sr-only">Loading...</span>
                     </div>
-                    <br/>
-                    <button className='FormButton' type='submit'>新規登録</button><br />
-                </form>
-                <Link to="/loginPage" className='FormButton'>ログイン</Link>
-                {loading && (
-                  <div role="status" className="pt-4 flex">
-                      <span className="sr-only">Loading...</span>
-                  </div>
-                )}
+                    )}
+                </div>
             </div>
         </div>
     );
