@@ -71,8 +71,8 @@ const LoginPage = () => {
                                 id="email"
                                 value={email}
                                 onChange={(e) => setEmail(e.target.value)}
-                                // placeholder="meimei@gmail.com"
-                                // required
+                                //placeholder="meimei@gmail.com"
+                                //required
                               />
                               <label for="email" className='Label'>メールアドレス</label>       
                               </div>
@@ -83,15 +83,15 @@ const LoginPage = () => {
                                  className='FormInput'
                                  value={password}
                                  onChange={(e) => setPassword(e.target.value)}
-                                 // placeholder="******"
-                                //  required
+                                 //placeholder="******"
+                                 //required
                                 />
                                 <label for='password' className='Label'>パスワード</label>                    
                               </div>
                             </div>
                             <button className='LoginButton' type='submit'>ログイン</button><br />
-                            <button className='CreateButton'><Link to="/SignUpPage">新規登録</Link></button><br />
                         </form>
+                        <Link to="/signUpPage" className='CreateButton'>新規登録</Link><br />
                         {loading && (
                             <div role="status" className="pt-4 flex">
                                 <span className="sr-only">Loading...</span>
