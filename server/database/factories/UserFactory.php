@@ -20,7 +20,7 @@ class UserFactory extends Factory
             'id_card' => $this->faker->randomNumber(6),
             'user_name' => $this->faker->name(),
             'email' => $this->faker->unique()->safeEmail(),
-            'gender' => $this->faker->randomElement(['male', 'female']),
+            'gender' => $this->faker->randomElement(['male', 'female', 'other']),
             'password' => bcrypt('password'), // password
             'birthday' => $this->faker->date(),
         ];

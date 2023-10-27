@@ -18,6 +18,8 @@ use App\Http\Controllers\UserController;
 //User Routes
 Route::get('/user', [UserController::class, 'index']);
 Route::get('/user/{id}', [UserController::class, 'show']);
+Route::post('/user', [UserController::class, 'store']);
+
 
 //Login
 Route::post('/login', [UserController::class, 'login']);

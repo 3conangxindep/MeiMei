@@ -178,3 +178,7 @@ box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
     color: #161716;
     text-decoration: none;
   }
+  .ErrorMessage {
+    color: red;
+    margin-top: 5px;
+  }
