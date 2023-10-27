@@ -27,7 +27,9 @@ const LoginPage = () => {
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
-
+  const handleNavigation = () => {
+    history.push('/SignUpPage'); // Điều hướng đến trang SignUpPage
+  };
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
@@ -53,6 +55,7 @@ const LoginPage = () => {
     } finally {
       setLoading(false);
     }
+
   }
     return (
         <Fragment>   
@@ -66,15 +69,15 @@ const LoginPage = () => {
                           <div className='LoginForm'>
                             <div className='FormGroup'>
                               <input
-                                type="email"
+                                type="text"
                                 className='FormInput'
                                 id="email"
                                 value={email}
                                 onChange={(e) => setEmail(e.target.value)}
                                 // placeholder="meimei@gmail.com"
-                                // required
+                                required
                               />
-                              <label for="email" className='Label'>メールアドレス</label>       
+                              <label for="text" className='Label'>メールアドレス</label>       
                               </div>
                               <div className='FormGroup'>
                                 <input
@@ -84,14 +87,14 @@ const LoginPage = () => {
                                  value={password}
                                  onChange={(e) => setPassword(e.target.value)}
                                  // placeholder="******"
-                                //  required
+                                 required
                                 />
                                 <label for='password' className='Label'>パスワード</label>                    
                               </div>
                             </div>
                             <button className='LoginButton' type='submit'>ログイン</button><br />
-                            <button className='CreateButton'><Link to="/SignUpPage">新規登録</Link></button><br />
                         </form>
+                        <button className='CreateButton' onClick={handleNavigation}>新規登録</button>
                         {loading && (
                             <div role="status" className="pt-4 flex">
                                 <span className="sr-only">Loading...</span>
