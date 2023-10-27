@@ -24,7 +24,7 @@ class CreateUserTable extends Migration
             $table->string('tel')->nullable();
             $table->string('post_code')->nullable();
             $table->string('address')->nullable();
-            $table->string('instargram')->nullable();
+            $table->string('instagram')->nullable();
             $table->string('x')->nullable();
             $table->text('description')->nullable();
             $table->timestamps();
