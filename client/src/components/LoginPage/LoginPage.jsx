@@ -4,6 +4,8 @@ import { Link, useHistory } from 'react-router-dom';
 import axios from "axios";
 
 
+const img = 'meimei_img.jpg';
+console.log(img)
 const LoginPage = () => {
     const history = useHistory();
     const http = axios.create({
@@ -55,7 +57,7 @@ const LoginPage = () => {
     } finally {
       setLoading(false);
     }
-
+  
   }
     return (
         <Fragment>   
@@ -104,8 +106,12 @@ const LoginPage = () => {
                       {errorMessage && <div className="ErrorMessage">{errorMessage}</div>}
                     </div>
                     <div className='Appname'>
-                      MeiMei
+                      MeiMei   
+                      <div className='image'>
+                        <img src={img} alt=" image" />
+                      </div>
                     </div>
+                 
                   </div>
             </div>
           </div>

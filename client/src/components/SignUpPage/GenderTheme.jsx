@@ -9,7 +9,7 @@ const GenderTheme = ({selectedOption,setSelectedOption}) => {
   
   return (
     <div className="GenderContainer">
-      <label className='FormLabel'>性別</label>
+      <label className='GenderLabel'>性別</label>
       <div className='Row'>      
         <div className='GenderOption'>
           <label>男性</label>

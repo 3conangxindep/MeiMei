@@ -106,76 +106,89 @@ const SignUpPage = () => {
 
     return (
         <div className='border-bg'>
-            <div className='Container-signUp'>
-                <div className='SignUpBorder'>
-                    <h4 className='SignUp'>新規登録</h4>
-                    <form onSubmit={handleSignup}>
-                        <div className='SignUpForm'>
-                            <div className='FormGroup'>
-                                <label className='FormLabel'>ID CARD</label>
-                                <input
-                                    type="text"
-                                    className='FormInput'
-                                    value={idCard}
-                                    onChange={(e) => setIdCard(e.target.value)}
-                                    placeholder="123456"
-                                />
-                                {idCardErrorMessage && <p className='FormError'>{idCardErrorMessage}</p>}
+             {/* bachround color*/} 
+             <div className='signup-bg'>
+                <div className='Container-signUp'>  
+                    <div className='SignUpBorder'>
+                        <h4 className='SignUp'>新規登録</h4>
+                        <form onSubmit={handleSignup}>
+                            <div className='SignUpForm'>
+                                <div className='FormGroup'>
+                                    <input
+                                        type="text"
+                                        style={{width:'40%'}}
+                                        className='FormInput'
+                                        id='text'
+                                        value={idCard}
+                                        onChange={(e) => setIdCard(e.target.value)}
+                                        // placeholder="123456"
+                                        required
+                                    />
+                                    <label for="text" className='Label-sign'>ID CARD</label>
+                                    {idCardErrorMessage && <p className='FormError'>{idCardErrorMessage}</p>}
+                                </div>
+                                <div className='FormGroup'>
+                                    <input
+                                        type="text"
+                                        className='FormInput'
+                                        id='name'
+                                        value={userName}
+                                        onChange={(e) => setUserName(e.target.value)}
+                                        // placeholder="MeiMei"
+                                        required 
+                                    />
+                                    <label for="text" className='Label-sign'>Full Name</label>
+                                    {userNameErrorMessage && <p className='FormError'>{userNameErrorMessage}</p>}
+                                </div>
+                                <div className='FormGroup'>
+                                    <input
+                                        type="email"
+                                        className='FormInput'
+                                        id='email'
+                                        value={email}
+                                        onChange={(e) => setEmail(e.target.value)}
+                                        required
+                                    />
+                                    <label for='email' className='Label-sign'>メールアドレス</label>
+                                    {emailErrorMessage && <p className='FormError'>{emailErrorMessage}</p>}
+                                </div>
+                                <div className='FormGroup'>
+                                    <input
+                                        type="password"
+                                        className='FormInput'
+                                        id='pass'
+                                        value={password}
+                                        onChange={(e) => setPassword(e.target.value)}
+                                        required
+                                    />
+                                     <label for="pass" className='Label-sign'>パスワード</label>
+                                    {passwordErrorMessage && <p className='FormError'>{passwordErrorMessage}</p>}
+                                </div>
+                                <div className='settime'>
+                                    <SetTimes
+                                        setCurrentYear={setBirthYear}
+                                        setCurrentDay={setBirthDay}
+                                        setCurrentMonth={setBirthMonth}
+                                    />
+                                </div>
+                                <div>
+                                    <GenderTheme setSelectedOption={setGender}></GenderTheme>
+                                    {genderErrorMessage && <p className='FormError'>{genderErrorMessage}</p>}
+                                </div>
+                                
+                            <button className='FormButton' type='submit'>新規登録</button>
                             </div>
-                            <div className='FormGroup'>
-                                <label className='FormLabel'>NAME</label>
-                                <input
-                                    type="text"
-                                    className='FormInput'
-                                    value={userName}
-                                    onChange={(e) => setUserName(e.target.value)}
-                                    placeholder="MeiMei"
-                                />
-                                {userNameErrorMessage && <p className='FormError'>{userNameErrorMessage}</p>}
-                            </div>
-                            <div className='FormGroup'>
-                                <label className='FormLabel'>メールアドレス</label>
-                                <input
-                                    type="email"
-                                    className='FormInput'
-                                    value={email}
-                                    onChange={(e) => setEmail(e.target.value)}
-                                    placeholder="meimei@gmail.com"
-                                />
-                                {emailErrorMessage && <p className='FormError'>{emailErrorMessage}</p>}
-                            </div>
-                            <div className='FormGroup'>
-                                <label className='FormLabel'>パスワード</label>
-                                <input
-                                    type="password"
-                                    className='FormInput'
-                                    value={password}
-                                    onChange={(e) => setPassword(e.target.value)}
-                                    placeholder="********"
-                                />
-                                {passwordErrorMessage && <p className='FormError'>{passwordErrorMessage}</p>}
-                            </div>
-                            
-                            <SetTimes
-                                setCurrentMonth={setBirthMonth}
-                                setCurrentDay={setBirthDay}
-                                setCurrentYear={setBirthYear}
-                            />
-
-                            <div className='FormGroup'>
-                                <GenderTheme setSelectedOption={setGender}></GenderTheme>
-                                {genderErrorMessage && <p className='FormError'>{genderErrorMessage}</p>}
-                            </div>
+                        </form>
+                        {/* <Link to="/loginPage" className='FormButton'>ログイン</Link> */}
+                        {loading && (
+                        <div role="status" className="pt-4 flex">
+                            <span className="sr-only">Loading...</span>
                         </div>
-                        <br/>
-                        <button className='FormButton' type='submit'>新規登録</button><br />
-                    </form>
-                    <Link to="/loginPage" className='FormButton'>ログイン</Link>
-                    {loading && (
-                    <div role="status" className="pt-4 flex">
-                        <span className="sr-only">Loading...</span>
+                        )}
                     </div>
-                    )}
+                    <div className='Appname'>
+                      MeiMei
+                    </div>
                 </div>
             </div>
         </div>

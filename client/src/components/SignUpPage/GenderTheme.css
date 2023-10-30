@@ -10,10 +10,10 @@
     grid-template-columns: 1fr 1fr 1fr;
     gap: 10px;
 }
-.FormLabel{
+.GenderLabel{
     display: block;
-    font-weight: 500;
-    margin-bottom: 5px;
+    font-weight: bold;
+    margin-bottom: 3px;
 }
 /* GenderTheme.css */
 .GenderOption {
@@ -21,7 +21,7 @@
     display: grid;
     grid-template-columns: 1fr 1fr;
     border: 1px solid #ccc;
-    border-radius: 10px;
+    border-radius: 6px;
   }
   
   .GenderOption label{
