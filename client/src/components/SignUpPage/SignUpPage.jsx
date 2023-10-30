@@ -68,8 +68,8 @@ const SignUpPage = () => {
             formData.append("birthday", birthYear + "-" + birthMonth + "-" + birthDay);
             formData.append("gender", gender);
             formData.append("email", email);
-            // formData.append("password", await bcrypt.hash(password, 10));
-            formData.append("password", password);
+            formData.append("password", await bcrypt.hash(password, 10));
+            //formData.append("password", password);
             for (const [key, value] of formData.entries()) {
               console.log(`${key}: ${value}`);
             }
