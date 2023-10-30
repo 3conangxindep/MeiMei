@@ -1,2 +1,0 @@
-inputImageOptions,
-    // setInputImageOptions

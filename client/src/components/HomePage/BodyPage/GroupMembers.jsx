@@ -2,8 +2,8 @@ import React from 'react';
 
 const GroupMembers = () => {
     return (
-        <div className='children-container'>
-            GroupMembers
+        <div>
+            group
         </div>
     );
 };

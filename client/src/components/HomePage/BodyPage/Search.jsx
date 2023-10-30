@@ -1,8 +1,7 @@
-import React, { useState } from 'react';
+import React , { useState }from 'react';
 import './Search.css';
 
 const Search = () => {
-
     // Dữ liệu ví dụ
     const initialData = [
         {id : 1, name : 'huyen trang'},
@@ -45,6 +44,6 @@ const Search = () => {
             </ul> */}
         </div>
     );
-}
+};
 
 export default Search;

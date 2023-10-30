@@ -14,6 +14,9 @@
     display: block;
     font-weight: bold;
     margin-bottom: 3px;
+    color: #5BBE7D;
+    font-size: small;
+    margin-left: 8px;
 }
 /* GenderTheme.css */
 .GenderOption {
@@ -52,11 +55,13 @@
     border-radius: 50%;
   }
   .GenderInput:hover {
-    border-color: #80bdff;
+    border-color: #56989A;
+    background-color: #5BBE7D;
   }
   
   .GenderInput:focus {
-    border-color: #80bdff;
+    border-color: #56989A;
     box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+    background-color: #5BBE7D;
   }
   

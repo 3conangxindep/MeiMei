@@ -1,0 +1,90 @@
+import React, { useState } from 'react';
+import "./SocialMediaPage.css";
+
+const SocialMediaPage = () => {
+  const [iconsSections, setIconsSections] = useState([]);
+
+  const addIconsSection = () => {
+    setIconsSections([...iconsSections, iconsSections.length]);
+  };
+
+  const deleteIconsSection = (sectionIndex) => {
+    const updatedSections = iconsSections.filter((index) => index !== sectionIndex);
+    setIconsSections(updatedSections);
+  };
+
+  return (
+    <div className='SocialMedia-container'>
+        <ul>ソーシャルメディア
+            <li>
+                <img style={{width:"20px"}} src='https://cdn-icons-png.flaticon.com/128/875/875100.png' alt=''/>
+                <input type='text'/>
+            </li>
+            <li>
+                <img style={{width:"20px"}} src='https://cdn-icons-png.flaticon.com/128/875/875100.png' alt=''/>
+                <input type='text'/>
+            </li>
+            <li>
+                <img style={{width:"20px"}} src='https://cdn-icons-png.flaticon.com/128/875/875100.png' alt=''/>
+                <input type='text'/>
+            </li>
+            <button onClick={addIconsSection}>その他</button>
+            {iconsSections.map((sectionIndex) => (
+                <IconsSection key={sectionIndex} onDelete={() => deleteIconsSection(sectionIndex)} />
+            ))}
+        </ul>
+    </div>
+  );
+};
+
+function IconsSection({ onDelete }) {
+  const [showIcons, setShowIcons] = useState(false);
+  const [selectedIcon, setSelectedIcon] = useState(null);
+  const [inputText, setInputText] = useState('');
+
+  const icons = [
+    { src: 'https://cdn-icons-png.flaticon.com/128/875/875100.png', alt: '1' },
+    { src: 'https://cdn-icons-png.flaticon.com/128/10015/10015437.png', alt: '2' },
+    { src: 'https://cdn-icons-png.flaticon.com/128/875/875100.png', alt: '3' },
+    { src: 'https://cdn-icons-png.flaticon.com/128/10015/10015437.png', alt: '4' },
+  ];
+
+  const handleIconClick = (icon) => {
+    setSelectedIcon(icon);
+    setShowIcons(false);
+  };
+
+  return (
+    <div className="icons-container">      
+        <div onClick={() => setShowIcons(!showIcons)}>
+            {selectedIcon ? (
+                <img img style={{width:"30px"}} src={selectedIcon.src} alt={selectedIcon.alt} />
+            ) : (
+                <img img style={{width:"30px"}} src="default-icon.png" alt="Default Icon" />
+            )}
+            {showIcons && (
+                <div className="image-section">
+                    {icons.map((icon, index) => (
+                    <div
+                        key={index}
+                        className="image-item"
+                        onClick={() => handleIconClick(icon)}
+                    >
+                        <li><img style={{width:"30px"}} src={icon.src} alt={icon.alt} /></li>
+                    </div>
+                    ))}
+                </div>
+            )}
+        </div>
+
+        <input
+            type='text'
+            value={inputText}
+            onChange={(e) => setInputText(e.target.value)}
+        />
+        <button onClick={onDelete}>X</button>
+    </div>
+  );
+}
+
+export default SocialMediaPage;
