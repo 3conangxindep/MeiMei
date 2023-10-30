@@ -73,7 +73,7 @@ const LoginPage = () => {
                               <input
                                 type="text"
                                 className='FormInput'
-                                id="email"
+                                id="text"
                                 value={email}
                                 onChange={(e) => setEmail(e.target.value)}
                                 // placeholder="meimei@gmail.com"

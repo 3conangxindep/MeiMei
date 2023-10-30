@@ -6,7 +6,7 @@ import { Link, useHistory } from 'react-router-dom';
 import axios from "axios";
 import bcrypt from 'bcryptjs';
 
-
+const img = 'meimei_img.jpg';
 const SignUpPage = () => {
     const http = axios.create({
         baseURL: "http://localhost:8000",
@@ -68,8 +68,8 @@ const SignUpPage = () => {
             formData.append("birthday", birthYear + "-" + birthMonth + "-" + birthDay);
             formData.append("gender", gender);
             formData.append("email", email);
-            formData.append("password", await bcrypt.hash(password, 10));
-      
+            // formData.append("password", await bcrypt.hash(password, 10));
+            formData.append("password", password);
             for (const [key, value] of formData.entries()) {
               console.log(`${key}: ${value}`);
             }
@@ -78,7 +78,9 @@ const SignUpPage = () => {
               "http://localhost:8000/api/user",
               formData
             );
-            console.log("Registration successful", register);
+            console.log("Registration successful:", register);
+
+            console.log("");
       
             //login after register
             const login = await http.post("/api/login", {
@@ -188,6 +190,9 @@ const SignUpPage = () => {
                     </div>
                     <div className='Appname'>
                       MeiMei
+                      <div className='image'>
+                        <img src={img} alt=" image" />
+                      </div>
                     </div>
                 </div>
             </div>
