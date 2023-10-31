@@ -20,12 +20,12 @@ const SetTimes = ({setCurrentMonth, setCurrentDay, setCurrentYear}) => {
   
   return (
     <div className="SetTimeContainer">
-      <label className='FormLabel'>誕生日</label>
+      <label className='timeLabel'>生年月日</label>
       <div className='Row'>
-        <div>
-          <select className="content" value={currentMonth} onChange={(e)=>setCurrentMonthLocal(e.target.value)}>
-            {months.map((month, index) => (
-              <option key={index} value={index + 1}>{month}</option>
+      <div>
+          <select className="content" value={currentYear} onChange={(e)=>setCurrentYearLocal(e.target.value)}>
+            {years.map((year, index) => (
+              <option key={index} value={1970 + index}>{year}</option>
             ))}
           </select>
         </div>
@@ -37,9 +37,9 @@ const SetTimes = ({setCurrentMonth, setCurrentDay, setCurrentYear}) => {
           </select>
         </div>
         <div>
-          <select className="content" value={currentYear} onChange={(e)=>setCurrentYearLocal(e.target.value)}>
-            {years.map((year, index) => (
-              <option key={index} value={1970 + index}>{year}</option>
+          <select className="content" value={currentMonth} onChange={(e)=>setCurrentMonthLocal(e.target.value)}>
+            {months.map((month, index) => (
+              <option key={index} value={index + 1}>{month}</option>
             ))}
           </select>
         </div>

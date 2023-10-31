@@ -1,8 +1,8 @@
 .SetTimeContainer{
     width: 100%;
     max-height: 150px;
-    border: 1px solid #fff;
-    margin-bottom: 10px;
+    /* border: 1px solid #fff; */
+    margin-bottom: 0.375rem;
     display: flex;
     flex-direction: column;
 }  
@@ -11,10 +11,13 @@
     grid-template-columns: 1fr 1fr 1fr;
     gap: 10px;
 }
-.FormLabel{
+.timeLabel{
     display: block;
-    font-weight: 500;
-    margin-bottom: 5px;
+    font-weight: bold;
+    margin-bottom: 3px;
+    color: #5BBE7D;
+    font-size: small;
+    margin-left: 8px;
 }
 .content{
     width: 100%;
