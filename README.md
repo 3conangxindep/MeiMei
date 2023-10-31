@@ -2,6 +2,7 @@
 #server
 
 ・env.example ファイルを.env にコピーして、データベースの認証情報を更新する
+
 ・MySQL は autocommit (自動コミットモード)を無効化する方は　 autocommit を設定してください。
 
 cd server
