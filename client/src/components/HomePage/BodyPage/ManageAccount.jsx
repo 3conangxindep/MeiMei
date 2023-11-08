@@ -69,21 +69,22 @@ const ManageAccount = () => {
                         </div>                
                     </div>
             </div>
-            <div className='manageAccount-card'>
-                <div className='flex-left'></div>
-                <div className='manageAccount-section-text'>
-                    <Switch>
-                        <Route path='/ManageAccount/ProfilePage'><ProfilePage /></Route>
-                        <Route path='/ManageAccount/WorkInforPage'><WorkInforPage /></Route>
-                        <Route path='/ManageAccount/SocialMediaPage'><SocialMediaPage /></Route>
-                        <Route path='/ManageAccount/DescriptionPage'><DescriptionPage /></Route>
-                        <Redirect to='/ManageAccount/ProfilePage' />
-                    </Switch>
+  
+                <div className='manageAccount-card'>
+                    <div className='flex-left'></div>
+                    <div className='manageAccount-section-text'>
+                        <Switch>
+                            <Route path='/ManageAccount/ProfilePage'><ProfilePage /></Route>
+                            <Route path='/ManageAccount/WorkInforPage'><WorkInforPage /></Route>
+                            <Route path='/ManageAccount/SocialMediaPage'><SocialMediaPage /></Route>
+                            <Route path='/ManageAccount/DescriptionPage'><DescriptionPage /></Route>
+                            <Redirect to='/ManageAccount/ProfilePage' />
+                        </Switch>
+                    </div>
                 </div>
-            </div>
-            <div className='manageAccount-button'>
-                <button>編集</button>
-            </div>
+                <div className='manageAccount-button'>
+                    <button id='btt' type='submit'>編集</button>
+                </div>
         </div>
     );
 };

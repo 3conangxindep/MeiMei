@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
 import './LoginPage.css';
 import { Link, useHistory } from 'react-router-dom';
 import axios from "axios";
@@ -24,11 +24,19 @@ const LoginPage = () => {
       ? JSON.parse(localStorage.getItem("currentUser"))
       : null
   );
-
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
+  //code xác nhận xem có dữ liệu trên storage k! nếu mà có sẽ tự đông đăng nhập
+  useEffect(()=>{
+    const userFromLocalStorage = JSON.parse(localStorage.getItem('currentUser'));
+    if (userFromLocalStorage) {
+      setUser(userFromLocalStorage);  
+      history.push('/main');
+      // Tự động đăng nhập người dùng ở đây
+    }
+  }, []); // useEffect chỉ chạy một lần sau khi component được tạo ra
   const handleNavigation = () => {
     history.push('/signUpPage'); // Điều hướng đến trang SignUpPage
   };
@@ -42,15 +50,15 @@ const LoginPage = () => {
         email: email,
         password: password,
       });
-
+      
       const current = localStorage.setItem(
         "currentUser",
         JSON.stringify(login)
       );
-
+      console.log(current)
       setUser(login);
       history.push('/main');
-      console.log("dang nhap thanh cong")
+      console.log("dang nhap thanh cong",)
     } catch (error) {
       setErrorMessage("メールアドレスかパスワードか間違っています");
       console.error("Login failed:", error);
@@ -74,7 +82,7 @@ const LoginPage = () => {
                               <input
                                 type="text"
                                 className='FormInput'
-                                id="text"
+                                id="email"
                                 value={email}
                                 onChange={(e) => setEmail(e.target.value)}
                                 // placeholder="meimei@gmail.com"
