@@ -20,8 +20,9 @@ class UserController extends Controller
     public function index()
     {
         //
-        $users = User::all();
-        return response()->json($users, 200);
+        $user = User::all();
+        $request->user();
+        return response()->json($user, 200);
     }
 
     /**
@@ -62,7 +63,6 @@ class UserController extends Controller
         if (!$user) {
             return response()->json(['error' => 'User not found'], 404);
         }
-
 
         $user->fill($request->all()); // Use fill() instead of update() to assign the values
 

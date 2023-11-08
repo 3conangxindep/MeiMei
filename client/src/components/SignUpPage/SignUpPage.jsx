@@ -34,7 +34,6 @@ const SignUpPage = () => {
     const [birthYear, setBirthYear] = useState('');
 
     const [errorMessage, setErrorMessage] = useState('');
-
     const handleSignup = async (e) => {
         e.preventDefault();
 

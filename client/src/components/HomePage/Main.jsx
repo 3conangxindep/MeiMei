@@ -31,11 +31,11 @@ const Main = () => {
             <Header />
             {showNavigation && <Navigation />}
             <Switch>
-              <Route exact path="/MyHomePage"><MyHomePage/></Route>
+              <Route exact path="/MyHomePage/"><MyHomePage/></Route>
               <Route path="/ContactPage"><ContactPage /></Route>
               <Route path='/ManageAccount'><ManageAccount /></Route>
               <Route path='/InformationPage'><InformationPage /></Route>
-              <Redirect to='/MyHomePage' />
+              <Redirect to='/MyHomePage/' />
             </Switch>
           </BrowserRouter>
         </SelectedOptionsProvider>
