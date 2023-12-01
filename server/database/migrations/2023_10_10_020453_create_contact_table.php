@@ -17,6 +17,8 @@ class CreateContactTable extends Migration
             $table->string('id_card');
             $table->string('contact_id');
             $table->timestamps();
+            // Foreign key
+            $table->foreign('id_card')->references('id_card')->on('user');
         });
     }
 
