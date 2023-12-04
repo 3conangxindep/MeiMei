@@ -3,6 +3,9 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\contactController;
+use App\Http\Controllers\CompanyController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -23,9 +26,18 @@ Route::put('/user/{id}', [UserController::class, 'update']);
 Route::delete('/user/{id}', [UserController::class, 'destroy']);
 
 
+//follow
+Route::get('/contact',[contactController::class,'index']);
+Route::get('/contact/{id}',[contactController::class,'show']);
+Route::put('/contact/{id}', [contactController::class, 'destroy']);
+
+//company information
+Route::get('/company',[CompanyController::class,'index']);
+Route::get('/company/{id}',[CompanyController::class, 'show']);
+// Route::get('/contact',[CompanyController::class,'index']);
+
 //Login
 Route::post('/login', [UserController::class, 'login']);
-
 //Logout
 Route::post('/logout', [UserController::class, 'logout'])->middleware('auth:sanctum');
 

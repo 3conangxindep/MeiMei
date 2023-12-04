@@ -24,13 +24,22 @@ class User extends Authenticatable
 
     protected $table = 'user';
     protected $primaryKey = 'id_card';
+    //khai báo các cột có thể đổi được dữ liệu
     protected $fillable = [
         'id_card',
         'user_name',
-        'email',
+        'furigana',
+        // 'email',
         'password',
         'gender',
-        'birthday'
+        'birthday',
+        'tel',
+        'post_code',
+        'address',
+        'img_url',
+        'instagram',
+        'x',
+        'description'
     ];
 
     /**

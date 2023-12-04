@@ -1,10 +1,10 @@
-import React , { useState }from 'react';
+import React , { useState,useEffect }from 'react';
 import ShowMenu from './ShowMenu';
 import NotifiCation from './NotifiCation';
 import './Header.css';
+import axios from "axios";
 
 const Header = () => {
-
     const [showNotification, setShowNotification] = useState(false);
 
     const handleNotificationClick = () => {

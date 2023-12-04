@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React , { useState,useEffect }from 'react';
+import axios from "axios";
 import { Link, Switch, Route } from 'react-router-dom';
 import './ShowMenu.css';
 import { useAuth } from '../../AuthContext';
@@ -10,7 +11,20 @@ const ShowMenu = () => {
           ? JSON.parse(localStorage.getItem("currentUser"))
           : null
     );
-
+    const userData = JSON.parse(localStorage.getItem('currentUser'));
+    const idcard=userData.data.id_card;
+    const [data, setData] = useState([]); 
+    useEffect(() => {
+        fetch(`http://127.0.0.1:8000/api/user/${idcard}`)
+        .then((response) => response.json())
+        .then((apiData) => {
+            setData(apiData);
+            //console.log(apiData.id_card)   code kiem tra id hien tai
+        })
+        .catch((error) => {
+            console.error("Lỗi khi gửi yêu cầu:", error);
+        });
+    }, []);
     const {logout} = useAuth();
 
     const handleLogout = () => {
@@ -30,11 +44,9 @@ const ShowMenu = () => {
         <div className='toggleMenuContainer'>
             {/* set ảnh account của bản thân */}
             <div className='toggleMenuContainer-image'>
-                <img
-                    src='https://cdn-icons-png.flaticon.com/128/2945/2945408.png'
-                    alt=''
-                    onClick={toggleMenu}
-                />
+            <img src={`/img_user/${data.img_url}`} alt='' 
+                onClick={toggleMenu}
+            />
             </div>
             {showMenu && (
                 <div className='menu'>
@@ -44,13 +56,10 @@ const ShowMenu = () => {
                             <div className='menu-image'>
                                 {/* ảnh account */}
                                 <Link to='/InformationPage'>
-                                    <img
-                                        src='https://cdn-icons-png.flaticon.com/128/2945/2945408.png'
-                                        alt=''
-                                    />
+                                <img src={`/img_user/${data.img_url}`} alt='' />
                                 </Link>
                             </div>
-                            <div className='menu-text'><b>UCHIHA ITACHI</b></div> 
+                            <div className='menu-text'><b>{data.user_name}</b></div> 
                         </li>
                         <li>
                             <div className='menu-text'>
