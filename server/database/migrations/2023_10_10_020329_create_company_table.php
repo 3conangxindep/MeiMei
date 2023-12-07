@@ -23,6 +23,7 @@ class CreateCompanyTable extends Migration
             $table->string('com_address')->nullable();
             $table->string('department')->nullable();
             $table->string('position')->nullable();
+            $table->string('website')->nullable();
 
             // Foreign key
             $table->foreign('id_card')->references('id_card')->on('user');

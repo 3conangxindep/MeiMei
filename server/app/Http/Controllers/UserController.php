@@ -137,29 +137,29 @@ class UserController extends Controller
     //upload image
     public function uploadImage(Request $request)
     {
-    $item_image_path = "";
-    if ($request->hasFile('item_image_file')) {
-        $item_image_path = $request->item_image_file->store('images/item', 's3');
-    }
+        $item_image_path = "";
+        if ($request->hasFile('item_image_file')) {
+            $item_image_path = $request->item_image_file->store('images/item', 's3');
+        }
 
-    return response()->json(["href" =>"//".env('CDN_DOMAIN')."/" . $item_image_path]);
-
-
+        return response()->json(["href" => "//" . env('CDN_DOMAIN') . "/" . $item_image_path]);
 
 
-    // // Kiểm tra xem có tệp hình ảnh được chọn hay không
-    // if ($request->hasFile('image')) {
-    //     $image = $request->file('image');
 
-    //     // Lưu trữ hình ảnh vào thư mục public/img_user
-    //     $path = $image->storeAs('public/img_user', $image->getClientOriginalName());
 
-    //     // Cập nhật đường dẫn hình ảnh trong cơ sở dữ liệu hoặc thực hiện các thao tác khác
-    //     // ...
+        // // Kiểm tra xem có tệp hình ảnh được chọn hay không
+        // if ($request->hasFile('image')) {
+        //     $image = $request->file('image');
 
-    //     return response()->json(['message' => 'Hình ảnh đã được tải lên thành công', 'path' => $path]);
-    // }
+        //     // Lưu trữ hình ảnh vào thư mục public/img_user
+        //     $path = $image->storeAs('public/img_user', $image->getClientOriginalName());
 
-    // return response()->json(['error' => 'Không có hình ảnh được chọn'], 400);
+        //     // Cập nhật đường dẫn hình ảnh trong cơ sở dữ liệu hoặc thực hiện các thao tác khác
+        //     // ...
+
+        //     return response()->json(['message' => 'Hình ảnh đã được tải lên thành công', 'path' => $path]);
+        // }
+
+        // return response()->json(['error' => 'Không có hình ảnh được chọn'], 400);
     }
 }

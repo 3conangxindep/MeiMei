@@ -15,7 +15,6 @@ const ProfilePage = () => {
       .then((response) => response.json())
       .then((apiData) => {
         setData(apiData);
-        console.log(apiData.id_card)
       })
       .catch((error) => {
         console.error("Lỗi khi gửi yêu cầu:", error);
@@ -31,7 +30,6 @@ const ProfilePage = () => {
   const [gender, setGender] = useState([""]);
   const [img_url, setImgUrl] = useState(undefined);
   const [faxes, setFaxes] = useState([]);
-  console.log(data.user_name)
   const http = axios.create({
     baseURL: "http://localhost:8000",
     headers: {
@@ -155,7 +153,7 @@ const ProfilePage = () => {
         <li className='manageAccount-section-text-item' OnClose={() => setImgUrl(false)}>
           <label htmlFor="file-input" className="file-label">プロフィール写真</label>
           <input type="file" id="image" name='image' onChange={handleFileChange} />
-        </li> 
+        </li>
         <li className='manageAccount-section-text-item'>
           <label htmlFor="kanjiName">氏名（漢字）</label>
           <input type="text" id="kanjiName" name="kanjiName" value={kanjiName} onChange={(e) => setKanjiNames(e.target.value)} />

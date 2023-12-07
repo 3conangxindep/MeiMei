@@ -1,14 +1,14 @@
-import React , { useState }from 'react';
+import React, { useState } from 'react';
 import './Search.css';
 
 const Search = () => {
     // Dữ liệu ví dụ
     const initialData = [
-        {id : 1, name : 'huyen trang'},
-        {id : 2, name : 'trang kieu'},
-        {id : 3, name : 'nhi'},
-        {id : 4, name : 'yen nhi'},
-        {id : 5, name : 'trang nhi'},
+        { id: 1, name: 'huyen trang' },
+        { id: 2, name: 'trang kieu' },
+        { id: 3, name: 'nhi' },
+        { id: 4, name: 'yen nhi' },
+        { id: 5, name: 'trang nhi' },
     ];
 
     const [data, setData] = useState(initialData);
@@ -28,20 +28,32 @@ const Search = () => {
     };
 
     return (
-        <div className="search-container">
-            <input
-                className='FormInput'
-                type="text"
-                placeholder="検索"
-                value={searchTerm}
-                onChange={handleInputChange}
-            />
-            <button className='FormButton' onClick={handleSearch}><span className="SearchIcon"><img src='https://cdn-icons-png.flaticon.com/128/151/151773.png' alt='' /></span></button>
-            {/* <ul>
-                {data.map(item => (
-                    <li key={item.id}>{item.name}</li>
-                ))}
-            </ul> */}
+        <div className="relative flex w-2/4 h-full border-box SearchContainer">
+            <div className='float-left w-full'>
+                <input
+                    className='FormInput w-full p-1.5 text-sm text-white placeholder-white'
+                    type="text"
+                    placeholder="検索"
+                    value={searchTerm}
+                    onChange={handleInputChange}
+                />
+            </div>
+            <div className='absolute right-0 w-12 h-12 rounded-full'>
+                <button
+                    className='flex items-center justify-center w-full p-2 placeholder-white transition duration-150 ease-in-out border border-gray-300 bg-clip-padding-box rounded-r-md FormInput hover:outline-none hover:box-shadow-outline-blue focus:border-blue-300 focus:outline-none focus:box-shadow-outline-blue'
+                    onClick={handleSearch}
+                >
+                    <img
+                        className='w-auto'
+                        src='https://cdn-icons-png.flaticon.com/128/711/711319.png' alt=''
+                    />
+                </button>
+                {/* <ul>
+                    {data.map(item => (
+                        <li key={item.id}>{item.name}</li>
+                    ))}
+                </ul> */}
+            </div>
         </div>
     );
 };

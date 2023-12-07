@@ -3,6 +3,7 @@
 // ImageController.php (コントローラー)
 
 namespace App\Http\Controllers;
+
 use App\Models\Photo;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -40,7 +41,7 @@ class PhotoController extends Controller
             $image = new Photo;
 
             // ファイル名を設定
-            $image->photo_path =  $publicPath;
+            $image->photo_path = $publicPath;
 
             // データベースに保存
             $image->save();

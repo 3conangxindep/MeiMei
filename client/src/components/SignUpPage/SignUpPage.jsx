@@ -144,8 +144,8 @@ const SignUpPage = () => {
                                 <div className='settime'>
                                     <SetTimes
                                         setCurrentYear={setBirthYear}
-                                        setCurrentDay={setBirthDay}
                                         setCurrentMonth={setBirthMonth}
+                                        setCurrentDay={setBirthDay}
                                     />
                                 </div>
                                 <div>

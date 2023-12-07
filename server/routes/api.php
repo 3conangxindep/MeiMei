@@ -29,13 +29,13 @@ Route::delete('/user/{id}', [UserController::class, 'destroy']);
 
 
 //follow
-Route::get('/contact',[contactController::class,'index']);
-Route::get('/contact/{id}',[contactController::class,'show']);
+Route::get('/contact', [contactController::class, 'index']);
+Route::get('/contact/{id}', [contactController::class, 'show']);
 Route::put('/contact/{id}', [contactController::class, 'destroy']);
 
 //company information
-Route::get('/company',[CompanyController::class,'index']);
-Route::get('/company/{id}',[CompanyController::class, 'show']);
+Route::get('/company', [CompanyController::class, 'index']);
+Route::get('/company/{id}', [CompanyController::class, 'show']);
 // Route::get('/contact',[CompanyController::class,'index']);
 
 //Login
