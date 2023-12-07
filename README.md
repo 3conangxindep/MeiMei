@@ -15,7 +15,11 @@ php artisan migrate (tạo database meimei trước khi nhập câu lệnh này)
 
 php artisan db:seed --class=UserSeeder (chay Seeder)
 
+php artisan storage:link (tao link lien ket den anh)
+
 php artisan serve
+
+php artisan serve --port=8000 --host=0.0.0.0  (mở port truy cập bằng điện thoại)
 
 #client
 
@@ -24,3 +28,5 @@ cd client
 npm i
 
 npm start
+
+
