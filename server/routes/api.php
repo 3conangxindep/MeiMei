@@ -5,6 +5,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\contactController;
 use App\Http\Controllers\CompanyController;
+use App\Http\Controllers\PhotoController;
+
 
 
 /*
@@ -40,5 +42,8 @@ Route::get('/company/{id}',[CompanyController::class, 'show']);
 Route::post('/login', [UserController::class, 'login']);
 //Logout
 Route::post('/logout', [UserController::class, 'logout'])->middleware('auth:sanctum');
+
+//photos
+Route::post('/photos', [PhotoController::class, 'upload']);
 
 

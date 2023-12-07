@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import axios from "axios";
+import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 
 const ProfilePage = () => {
+  const history = useHistory()
 
   //get thông tin trên localstorage
   const userData = JSON.parse(localStorage.getItem('currentUser'));
@@ -27,7 +29,7 @@ const ProfilePage = () => {
   const [post_code, setPostcode] = useState([""]);
   const [address, setAddress] = useState([""]);
   const [gender, setGender] = useState([""]);
-  const [img_url, setImgUrl] = useState([""]);
+  const [img_url, setImgUrl] = useState(undefined);
   const [faxes, setFaxes] = useState([]);
   console.log(data.user_name)
   const http = axios.create({
@@ -42,11 +44,13 @@ const ProfilePage = () => {
     const file = e.target.files[0];
     setImgUrl(file);
   };
+
   //call method updatedata de cap nhat du lieu tren api
   const Updatedata = async (id, e) => {
     e.preventDefault();
     try {
       const updatedDatas = new FormData();
+      updatedDatas.append("_method", "PUT");
       updatedDatas.append("user_name", kanjiName);
       updatedDatas.append("furigana", furigana);
       updatedDatas.append("birthday", birthDay);
@@ -54,7 +58,7 @@ const ProfilePage = () => {
       updatedDatas.append("tel", phoneNumbers);
       updatedDatas.append("post_code", post_code);
       updatedDatas.append("address", address);
-      updatedDatas.append("img_url", img_url);
+      updatedDatas.append("image", img_url);
 
       //Đối với danh sách dữ liệu như số điện thoại và email, bạn cần lặp qua mảng và append từng phần tử.
       // phoneNumbers.forEach((phoneNumber, index) => {
@@ -70,22 +74,38 @@ const ProfilePage = () => {
       }
       // Gửi dữ liệu bằng updatedDatas
       const csrf = await http.get("/sanctum/csrf-cookie");
-      const response = await http.put(`http://localhost:8000/api/user/${id}`, updatedDatas, {
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      });
-      console.log(response)
-      if (response.status === 200) {
-        console.log("Updated data Successful: ", response.data.id_card);
+      // const response = await http.put(`http://localhost:8000/api/user/${id}`, 
+      //   updatedDatas, {
+      //   headers: {
+      //     'Content-Type': 'application/json',
+      //   },
+      // });
+      const update = await http.post(
+        `http://localhost:8000/api/user/${idcard}`,
+        updatedDatas
+      );
+      const user = await http.get(
+        `http://localhost:8000/api/user/${idcard}`
+      );
+      const current = localStorage.setItem("currentUser", JSON.stringify(user)); // update localstorage
+      setImgUrl(undefined)
+      // console.log(response)
+      if (update.status === 200) {
+        console.log("Updated data Successful: ", update.data.id_card);
       } else {
-        console.error('Lỗi', response.status);
+        console.error('Lỗi', update.status);
       }
+
+      // Chuyển hướng về trang chủ sau khi cập nhật thành công
+      history.push('/');
+      // Làm mới trang để hiển thị dữ liệu mới
+      window.location.reload();
 
     } catch (error) {
       console.error("Lỗi:", error);
     }
   };
+
 
 
   const handleAddRemoveInput = (type, index, action) => {
@@ -132,10 +152,10 @@ const ProfilePage = () => {
     <form onSubmit={(e) => Updatedata(idcard, e)}>
       <meta name="csrf-token" content="YOUR_CSRF_TOKEN_HERE"></meta>
       <ul className='manageAccount-section-title'>個人情報
-        <li className='manageAccount-section-text-item'>
+        <li className='manageAccount-section-text-item' OnClose={() => setImgUrl(false)}>
           <label htmlFor="file-input" className="file-label">プロフィール写真</label>
-          <input type="file" id="file-input" value={img_url} onChange={handleFileChange} />
-        </li>
+          <input type="file" id="image" name='image' onChange={handleFileChange} />
+        </li> 
         <li className='manageAccount-section-text-item'>
           <label htmlFor="kanjiName">氏名（漢字）</label>
           <input type="text" id="kanjiName" name="kanjiName" value={kanjiName} onChange={(e) => setKanjiNames(e.target.value)} />

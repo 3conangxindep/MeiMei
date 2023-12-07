@@ -40,11 +40,24 @@ const ShowMenu = () => {
         setShowMenu(!showMenu);
     }
 
+    let placeHolderImg = "";
+    const imgPath = `http://localhost:8000${data.img_url}`;
+    // console.log(imgPath)
+    if (data.user_name) {
+        const nameSplit = data.user_name.split(" ");
+        placeHolderImg = `https://ui-avatars.com/api/?name=${nameSplit[0]}+${nameSplit[1]}`;
+    }
+
     return (
         <div className='toggleMenuContainer'>
             {/* set ảnh account của bản thân */}
             <div className='toggleMenuContainer-image'>
-            <img src={`/img_user/${data.img_url}`} alt='' 
+            <img src={
+                  imgPath == "http://localhost:8000null"
+                    ? placeHolderImg
+                    : imgPath
+                }
+                alt='avatar' 
                 onClick={toggleMenu}
             />
             </div>
@@ -56,7 +69,12 @@ const ShowMenu = () => {
                             <div className='menu-image'>
                                 {/* ảnh account */}
                                 <Link to='/InformationPage'>
-                                <img src={`/img_user/${data.img_url}`} alt='' />
+                                <img src={
+                                        imgPath == "http://localhost:8000null"
+                                            ? placeHolderImg
+                                            : imgPath
+                                        }
+                                    alt='avatar' />
                                 </Link>
                             </div>
                             <div className='menu-text'><b>{data.user_name}</b></div> 

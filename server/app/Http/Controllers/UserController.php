@@ -64,11 +64,36 @@ class UserController extends Controller
             return response()->json(['error' => 'User not found'], 404);
         }
 
+        if ($request->hasFile('image')) {
+            $rules = [
+                'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048', // 画像ファイルの制約を指定する
+            ];
+
+            $file = $request->file('image');
+
+            $request->validate($rules);
+
+            $fileName = time() . '_' . $file->getClientOriginalName();
+
+            $disk = 'local';
+
+            $path = $file->storeAs('public/images/img_url', $fileName, $disk);
+
+            $publicPath = Storage::url($path);
+
+            $user->img_url = $publicPath;
+
+            $user->save();
+        }
+
+
         $user->fill($request->all()); // Use fill() instead of update() to assign the values
 
         $user->save();
 
         return response()->json($user, 200);
+
+
     }
 
     /**

@@ -24,8 +24,12 @@ const MyHomePage = () => {
             });
     }, []);
     // console.log(data.img_url)
-    if (!data.img_url) {
-        data.img_url = "https://cdn-icons-png.flaticon.com/128/2945/2945408.png"
+    let placeHolderImg = "";
+    const imgPath = `http://localhost:8000${data.img_url}`;
+    // console.log(imgPath)
+    if (data.user_name) {
+        const nameSplit = data.user_name.split(" ");
+        placeHolderImg = `https://ui-avatars.com/api/?name=${nameSplit[0]}+${nameSplit[1]}`;
     }
     return (
         <div className='myhome-container'>
@@ -33,14 +37,19 @@ const MyHomePage = () => {
                 <div className='myhome-left'>
                     <li className='myhome-image'>
                         {/* thay doi anh account tai day */}
-                        <img src={`${data.img_url}`} alt='' />
+                        <img src={
+                                imgPath == "http://localhost:8000null"
+                                    ? placeHolderImg
+                                    : imgPath
+                                }
+                            alt='avatar' />
                     </li>
                     <li>
                         <div className='myhome-textname'>{data.user_name}
                         </div>
                         <div>
-                            <p>学生</p>
-                            <p>学生</p>
+                            <p>～～部</p>
+                            <p>課長</p>
                         </div>
 
                     </li>
