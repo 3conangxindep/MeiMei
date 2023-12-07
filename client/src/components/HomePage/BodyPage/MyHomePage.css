@@ -1,4 +1,4 @@
-.myhome-container{
+/* .myhome-container{
     box-sizing: border-box;
     width: 100%;
     height: 100%;
@@ -6,16 +6,16 @@
     display: flex;
     justify-content: center;
     align-items: center;
-}
-.myhome-card{
+} */
+/* .myhome-card{
     box-sizing: border-box;
     width: 100%;
     height: 100%;
     border: 9px solid #002629;
     border-radius: 20px;
     display: flex;
-}
-.myhome-left{
+} */
+/* .myhome-left{
     flex:0 30%;
     height: auto;
     background-color: #36735B;
@@ -24,14 +24,14 @@
     flex-direction: column;
     justify-content:center;
     align-items: center;
-}
-.myhome-left li{
+} */
+/* .myhome-left li{
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-}
-.myhome-image{
+} */
+/* .myhome-image{
     width: 120px;
     height: 120px;
     border-radius: 50%;
@@ -48,8 +48,8 @@
     background-color: white;
     object-fit: cover;
 
-}
-.myhome-textname{
+} */
+/* .myhome-textname{
     width: 100%;
     height: 40px;
     border-bottom: 4px solid white;
@@ -59,20 +59,20 @@
     font-size:20px;
     font-weight: bold;
     color: white;
-}
-.myhome-left p{
+} */
+/* .myhome-left p{
     font-size: 18px;
     font-weight: bold;
     color: white;
-}
-.nfc-image img{
+} */
+/* .nfc-image img{
     width: 100px;
     height: 100px;
     transform: rotate(-90deg);
-}
+} */
 
 /* right */
-.myhome-right{
+/* .myhome-right{
     width: 100%;
     background-color: white;
     border-radius: 0 10px 10px 0;
@@ -80,8 +80,8 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-}
-.myhome-right-title{
+} */
+/* .myhome-right-title{
     width: 500px;
     height: 90px;
     border: 2px solid #255B4B;
@@ -94,22 +94,22 @@
     font-weight: bold;
     color: #1E5145;
 
-}
-.myhome-right ul{
+} */
+/* .myhome-right ul{
     padding: 10px;
     display: flex;
     justify-content: center;
     flex-direction: column;
     align-items: center;
-}
-.myhome-right li{
+} */
+/* .myhome-right li{
     width: 300px;
     padding: 7px;
-}
+} */
 .myhome-item{
     padding: 10px;
     display: flex;
-    justify-content: flex-start;
+    justify-content:space-evenly;
     align-items: center;
 
     font-size: 17px;

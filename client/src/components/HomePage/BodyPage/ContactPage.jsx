@@ -12,43 +12,47 @@ const ContactPage = () => {
     const [currentPage, setCurrentPage] = useState('RecentAccounts');
 
     return (
-        <div className='contact-container'>
-            <div className='contact-search'><Search /></div>
-            <div className='section'>
-                <div className='section-item' style={{borderBottom:currentPage === 'RecentAccounts' ? '5px solid white' : 'none'}}>
-                    <NavLink 
-                        to="/ContactPage/RecentAccounts" 
-                        onClick={() => setCurrentPage('RecentAccounts')}
-                    >
-                        最近見たアカウント
-                    </NavLink>
-                </div>
-                <div className='section-item' style={{borderBottom:currentPage === 'Following' ? '5px solid white' : 'none'}}>
-                    <NavLink 
-                        to="/ContactPage/Following" 
-                        onClick={() => setCurrentPage('Following')}
-                    >
-                        フォロー中
-                    </NavLink>                
-                </div>
-                <div className='section-item' style={{borderBottom:currentPage === 'GroupMembers' ? '5px solid white' : 'none'}}>
-                    <NavLink 
-                        to="/ContactPage/GroupMembers" 
-                        onClick={() => setCurrentPage('GroupMembers')}
-                    >
-                        グループ
-                    </NavLink>                
-                </div>
-                <div className='section-item' style={{borderBottom:currentPage === 'FavoritePage' ? '5px solid white' : 'none'}}>
-                    <NavLink 
-                        to="/ContactPage/FavoritePage" 
-                        onClick={() => setCurrentPage('FavoritePage')}
-                    >
-                        お気に入り
-                    </NavLink>                
-                </div>
+        // contact-container
+        <div className='w-full p-4 border-box'>
+            {/* contact-search */}
+            <div className='flex items-center justify-end w-full h-full mb-4'><Search /></div>
+            {/* section */}
+            <div className='relative flex items-center justify-center w-full bg-green-300 rounded rounded-b h-14 rounded-t-3xl'>
+                <NavLink
+                    className="flex items-center justify-center float-left w-full m-2 text-xs font-bold text-white transition-colors duration-1000 border-transparent underline-none rounded-tl-2xl rounded-bl-md rounded-r-md h-4/5 group hover:bg-green-500 hover:shadow-lg hover:border-2 hover:border-green-500 hover:rounded-tl-2xl hover:rounded-bl-md hover:rounded-r-md"
+                    to="/ContactPage/RecentAccounts" 
+                    style={{borderBottom:currentPage === 'RecentAccounts' ? '5px solid white' : 'none'}} 
+                    onClick={() => setCurrentPage('RecentAccounts')}
+                >
+                    最近見たアカウント
+                </NavLink>
+                <NavLink 
+                    className="flex items-center justify-center float-left w-full m-2 text-xs font-bold text-white transition-colors duration-1000 border-transparent rounded-md underline-none h-4/5 group hover:bg-green-500 hover:shadow-lg hover:border-2 hover:border-green-500 hover:rounded-md"
+                    to="/ContactPage/Following" 
+                    style={{borderBottom:currentPage === 'Following' ? '5px solid white' : 'none'}} 
+                    onClick={() => setCurrentPage('Following')}
+                >
+                    フォロー中
+                </NavLink>                
+                <NavLink 
+                    className="flex items-center justify-center float-left w-full m-2 text-xs font-bold text-white transition-colors duration-1000 border-transparent rounded-md underline-none h-4/5 group hover:bg-green-500 hover:shadow-lg hover:border-2 hover:border-green-500 hover:rounded-md"
+                    to="/ContactPage/GroupMembers" 
+                    style={{borderBottom:currentPage === 'GroupMembers' ? '5px solid white' : 'none'}} 
+                    onClick={() => setCurrentPage('GroupMembers')}
+                >
+                    グループ
+                </NavLink>                
+                <NavLink
+                    className="flex items-center justify-center float-left w-full m-2 text-xs font-bold text-white transition-colors duration-1000 border-transparent underline-none rounded-tr-2xl rounded-br-md rounded-l-md h-4/5 group hover:bg-green-500 hover:shadow-lg hover:border-2 hover:border-green-500 hover:rounded-tr-2xl hover:rounded-br-md hover:rounded-l-md" 
+                    to="/ContactPage/FavoritePage"
+                    style={{borderBottom:currentPage === 'FavoritePage' ? '5px solid white' : 'none'}}
+                    onClick={() => setCurrentPage('FavoritePage')} 
+                >
+                    お気に入り
+                </NavLink>                
             </div>
-                <div className='card'>
+                {/* card */}
+                <div className='relative w-full h-screen bg-white'>
                     <Switch>
                         <Route path="/ContactPage/RecentAccounts"><RecentAccounts /></Route>
                         <Route path="/ContactPage/Following"><Following /></Route>

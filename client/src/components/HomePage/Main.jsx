@@ -25,18 +25,18 @@ const Main = () => {
     }, [location.pathname]);
   
     return (
-      <div className="App">
+      <div className="box-border w-screen h-screen" style={{backgroundImage: 'linear-gradient(to top,#002629,#94F7B2)'}}>
         <SelectedOptionsProvider>
           <BrowserRouter>
             <Header />
-            {showNavigation && <Navigation />}
-            <Switch>
-              <Route exact path="/MyHomePage/"><MyHomePage/></Route>
-              <Route path="/ContactPage"><ContactPage /></Route>
-              <Route path='/ManageAccount'><ManageAccount /></Route>
-              <Route path='/InformationPage'><InformationPage /></Route>
-              <Redirect to='/MyHomePage/' />
-            </Switch>
+              {showNavigation && <Navigation />}
+              <Switch>
+                <Route exact path="/MyHomePage/"><MyHomePage/></Route>
+                <Route path="/ContactPage"><ContactPage /></Route>
+                <Route path='/ManageAccount'><ManageAccount /></Route>
+                <Route path='/InformationPage'><InformationPage /></Route>
+                <Redirect to='/MyHomePage/' />
+              </Switch>
           </BrowserRouter>
         </SelectedOptionsProvider>
       </div>

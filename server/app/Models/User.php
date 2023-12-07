@@ -29,7 +29,7 @@ class User extends Authenticatable
         'id_card',
         'user_name',
         'furigana',
-        // 'email',
+        'email',
         'password',
         'gender',
         'birthday',

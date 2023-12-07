@@ -6,9 +6,10 @@ const Navigation = () => {
   const [currentPage, setCurrentPage] = useState('MyHomePage'); // State để theo dõi trang hiện tại
 
   return (
-    <div className="navigation-container">
-      <div className="navigation-left" style={{borderBottom:currentPage === 'MyHomePage' ? '5px solid #002629' : 'none'}}>
+    <div className="relative flex items-center justify-start w-full h-auto ml-6">
+      <div className="p-2.5 mr-10" style={{borderBottom:currentPage === 'MyHomePage' ? '5px solid #002629' : 'none'}}>
         <NavLink
+          className="text-xl font-bold no-underline"
           to="/MyHomePage"
           onClick={() => setCurrentPage('MyHomePage')}
           style={{ color: currentPage === 'MyHomePage' ? '#002629' : '#36735B'}}
@@ -16,8 +17,9 @@ const Navigation = () => {
           ホーム
         </NavLink>
       </div>
-      <div className="navigation-left" style={{borderBottom:currentPage === 'ContactPage' ? '5px solid #002629' : 'none'}}>
+      <div className="p-2.5" style={{borderBottom:currentPage === 'ContactPage' ? '5px solid #002629' : 'none'}}>
         <NavLink
+          className="text-xl font-bold no-underline"
           to="/ContactPage"
           onClick={() => setCurrentPage('ContactPage')}
           style={{ color: currentPage === 'ContactPage' ? '#002629' : '#36735B' }}

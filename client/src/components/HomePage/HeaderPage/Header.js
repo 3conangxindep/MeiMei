@@ -18,14 +18,17 @@ const Header = () => {
     };
 
     return (
-        <div className='Header'>
-            <div className='header-container'>
-                <div className='header-text'>MEIMEI</div>
-                <div className='grid-right'>
+        <div className='w-full h-20 px-4 border-box'>
+            {/* header-container */}
+            <div className='flex items-center justify-between w-full h-full'>
+                {/* header-text */}
+                <div className='float-left text-4xl pl-2.5 font-bold text-white'>MEIMEI</div>
+                <div className='p-2.5 flex justify-center items-center'>
 
                     {/* notification */}
-                    <div className='header-icon'>
-                        <img  
+                    <div className='flex items-center justify-center mr-4 overflow-hidden transition duration-200 border border-black border-solid rounded-full cursor-pointer h-9 w-9 2-8 hover:shadow-md hover:shadow-green-400 hover:bg-green-200'>
+                        <img 
+                            className='object-cover w-4/5 rounded-full h-4/5' 
                             src='https://cdn-icons-png.flaticon.com/128/3602/3602145.png'
                             alt='notification'
                             onClick={handleNotificationClick}

@@ -40,7 +40,7 @@
 .section-item:hover{
     background-color: #34ad8e;
     box-shadow: 0 0 0 5px #34ad8e;
-    border-radius: 5px;
+    border-radius: 10px 5px 5px 5px;
 }
 .contact-container a{
     text-decoration: none;
