@@ -1,6 +1,27 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 
 const InformationPage = () => {
+    // Truy cập dữ liệu người dùng đã lưu trữ sau khi đăng nhập
+    const user = JSON.parse(localStorage.getItem('currentUser')).data;
+    const [data, setData] = useState([]);
+    useEffect(() => {
+        fetch(`http://127.0.0.1:8000/api/user/${user.id_card}`)
+            .then((response) => response.json())
+            .then((apiData) => {
+                setData(apiData);
+            })
+            .catch((error) => {
+                console.error("Lỗi khi gửi yêu cầu:", error);
+            });
+    }, []);
+    let placeHolderImg = "";
+    const imgPath = `http://localhost:8000${data.img_url}`;
+    // console.log(imgPath)
+    if (data.user_name) {
+        const nameSplit = data.user_name.split(" ");
+        placeHolderImg = `https://ui-avatars.com/api/?name=${nameSplit[0]}+${nameSplit[1]}`;
+    }
+
     return (
         <div className='w-full h-full mt-5 bg-white border-box'>
             <div className='flex flex-col items-start justify-center py-6 pl-14'>
@@ -10,35 +31,45 @@ const InformationPage = () => {
                        {/* account image */}
                         <img
                             className='object-cover w-4/5 rounded-full h-4/5' 
-                            src='' alt='' />
+                            src={
+                                imgPath == "http://localhost:8000null"
+                                    ? placeHolderImg
+                                    : imgPath
+                            }
+                            alt='avatar' />
                     </div>
                     <div className='flex flex-col items-start justify-center'>
                         {/* フリガナ */}
-                        <p className='text-base text-gray-400'>ヤマダ</p>
+                        <p className='text-base text-gray-400'>{data.furigana}</p>
                         {/* 名前 */}
                         <div className='flex items-center justify-center'>
-                            <p className='mr-2 text-xl font-bold'>山田</p>
+                            <p className='mr-2 text-xl font-bold'>{data.user_name}</p>
                             {/* icon for gender */}
                             <img
+
                                 className='w-3 h-3'
                                 // male
-                                src='https://cdn-icons-png.flaticon.com/128/1340/1340619.png' alt='' 
+                                src= {
+                                    data.gender === '男性'
+                                    ? 'https://cdn-icons-png.flaticon.com/128/1340/1340619.png'
                                 // female
-                                // src='https://cdn-icons-png.flaticon.com/128/866/866954.png alt=''
+                                    : data.gender === '女性'
+                                    ? 'https://cdn-icons-png.flaticon.com/128/866/866954.png'
                                 // other
-                                // src='https://cdn-icons-png.flaticon.com/128/45/45799.png alt='' 
+                                    : 'https://cdn-icons-png.flaticon.com/128/45/45799.png'
+                                }
+                                alt=''
                             />
                         </div>
                         {/* birthday */}
-                        <p className='text-sm text-gray-400'>2023/12/7</p>
+                        <p className='text-sm text-gray-400'>{data.birthday}</p>
                     </div>
                 </div>
                 <ul className='mt-4'>
-                    <li className='py-1 text-base text-gray-400'>abc@gmail.com</li>
-                    <li className='py-1 text-base text-gray-400'>080 1234 456</li>
-                    <li className='py-1 text-base text-gray-400'>住所</li>
-                    <li className='py-1 text-base text-gray-400'>instagram.com</li>
-                    <li className='py-1 text-base text-gray-400'>a@2.com</li>
+                    <li className='py-1 text-base text-gray-400'>メールアドレス: {data.email}</li>
+                    <li className='py-1 text-base text-gray-400'>電話番号: {data.tel}</li>
+                    <li className='py-1 text-base text-gray-400'>住所: {data.address}</li>
+                    <li className='py-1 text-base text-gray-400'>Instagram: {data.instagram}</li>
                 </ul>
             </div>
 
