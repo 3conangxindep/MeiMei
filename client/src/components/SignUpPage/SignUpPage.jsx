@@ -155,9 +155,9 @@ const SignUpPage = () => {
                                 <button className='FormButton' type='submit'>新規登録</button>
                             </div>
                         </form>
-                        {errorMessage && <div className="ErrorMessage ml-2">{errorMessage}</div>}
+                        {errorMessage && <div className="ml-2 ErrorMessage">{errorMessage}</div>}
                         {loading && (
-                            <div role="status" className="pt-4 flex ml-2">
+                            <div role="status" className="flex pt-4 ml-2">
                                 <svg
                                     aria-hidden="true"
                                     className="w-8 h-8 mr-2 text-gray-200 animate-spin dark:text-gray-600 fill-green-500"

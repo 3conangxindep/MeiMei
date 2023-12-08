@@ -71,9 +71,9 @@ const ShowMenu = () => {
                         {/* Menu items */}
                         <li className='flex items-center justify-between p-4 transition duration-200 bg-gray-100 border-b cursor-pointer rounded-t-md border-b-solid border-b-gray-400 : hover:border :hover:border-solid hover:border-gray-200 hover:bg-gray-200 hover:rounded-md'>
                             {/* menuImage */}
-                            <div className='flex items-center justify-center float-left w-12 h-12 border border-gray-300 border-solid rounded-full'>
+                            <div className='flex items-center justify-center float-left'>
                                 {/* ảnh account */}
-                                <Link to='/InformationPage'>
+                                <Link to='/InformationPage' className='flex items-center justify-center border border-gray-300 border-solid rounded-full w-14 h-14'>
                                     <img className='object-cover w-4/5 rounded-full h-4/5'
                                         src={
                                             imgPath == "http://localhost:8000null"
