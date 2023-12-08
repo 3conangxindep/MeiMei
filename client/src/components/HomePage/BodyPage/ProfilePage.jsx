@@ -168,9 +168,9 @@ const ProfilePage = () => {
         </li>
         <li className='manageAccount-section-text-item'>
           <label htmlFor="gender">性別</label><br />
-          <input type="radio" id="gender" name="gender" value="男性" onChange={(e) => setGender(e.target.value)} />
+          <input type="radio" id="gender" name="gender" value="male" onChange={(e) => setGender(e.target.value)} />
           <label htmlFor="gender">男性</label>
-          <input type="radio" id="gender" name="gender" value="女性" onChange={(e) => setGender(e.target.value)} />
+          <input type="radio" id="gender" name="gender" value="female" onChange={(e) => setGender(e.target.value)} />
           <label htmlFor="gender">女性</label><br />
           {/* <input type="text" id="gender" name="gender" value={gender} onChange={(e) => setGender(e.target.value)} /> */}
         </li>

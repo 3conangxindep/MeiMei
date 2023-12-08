@@ -32,7 +32,6 @@ const SignUpPage = () => {
     const [birthMonth, setBirthMonth] = useState('');
     const [birthDay, setBirthDay] = useState('');
     const [birthYear, setBirthYear] = useState('');
-
     const [errorMessage, setErrorMessage] = useState('');
     const handleSignup = async (e) => {
         e.preventDefault();

@@ -50,10 +50,10 @@ const InformationPage = () => {
                                 className='w-3 h-3'
                                 // male
                                 src= {
-                                    data.gender === '男性'
+                                    data.gender === 'mail'
                                     ? 'https://cdn-icons-png.flaticon.com/128/1340/1340619.png'
                                 // female
-                                    : data.gender === '女性'
+                                    : data.gender === 'female'
                                     ? 'https://cdn-icons-png.flaticon.com/128/866/866954.png'
                                 // other
                                     : 'https://cdn-icons-png.flaticon.com/128/45/45799.png'
@@ -70,6 +70,7 @@ const InformationPage = () => {
                     <li className='py-1 text-base text-gray-400'>電話番号: {data.tel}</li>
                     <li className='py-1 text-base text-gray-400'>住所: {data.address}</li>
                     <li className='py-1 text-base text-gray-400'>Instagram: {data.instagram}</li>
+                    <li className='py-1 text-base text-gray-400'>X(Twitter): {data.x}</li>
                 </ul>
             </div>
 
