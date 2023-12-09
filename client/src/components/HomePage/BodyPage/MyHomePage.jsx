@@ -1,19 +1,15 @@
 // import React from 'react';
-import { Link, Routes, Route } from 'react-router-dom';
-import Search from './Search';
+import { useParams } from 'react-router-dom';
 import './MyHomePage.css';
 import React, { useState, useEffect } from 'react';
 
 
 const MyHomePage = () => {
-
     // Truy cập dữ liệu người dùng đã lưu trữ sau khi đăng nhập
-    const userData = JSON.parse(localStorage.getItem('currentUser'));
-    const username = userData.data;
-    const idcard = username.id_card;
+    const user = JSON.parse(localStorage.getItem('currentUser')).data;
     const [data, setData] = useState([]);
     useEffect(() => {
-        fetch(`http://127.0.0.1:8000/api/user/${idcard}`)
+        fetch(`http://127.0.0.1:8000/api/user/${user.id_card}`)
             .then((response) => response.json())
             .then((apiData) => {
                 setData(apiData);
@@ -23,6 +19,14 @@ const MyHomePage = () => {
                 console.error("Lỗi khi gửi yêu cầu:", error);
             });
     }, []);
+    const { id_card } = useParams();
+    console.log(id_card);
+    console.log(user.id_card);
+    if (id_card == user.id_card) {
+        console.log('ID cards match!');
+      } else {
+        console.log('ID cards do not match!');
+      }
     // console.log(data.img_url)
     let placeHolderImg = "";
     const imgPath = `http://localhost:8000${data.img_url}`;
@@ -43,7 +47,7 @@ const MyHomePage = () => {
                         <img
                             className='object-cover w-12 h-12 bg-white rounded-full sm:w-24 sm:h-24'
                             src={
-                                imgPath == "http://localhost:8000null"
+                                imgPath === "http://localhost:8000null"
                                     ? placeHolderImg
                                     : imgPath
                             }
