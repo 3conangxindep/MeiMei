@@ -12,6 +12,8 @@ import { SelectedOptionsProvider } from '../SelectedOptionsContext';
 const Main = () => {
   const location = useLocation();
   const [showNavigation, setShowNavigation] = useState(true);
+  // Sử dụng useParams để lấy giá trị id_card từ URL
+  const id_card = JSON.parse(localStorage.getItem('currentUser')).data.id_card;
 
   // Sử dụng useEffect để ẩn Navigation khi bạn ở trang ManageAccount
   useEffect(() => {
@@ -31,11 +33,11 @@ const Main = () => {
           <Header />
           {showNavigation && <Navigation />}
           <Switch>
-            <Route exact path="/MyHomePage/"><MyHomePage /></Route>
+            <Route exact path="/MyHomePage/:id_card"><MyHomePage /></Route>
             <Route path="/ContactPage"><ContactPage /></Route>
             <Route path='/ManageAccount'><ManageAccount /></Route>
             <Route path='/InformationPage'><InformationPage /></Route>
-            <Redirect to='/MyHomePage/' />
+            <Redirect to={`/MyHomePage/${id_card}`} />
           </Switch>
         </BrowserRouter>
       </SelectedOptionsProvider>

@@ -33,12 +33,27 @@ const SignUpPage = () => {
     const [birthDay, setBirthDay] = useState('');
     const [birthYear, setBirthYear] = useState('');
     const [errorMessage, setErrorMessage] = useState('');
+    const [idErrorMessage, setIdErrorMessage] = useState('');
+    const [genderErrorMessage, setGenderErrorMessage] = useState('');
     const handleSignup = async (e) => {
         e.preventDefault();
 
         try {
+            setIdErrorMessage("");
             setErrorMessage("");
+            setGenderErrorMessage("");
             setLoading(true);
+            //kiem tra id co phai la so khong
+            if (!/^[1-9]\d*$/.test(idCard)) {
+                setIdErrorMessage("IDカードは0で始まることか数字ではないことか登録できません");
+                return;
+            }
+    
+            // Kiểm tra xem gender có được chọn hay không
+            if (!gender) {
+                setGenderErrorMessage("性別を選択してください");
+                return;
+            }
             const formData = new FormData();
             formData.append("id_card", idCard);
             formData.append("user_name", userName);
@@ -56,8 +71,7 @@ const SignUpPage = () => {
                 formData
             );
             console.log("Registration successful:", register);
-
-            console.log("");
+            console.log(user.data.id_card);
 
             //login after register
             const login = await http.post("/api/login", {
@@ -69,14 +83,9 @@ const SignUpPage = () => {
                 JSON.stringify(login)
             );
             setUser(login);
-            history.push('/main');
+            history.push(`/main/${user.data.id_card}`);
             console.log("dang nhap thanh cong")
         } catch (error) {
-            // setEmailErrorMessage("");
-            // setPasswordErrorMessage("");
-            // setUserNameErrorMessage("");
-            // setIdCardErrorMessage("");
-            // setGenderErrorMessage("");
             setErrorMessage("IDカードかメールアドレスか既に登録しています");
             console.error("Register failed:", error);
         } finally {
@@ -96,6 +105,8 @@ const SignUpPage = () => {
                                 <div className='FormGroup'>
                                     <input
                                         type="text"
+                                        maxLength={6}
+                                        minLength={6}
                                         style={{ width: '40%' }}
                                         className='FormInput'
                                         id='text'
@@ -155,6 +166,8 @@ const SignUpPage = () => {
                             </div>
                         </form>
                         {errorMessage && <div className="ml-2 ErrorMessage">{errorMessage}</div>}
+                        {idErrorMessage && <div className="ml-2 ErrorMessage">{idErrorMessage}</div>}
+                        {genderErrorMessage && <div className="ml-2 ErrorMessage">{genderErrorMessage}</div>}
                         {loading && (
                             <div role="status" className="flex pt-4 ml-2">
                                 <svg
