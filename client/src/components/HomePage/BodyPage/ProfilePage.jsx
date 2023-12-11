@@ -58,25 +58,11 @@ const ProfilePage = () => {
       updatedDatas.append("address", address);
       updatedDatas.append("image", img_url);
 
-      //Đối với danh sách dữ liệu như số điện thoại và email, bạn cần lặp qua mảng và append từng phần tử.
-      // phoneNumbers.forEach((phoneNumber, index) => {
-      //   updatedDatas.append(`tel[${index}]`, phoneNumber);
-      // });
-
-      // emails.forEach((email) => {
-      //   updatedDatas.append(`email`, email);
-      // });
-      //show value updataDatas
       for (const [key, value] of updatedDatas.entries()) {
         console.log(`${key}: ${value}`);
       }
       // Gửi dữ liệu bằng updatedDatas
       const csrf = await http.get("/sanctum/csrf-cookie");
-      // const response = await http.put(`http://localhost:8000/api/user/${id}`, 
-      //   updatedDatas, {
-      //   headers: {
-      //     'Content-Type': 'application/json',
-      //   },
       // });
       const update = await http.post(
         `http://localhost:8000/api/user/${idcard}`,
