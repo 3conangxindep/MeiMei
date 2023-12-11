@@ -11,11 +11,11 @@ const ManageAccount = () => {
     const [currentPage, setCurrentPage] = useState('ProfilePage');
     return (
         // manageAccount-container
-        <div className='relative flex flex-col items-center justify-center w-full h-auto p-5 border-box'>
+        <div className='relative flex flex-row w-screen h-auto px-2 py-4 mx-auto border-box'>
             {/* vertical-nav */}
-            <div className='left-0 border-box absolute top-3 mr-4/6 p-2.5 w-1/6 h-auto ml-8 bg-white rounded-md z-10'>
+            {/* <div className='left-0 border-box absolute top-3 mr-4/6 p-2.5 w-1/6 h-auto ml-8 bg-white rounded-md z-10'> */}
                 {/*  vertical-nav-inline*/}
-                <div className='flex flex-col items-center justify-between h-auto p-4 bg-green-300 rounded-md shadow-md shadow-green-400'>
+                <div className='fixed z-10 flex flex-col items-center justify-between w-2/12 h-auto p-4 bg-green-300 rounded-md shadow-md left-2 top-48 shadow-green-400'>
                     {/* manageAccount-section */}
                     {/* <div className='flex items-center justify-center w-20 h-20 rounded-full' style={{ backgroundColor: currentPage === 'ProfilePage' ? 'white' : 'transparent' }}> */}
                         <NavLink
@@ -93,12 +93,12 @@ const ManageAccount = () => {
                         </NavLink>
                     {/* </div> */}
                 </div>
-            </div>
+            {/* </div> */}
 
             {/* manageAccount-card */}
-            <div className='relative flex items-center justify-center w-full h-auto mb-12 bg-white rounded-lg shadow-md border-box shadow-green-400'>
+            <div className='relative flex items-center justify-center w-screen h-auto mb-12 bg-gray-100 rounded-lg shadow-md border-box shadow-green-400'>
                 {/* flex-left */}
-                <div className='float-left w-9/12'></div>
+                <div className='w-2/12'></div>
                 <div className='w-full'>
                     <Switch>
                         <Route path='/ManageAccount/ProfilePage'><ProfilePage /></Route>
@@ -109,11 +109,11 @@ const ManageAccount = () => {
                     </Switch>
                 </div>
             </div>
-            <div className='absolute bottom-0 h-20 w-28'>
+            {/* <div className='absolute bottom-0 h-20 w-28'>
                 <button className='flex items-center justify-center w-full h-full text-2xl font-bold text-white bg-green-200 border-2 border-green-400 border-solid rounded-md cursor-pointer focus:shadow-md shadow-green-400 hover:shadow-green-400 active:shadow-green-400' 
                     id='btt' type='submit'
                 >編集</button>
-            </div>
+            </div> */}
         </div>
     );
 };
