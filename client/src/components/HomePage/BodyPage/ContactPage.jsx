@@ -13,7 +13,7 @@ const ContactPage = () => {
 
     return (
         // contact-container
-        <div className='w-full p-4 border-box'>
+        <div className='box-border w-full p-4'>
             {/* contact-search */}
             <div className='flex items-center justify-end w-full h-full mb-4'><Search /></div>
             {/* section */}

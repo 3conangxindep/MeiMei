@@ -11,7 +11,7 @@ const RecentAccounts = () => {
 
     return (
         // recentaccounts-container
-        <div className='border-box relative w-full h-screen p-2.5 flex flex-col'>
+        <div className='box-border relative w-full h-screen p-2.5 flex flex-col'>
             <li className='list-none transition duration-200 cursor-pointer hover:bg-gray-200 hover:border-gray-200 hover:border hover:rounded-md'>
                 {/* item-container */}
                 <div className='relative flex items-center justify-between w-full h-16 pl-1.5 bg-gray-200 border-b-2 rounded-md border-b-solid border-b-gray-400'>

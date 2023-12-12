@@ -86,7 +86,8 @@ const MyHomePage = () => {
                                 <img
                                     className='w-5 sm:w-6 mr-1.5'
                                     src='https://cdn-icons-png.flaticon.com/128/546/546394.png' alt='' />
-                                {data.email}
+                                    <p className='max-w-full break-words'>{data.email}</p>
+                                {/* {data.email} */}
                             </div>
                         </li>
                         {/*website  */}
@@ -95,7 +96,8 @@ const MyHomePage = () => {
                                 <img
                                     className='w-5 sm:w-6 mr-1.5'
                                     src='https://cdn-icons-png.flaticon.com/128/900/900782.png' alt='' />
-                                {data.x}
+                                <p className='max-w-full break-words'>{data.x}</p>
+                                {/* {data.x} */}
                             </div>
                         </li>
                         {/* tel */}

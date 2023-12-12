@@ -17,7 +17,6 @@ function App() {
           <Route path="/main" component={Main} />
           <Route path="/signUpPage" component={SignUpPage} />
           <Route component={LoginPage} />
-      
         </Switch>
       </Router>
       </SelectedOptionsProvider>

@@ -18,7 +18,7 @@ const Header = () => {
     };
 
     return (
-        <div className='w-full h-20 px-4 border-box'>
+        <div className='box-border w-full h-20 px-4'>
             {/* header-container */}
             <div className='flex items-center justify-between w-full h-full'>
                 {/* header-text */}
@@ -26,9 +26,9 @@ const Header = () => {
                 <div className='p-2.5 flex justify-center items-center'>
 
                     {/* notification */}
-                    <div className='flex items-center justify-center mr-4 overflow-hidden transition duration-200 border border-black border-solid rounded-full cursor-pointer h-9 w-9 2-8 hover:shadow-md hover:shadow-green-400 hover:bg-green-200'>
+                    <div className='flex items-center justify-center mr-4 overflow-hidden transition duration-200 border border-black border-solid rounded-full cursor-pointer h-9 w-9 2-8 hover:shadow-md hover:shadow-green-400 hover:bg-green-200 hover:ring-2 hover:ring-green-500'>
                         <img
-                            className='object-cover w-4/5 rounded-full h-4/5'
+                            className='object-cover w-4/5 h-4/5'
                             src='https://cdn-icons-png.flaticon.com/128/3602/3602145.png'
                             alt='notification'
                             onClick={handleNotificationClick}

@@ -23,8 +23,8 @@ const InformationPage = () => {
     }
 
     return (
-        <div className='w-full h-full mt-5 bg-white border-box'>
-            <div className='flex flex-col items-start justify-center py-6 pl-14'>
+        <div className='box-border w-full h-full px-2.5 mt-5 bg-white overflow-auto rounded-3xl'>
+            <div className='flex flex-col items-start justify-center w-full py-6 pl-14'>
                 {/* account image and name */}
                 <div className='flex items-center'>
                     <div className='flex items-center justify-center w-20 h-20 mr-10 border border-gray-300 border-solid rounded-full'>
@@ -40,14 +40,14 @@ const InformationPage = () => {
                     </div>
                     <div className='flex flex-col items-start justify-center'>
                         {/* フリガナ */}
-                        <p className='text-base text-gray-400'>{data.furigana}</p>
+                        <p className='text-xl text-gray-400'>{data.furigana}</p>
                         {/* 名前 */}
                         <div className='flex items-center justify-center'>
-                            <p className='mr-2 text-xl font-bold'>{data.user_name}</p>
+                            <p className='mr-2 text-2xl font-bold'>{data.user_name}</p>
                             {/* icon for gender */}
                             <img
 
-                                className='w-3 h-3'
+                                className='w-6 h-6'
                                 // male
                                 src= {
                                     data.gender === 'mail'
@@ -66,16 +66,16 @@ const InformationPage = () => {
                     </div>
                 </div>
                 <ul className='mt-4'>
-                    <li className='py-1 text-base text-gray-400'>メールアドレス: {data.email}</li>
-                    <li className='py-1 text-base text-gray-400'>電話番号: {data.tel}</li>
-                    <li className='py-1 text-base text-gray-400'>住所: {data.address}</li>
-                    <li className='py-1 text-base text-gray-400'>Instagram: {data.instagram}</li>
-                    <li className='py-1 text-base text-gray-400'>X(Twitter): {data.x}</li>
+                    <li className='py-1 text-xl text-gray-400'>メールアドレス: {data.email}</li>
+                    <li className='py-1 text-xl text-gray-400'>電話番号: {data.tel}</li>
+                    <li className='py-1 text-xl text-gray-400'>住所: {data.address}</li>
+                    <li className='py-1 text-xl text-gray-400'>Instagram: {data.instagram}</li>
+                    <li className='py-1 text-xl text-gray-400'>X(Twitter): {data.x}</li>
                 </ul>
             </div>
 
             {/* company */}
-            <div className='w-full p-10 bg-green-300 rounded-t-3xl'>
+            <div className='w-full p-10 bg-green-300 rounded-3xl'>
                 {/* company */}
                 <div className='relative w-full h-full'>
                     <p className='text-2xl font-bold text-orange-400'>勤務先</p>

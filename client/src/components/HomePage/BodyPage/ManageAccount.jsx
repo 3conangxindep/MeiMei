@@ -11,23 +11,23 @@ const ManageAccount = () => {
     const [currentPage, setCurrentPage] = useState('ProfilePage');
     return (
         // manageAccount-container
-        <div className='relative flex flex-row w-screen h-auto px-2 py-4 mx-auto border-box'>
+        <div className='box-border relative flex flex-row w-screen h-auto max-w-full px-2 py-4 sm:p-5'>
             {/* vertical-nav */}
             {/* <div className='left-0 border-box absolute top-3 mr-4/6 p-2.5 w-1/6 h-auto ml-8 bg-white rounded-md z-10'> */}
                 {/*  vertical-nav-inline*/}
-                <div className='fixed z-10 flex flex-col items-center justify-between w-2/12 h-auto p-4 bg-green-300 rounded-md shadow-md left-2 top-48 shadow-green-400'>
+                <div className='fixed z-10 flex flex-col items-center justify-between w-2/12 h-auto bg-green-300 border border-green-500 rounded-md shadow-md p-auto sm:w-32 left-2 top-40 shadow-green-400'>
                     {/* manageAccount-section */}
                     {/* <div className='flex items-center justify-center w-20 h-20 rounded-full' style={{ backgroundColor: currentPage === 'ProfilePage' ? 'white' : 'transparent' }}> */}
                         <NavLink
-                            className='flex items-center justify-center w-8 h-8 m-5 rounded-full' 
-                            style={{ backgroundColor: currentPage === 'ProfilePage' ? 'white' : 'transparent' }}
+                            className='flex items-center justify-center m-5 border-2 border-green-500 border-solid rounded-full w-14 h-14 hover:shadow-md hover:shadow-green-500 hover:ring-2 hover:ring-green-500' 
+                            style={{ backgroundColor: currentPage === 'ProfilePage' ? 'white' : '#54bc77' }}
                             to="/ManageAccount/ProfilePage"
                             onClick={() => setCurrentPage('ProfilePage')}
                         >
 
                             {/* thay doi anh account */}
                             <img
-                                className='object-cover w-9/12'
+                                className='object-cover w-8 m-2'
                                 src='https://cdn-icons-png.flaticon.com/128/456/456212.png'
                                 alt=''
                             />
@@ -36,13 +36,13 @@ const ManageAccount = () => {
                     {/* manageAccount-section */}
                     {/* <div className='flex items-center justify-center w-20 h-20 rounded-full' style={{ backgroundColor: currentPage === 'WorkInforPage' ? 'white' : 'transparent' }}> */}
                         <NavLink
-                            className='flex items-center justify-center w-8 h-8 m-5 rounded-full' 
-                            style={{ backgroundColor: currentPage === 'WorkInforPage' ? 'white' : 'transparent' }}
+                            className='flex items-center justify-center m-5 border-2 border-green-500 border-solid rounded-full w-14 h-14 hover:shadow-md hover:shadow-green-500 hover:ring-2 hover:ring-green-500' 
+                            style={{ backgroundColor: currentPage === 'WorkInforPage' ? 'white' : '#54bc77' }}
                             to="/ManageAccount/WorkInforPage"
                             onClick={() => setCurrentPage('WorkInforPage')}
                         >
                             <img
-                                className='object-cover w-9/12'
+                                className='object-cover w-8'
                                 src='https://cdn-icons-png.flaticon.com/128/639/639394.png'
                                 alt=''
                             />
@@ -51,13 +51,13 @@ const ManageAccount = () => {
                     {/*manageAccount-section  */}
                     {/* <div className='flex items-center justify-center w-20 h-20 rounded-full' style={{ backgroundColor: currentPage === 'SocialMediaPage' ? 'white' : 'transparent' }}> */}
                         <NavLink
-                            className='flex items-center justify-center w-8 h-8 m-5 rounded-full' 
-                            style={{ backgroundColor: currentPage === 'SocialMediaPage' ? 'white' : 'transparent' }}
+                            className='flex items-center justify-center m-5 border-2 border-green-500 border-solid rounded-full w-14 h-14 hover:shadow-md hover:shadow-green-500 hover:ring-2 hover:ring-green-500' 
+                            style={{ backgroundColor: currentPage === 'SocialMediaPage' ? 'white' : '#54bc77' }}
                             to="/ManageAccount/SocialMediaPage"
                             onClick={() => setCurrentPage('SocialMediaPage')}
                         >
                             <img
-                                className='object-cover w-9/12'
+                                className='object-cover w-8'
                                 src='https://cdn-icons-png.flaticon.com/128/900/900782.png'
                                 alt=''
                             />
@@ -66,13 +66,13 @@ const ManageAccount = () => {
                     {/*manageAccount-section  */}
                     {/* <div className='flex items-center justify-center w-20 h-20 rounded-full' style={{ backgroundColor: currentPage === 'DescriptionPage' ? 'white' : 'transparent' }}> */}
                         <NavLink
-                            className='flex items-center justify-center w-8 h-8 m-5 rounded-full' 
-                            style={{ backgroundColor: currentPage === 'DescriptionPage' ? 'white' : 'transparent' }}
+                            className='flex items-center justify-center m-5 border-2 border-green-500 border-solid rounded-full w-14 h-14 hover:shadow-md hover:shadow-green-500 hover:ring-2 hover:ring-green-500' 
+                            style={{ backgroundColor: currentPage === 'DescriptionPage' ? 'white' : '#54bc77' }}
                             to="/ManageAccount/DescriptionPage"
                             onClick={() => setCurrentPage('DescriptionPage')}
                         >
                             <img
-                                className='object-cover w-9/12'
+                                className='object-cover w-8'
                                 src='https://cdn-icons-png.flaticon.com/128/12454/12454226.png'
                                 alt=''
                             />
@@ -81,12 +81,12 @@ const ManageAccount = () => {
                     {/*manageAccount-section  */}
                     {/* <div className='flex items-center justify-center w-20 h-20 rounded-full' style={{ backgroundColor: currentPage === 'MyHomePage' ? 'white' : 'transparent' }}> */}
                         <NavLink 
-                            className='flex items-center justify-center w-8 h-8 m-5 rounded-full' 
-                            style={{ backgroundColor: currentPage === 'MyHomePage' ? 'white' : 'transparent' }}
+                            className='flex items-center justify-center m-5 border-2 border-green-500 border-solid rounded-full w-14 h-14 hover:shadow-md hover:shadow-green-500 hover:ring-2 hover:ring-green-500' 
+                            style={{ backgroundColor: currentPage === 'MyHomePage' ? 'white' : '#54bc77' }}
                             to="/MyHomePage" 
                             onClick={() => setCurrentPage('MyHomePage')}>
                             <img
-                                className='object-cover w-9/12'
+                                className='object-cover w-8'
                                 src='https://cdn-icons-png.flaticon.com/128/1946/1946488.png'
                                 alt=''
                             />
@@ -96,10 +96,10 @@ const ManageAccount = () => {
             {/* </div> */}
 
             {/* manageAccount-card */}
-            <div className='relative flex items-center justify-center w-screen h-auto mb-12 bg-gray-100 rounded-lg shadow-md border-box shadow-green-400'>
+            <div className='box-border relative flex items-center justify-center w-screen h-auto mb-12 bg-gray-100 rounded-lg shadow-md shadow-green-400'>
                 {/* flex-left */}
-                <div className='w-2/12'></div>
-                <div className='w-full'>
+                <div className='w-2/12 sm:w-32'></div>
+                <div className='w-full h-full'>
                     <Switch>
                         <Route path='/ManageAccount/ProfilePage'><ProfilePage /></Route>
                         <Route path='/ManageAccount/WorkInforPage'><WorkInforPage /></Route>

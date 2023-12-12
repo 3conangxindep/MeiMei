@@ -28,7 +28,7 @@ const Search = () => {
     };
 
     return (
-        <div className="relative flex w-2/4 h-full border-box SearchContainer">
+        <div className="box-border relative flex w-2/4 h-full SearchContainer">
             <div className='float-left w-full'>
                 <input
                     className='FormInput w-full p-1.5 text-sm text-white placeholder-white'

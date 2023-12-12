@@ -136,12 +136,13 @@ const ProfilePage = () => {
     // <div className='w-full h-full py-5 pl-20 pr-5 border-box'>
         <form  onSubmit={(e) => Updatedata(idcard, e)}>
           <meta name="csrf-token" content="YOUR_CSRF_TOKEN_HERE"></meta>
-          <ul className='relative flex flex-col items-start justify-center w-full h-full px-5 py-5 text-base border-box'>
-            <p className='text-2xl font-bold'>個人情報</p>
-            <li className='w-full h-full p-1 m-1 border-b border-b-gray-500 border-b-solid border-box'  OnClose={() => setImgUrl(false)}>
+          <ul className='relative flex flex-col items-start justify-center w-full h-auto px-5 py-5 text-base border-box'>
+            <p className='ml-2 text-2xl font-bold'>個人情報</p>
+            <li className='w-full h-full p-1 m-1 border-b border-b-gray-500 border-b-solid border-box'  onClose={() => setImgUrl(false)}>
               {/* <label htmlFor="file-input" className="text-base font-bold">プロフィール写真</label> */}
               <input 
-                className='w-full h-12 p-1 text-base transition bg-gray-100 border-none rounded-md duration-200s focus:border focus:border-solid focus:border-green-300 focus:outline-0 focus:shadow-md focus:shadow-green-300 hover:bg-green-100'                type="file" 
+                className='w-full h-12 p-1 text-base transition bg-gray-100 border-none rounded-md duration-200s focus:border focus:border-solid focus:border-green-300 focus:outline-0 focus:shadow-md focus:shadow-green-300 hover:bg-green-100 hover:ring-2 hover:ring-green-400'                
+                type="file" 
                 id="image" 
                 name='image' 
                 onChange={handleFileChange} 
@@ -150,7 +151,7 @@ const ProfilePage = () => {
             <li className='w-full h-full p-1 m-1 border-b border-b-gray-500 border-b-solid border-box'>
               {/* <label htmlFor="kanjiName">氏名（漢字）</label> */}
               <input
-                className='w-full h-12 p-1 text-xl transition bg-gray-100 border-none rounded-md duration-200s focus:border focus:border-solid focus:border-green-300 focus:outline-0 focus:shadow-md focus:shadow-green-300 hover:bg-green-100'
+                className='w-full h-12 p-1 text-xl transition bg-gray-100 border-none rounded-md duration-200s focus:border focus:border-solid focus:border-green-300 focus:outline-0 focus:shadow-md focus:shadow-green-300 hover:bg-green-100 hover:ring-2 hover:ring-green-400'
                 placeholder='氏名（漢字）'
                 type="text" 
                 id="kanjiName" 
@@ -162,7 +163,8 @@ const ProfilePage = () => {
             <li className='w-full h-full p-1 m-1 border-b border-b-gray-500 border-b-solid border-box'>
               {/* <label htmlFor="katakanaName">氏名（フリガナ）</label> */}
               <input
-                className='w-full h-12 p-1 text-xl transition bg-gray-100 border-none rounded-md duration-200s focus:border focus:border-solid focus:border-green-300 focus:outline-0 focus:shadow-md focus:shadow-green-300 hover:bg-green-100'                placeholder='氏名（フリガナ）'
+                className='w-full h-12 p-1 text-xl transition bg-gray-100 border-none rounded-md duration-200s focus:border focus:border-solid focus:border-green-300 focus:outline-0 focus:shadow-md focus:shadow-green-300 hover:bg-green-100 hover:ring-2 hover:ring-green-400'                
+                placeholder='氏名（フリガナ）'
                 type="text" 
                 id="katakanaName" 
                 name="katakanaName" 
@@ -173,7 +175,8 @@ const ProfilePage = () => {
             <li className='w-full h-full p-1 m-1 border-b border-b-gray-500 border-b-solid border-box'>
               {/* <label htmlFor="birthdate">生年月日</label> */}
               <input
-                className='w-full h-12 p-1 text-xl transition bg-gray-100 border-none rounded-md duration-200s focus:border focus:border-solid focus:border-green-300 focus:outline-0 focus:shadow-md focus:shadow-green-300 hover:bg-green-100'                placeholder='生年月日'
+                className='w-full h-12 p-1 text-xl transition bg-gray-100 border-none rounded-md duration-200s focus:border focus:border-solid focus:border-green-300 focus:outline-0 focus:shadow-md focus:shadow-green-300 hover:bg-green-100 hover:ring-2 hover:ring-green-400'                
+                placeholder='生年月日'
                 type="date" 
                 id="birthdate" 
                 name="birthdate" 
@@ -183,7 +186,7 @@ const ProfilePage = () => {
             <li className='flex items-center justify-between w-full p-1 m-1 border-b h-14 border-b-gray-500 border-b-solid border-box'>
               <label htmlFor="gender">性別</label><br />
               <input 
-                className='inline-block w-5 h-5 align-middle bg-gray-100 border border-gray-300 rounded-full appearance-none cursor-pointer checked:bg-green-300 checked:border-green-400 checked:shadow-md checked:shadow-green-300' 
+                className='inline-block w-5 h-5 align-middle border border-gray-300 rounded-full appearance-none cursor-pointer checked:bg-green-300 checked:border-green-400 checked:shadow-md checked:shadow-green-300 hover:ring-2 hover:bg-green-300 hover:ring-green-400 checked:ring-2 checked:hover:ring-green-400 hover:shadow-md hover:shadow-green-300' 
                 type="radio" 
                 id="gender" 
                 name="gender" 
@@ -192,7 +195,7 @@ const ProfilePage = () => {
               />
               <label htmlFor="gender">男性</label>
               <input
-                className='inline-block w-5 h-5 align-middle bg-gray-100 border border-gray-300 rounded-full appearance-none cursor-pointer checked:bg-green-300 checked:border-green-400 checked:shadow-md checked:shadow-green-300' 
+                className='inline-block w-5 h-5 align-middle border border-gray-300 rounded-full appearance-none cursor-pointer checked:bg-green-300 checked:border-green-400 checked:shadow-md checked:shadow-green-300 hover:ring-2 hover:bg-green-300 hover:ring-green-400 checked:ring-2 checked:hover:ring-green-400 hover:shadow-md hover:shadow-green-300' 
                 type="radio" 
                 id="gender" 
                 name="gender" 
@@ -201,7 +204,7 @@ const ProfilePage = () => {
               />
               <label htmlFor="gender">女性</label><br />
               <input 
-                className='inline-block w-5 h-5 align-middle border border-gray-300 rounded-full appearance-none cursor-pointer checked:bg-green-300 checked:border-2 checked:border-2-solid checked:border-2-green-400 checked:shadow-md checked:shadow-green-300' 
+                className='inline-block w-5 h-5 align-middle border border-gray-300 rounded-full appearance-none cursor-pointer checked:bg-green-300 checked:border-green-400 checked:shadow-md checked:shadow-green-300 hover:ring-2 hover:bg-green-300 hover:ring-green-400 checked:ring-2 checked:hover:ring-green-400 hover:shadow-md hover:shadow-green-300' 
                 type="radio" 
                 id="gender" 
                 name="gender" 
@@ -215,13 +218,13 @@ const ProfilePage = () => {
               <li className='w-full h-full p-1 m-1 border-b border-b-gray-500 border-b-solid border-box'>
                 {/* <label htmlFor="tel">電話番号</label> */}
                 <input
-                  className='w-full h-12 p-1 text-xl transition bg-gray-100 border-none rounded-md duration-200s focus:border focus:border-solid focus:border-green-300 focus:outline-0 focus:shadow-md focus:shadow-green-300 hover:bg-green-100'                  
+                  className='w-full h-12 p-1 text-xl transition bg-gray-100 border-none rounded-md duration-200s focus:border focus:border-solid focus:border-green-300 focus:outline-0 focus:shadow-md focus:shadow-green-300 hover:bg-green-100 hover:ring-2 hover:ring-green-400'                  
                   placeholder='電話番号'
                   type="tel"
                   id="tel"
                   name="tel"
-                  value="tel"
-                  // onChange={(e) => handleInputChange(e, 'tel', index)}
+                  // value="tel"
+                  onChange={(e) => setPhoneNumbers(e.target.value)}
                 />
                 {/* <button onClick={() => handleAddRemoveInput('phone', index, 'remove')}>-</button>
                 {phoneNumbers.length - 1 === index && <button onClick={() => handleAddRemoveInput('phone', index, 'add')}>+</button>} */}
@@ -258,7 +261,8 @@ const ProfilePage = () => {
             <li className='w-full h-full p-1 m-1 border-b border-b-gray-500 border-b-solid border-box'>
               {/* <label htmlFor="post_code">郵便番号</label> */}
               <input
-                className='w-full h-12 p-1 text-xl transition bg-gray-100 border-none rounded-md duration-200s focus:border focus:border-solid focus:border-green-300 focus:outline-0 focus:shadow-md focus:shadow-green-300 hover:bg-green-100'                placeholder='郵便番号'
+                className='w-full h-12 p-1 text-xl transition bg-gray-100 border-none rounded-md duration-200s focus:border focus:border-solid focus:border-green-300 focus:outline-0 focus:shadow-md focus:shadow-green-300 hover:bg-green-100 hover:ring-2 hover:ring-green-400'               
+                placeholder='郵便番号'
                 type="text" 
                 id="post_code" 
                 name="post_code" 
@@ -269,14 +273,15 @@ const ProfilePage = () => {
             <li className='w-full h-full p-1 m-1 mb-16 border-b border-b-gray-500 border-b-solid border-box'>
               {/* <label htmlFor="address">現在所</label> */}
               <input 
-                className='w-full h-12 p-1 text-xl transition bg-gray-100 border-none rounded-md duration-200s focus:border focus:border-solid focus:border-green-300 focus:outline-0 focus:shadow-md focus:shadow-green-300 hover:bg-green-100'                placeholder='現在所'
+                className='w-full h-12 p-1 text-xl transition bg-gray-100 border-none rounded-md duration-200s focus:border focus:border-solid focus:border-green-300 focus:outline-0 focus:shadow-md focus:shadow-green-300 hover:bg-green-100 hover:ring-2 hover:ring-green-400'                
+                placeholder='現在所'
                 type="text" 
                 id="address" 
                 name="address" 
                 value={address} onChange={(e) => setAddress(e.target.value)}
                 />
             </li>
-            <button className='absolute flex items-center justify-center w-16 h-16 p-2 text-xl font-bold text-white bg-green-400 border-2 border-green-400 border-solid rounded-full cursor-pointer right-2 bottom-2 focus:shadow-md focus: shadow-green-400 hover:bg-green-300 active:shadow-green-400' 
+            <button className='absolute flex items-center justify-center w-16 h-16 p-2 text-xl font-bold text-white bg-green-400 border-2 border-green-400 border-solid rounded-full cursor-pointer right-2 bottom-2 focus:shadow-md focus: shadow-green-400 hover:bg-green-300 active:shadow-green-400 hover:ring-2 hover:ring-green-400' 
                 id='btt' type='submit'
             >編集</button>
             {/* <li className='manageAccount-section-text-item'>
