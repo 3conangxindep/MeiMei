@@ -36,6 +36,8 @@ Route::put('/contact/{id}', [contactController::class, 'destroy']);
 //company information
 Route::get('/company', [CompanyController::class, 'index']);
 Route::get('/company/{id}', [CompanyController::class, 'show']);
+Route::post('/company', [CompanyController::class, 'store']);
+Route::put('/company/{id}', [CompanyController::class, 'update']);
 // Route::get('/contact',[CompanyController::class,'index']);
 
 //Login

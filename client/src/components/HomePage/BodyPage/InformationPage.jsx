@@ -4,6 +4,8 @@ const InformationPage = () => {
     // Truy cập dữ liệu người dùng đã lưu trữ sau khi đăng nhập
     const user = JSON.parse(localStorage.getItem('currentUser')).data;
     const [data, setData] = useState([]);
+    const [company, setCompany] = useState([]);
+
     useEffect(() => {
         fetch(`http://127.0.0.1:8000/api/user/${user.id_card}`)
             .then((response) => response.json())
@@ -14,6 +16,18 @@ const InformationPage = () => {
                 console.error("Lỗi khi gửi yêu cầu:", error);
             });
     }, []);
+    useEffect(() => {
+        fetch(`http://localhost:8000/api/company/${user.id_card}`)
+            .then((response) => response.json())
+            .then((apiData) => {
+                setCompany(apiData);
+                console.log(apiData.com_name)
+            })
+            .catch((error) => {
+                console.error("Lỗi khi gửi yêu cầu:", error);
+            });
+    }, []);
+
     let placeHolderImg = "";
     const imgPath = `http://localhost:8000${data.img_url}`;
     // console.log(imgPath)
@@ -40,7 +54,7 @@ const InformationPage = () => {
                     </div>
                     <div className='flex flex-col items-start justify-center'>
                         {/* フリガナ */}
-                        <p className='text-xl text-gray-400'>{data.furigana}</p>
+                        <p className='text-sm text-gray-400'>{data.furigana}</p>
                         {/* 名前 */}
                         <div className='flex items-center justify-center'>
                             <p className='mr-2 text-2xl font-bold'>{data.user_name}</p>
@@ -50,7 +64,7 @@ const InformationPage = () => {
                                 className='w-6 h-6'
                                 // male
                                 src= {
-                                    data.gender === 'mail'
+                                    data.gender === 'male'
                                     ? 'https://cdn-icons-png.flaticon.com/128/1340/1340619.png'
                                 // female
                                     : data.gender === 'female'
@@ -68,7 +82,7 @@ const InformationPage = () => {
                 <ul className='mt-4'>
                     <li className='py-1 text-xl text-gray-400'>メールアドレス: {data.email}</li>
                     <li className='py-1 text-xl text-gray-400'>電話番号: {data.tel}</li>
-                    <li className='py-1 text-xl text-gray-400'>住所: {data.address}</li>
+                    <li className='py-1 text-xl text-gray-400'>住所: 〒{data.post_code} - {data.address}</li>
                     <li className='py-1 text-xl text-gray-400'>Instagram: {data.instagram}</li>
                     <li className='py-1 text-xl text-gray-400'>X(Twitter): {data.x}</li>
                 </ul>
@@ -81,17 +95,18 @@ const InformationPage = () => {
                     <p className='text-2xl font-bold text-orange-400'>勤務先</p>
                     <ul>
                         <div className='absolute w-full border-l bottom-4 h-3/4 border-l-gray-500 z-999 left-4 border-l-solid'></div>
-                        <li className='flex items-center p-2.5'><div className='z-10 w-4 h-4 mr-4 bg-orange-300 rounded-full'></div> ECCコンピューター専門学校</li>
-                        <li className='flex items-center p-2.5'><div className='z-10 w-4 h-4 mr-4 bg-orange-300 rounded-full'></div>住所</li>
-                        <li className='flex items-center p-2.5'><div className='z-10 w-4 h-4 mr-4 bg-orange-300 rounded-full'></div>電話番号</li>
-                        <li className='flex items-center p-2.5'><div className='z-10 w-4 h-4 mr-4 bg-orange-300 rounded-full'></div>FAX</li>
-                        <li className='flex items-center p-2.5'><div className='z-10 w-4 h-4 mr-4 bg-orange-300 rounded-full'></div>Website</li>
+                        <li className='flex items-center p-2.5'><div className='z-10 w-4 h-4 mr-4 bg-orange-300 rounded-full'></div>{company.com_name}</li>
+                        <li className='flex items-center p-2.5'><div className='z-10 w-4 h-4 mr-4 bg-orange-300 rounded-full'></div>住所: 〒{company.com_post_code} - {company.com_address}</li>
+                        <li className='flex items-center p-2.5'><div className='z-10 w-4 h-4 mr-4 bg-orange-300 rounded-full'></div>電話番号: {company.com_tel}</li>
+                        <li className='flex items-center p-2.5'><div className='z-10 w-4 h-4 mr-4 bg-orange-300 rounded-full'></div>FAX: {company.com_fax}</li>
+                        <li className='flex items-center p-2.5'><div className='z-10 w-4 h-4 mr-4 bg-orange-300 rounded-full'></div>Email: {company.com_email}</li>
+                        <li className='flex items-center p-2.5'><div className='z-10 w-4 h-4 mr-4 bg-orange-300 rounded-full'></div>Website: {company.website}</li>
                         <li className='flex items-center p-2.5'><div className='z-10 w-4 h-4 mr-4 bg-orange-300 rounded-full'></div>
                             <span>
-                                部署
+                                {company.department}
                             </span>
                             <span className='px-2'> - </span>
-                            <span>役職</span>
+                            <span>{company.position}</span>
                         </li>
                     </ul>
                 </div>
@@ -100,10 +115,7 @@ const InformationPage = () => {
                 <div className='w-full h-full'>
                     <p className='text-xl font-bold text-orange-400'>私について</p>
                     <ul>
-                        <li>hi</li>
-                        <li>hi</li>
-                        <li>hi</li>
-                        <li>hi</li>
+                        <li>{data.description}</li>
                     </ul>
                 </div>
             </div>
