@@ -5,12 +5,6 @@ import './ShowMenu.css';
 import { useAuth } from '../../AuthContext';
 
 const ShowMenu = () => {
-
-    const [user, setUser] = useState(
-        localStorage.hasOwnProperty("currentUser") === true
-            ? JSON.parse(localStorage.getItem("currentUser"))
-            : null
-    );
     const userData = JSON.parse(localStorage.getItem('currentUser'));
     const idcard = userData.data.id_card;
     const [data, setData] = useState([]);
@@ -30,7 +24,6 @@ const ShowMenu = () => {
     const handleLogout = () => {
         logout();
         localStorage.removeItem("currentUser");
-        setUser(null);
         window.location.href = "/";
     }
 

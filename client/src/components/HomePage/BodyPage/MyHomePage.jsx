@@ -8,8 +8,9 @@ const MyHomePage = () => {
     // Truy cập dữ liệu người dùng đã lưu trữ sau khi đăng nhập
     const user = JSON.parse(localStorage.getItem('currentUser')).data;
     const [data, setData] = useState([]);
+    const [company, setCompany] = useState([]);
     useEffect(() => {
-        fetch(`http://127.0.0.1:8000/api/user/${user.id_card}`)
+        fetch(`http://localhost:8000/api/user/${user.id_card}`)
             .then((response) => response.json())
             .then((apiData) => {
                 setData(apiData);
@@ -19,14 +20,18 @@ const MyHomePage = () => {
                 console.error("Lỗi khi gửi yêu cầu:", error);
             });
     }, []);
-    const { id_card } = useParams();
-    console.log(id_card);
-    console.log(user.id_card);
-    if (id_card == user.id_card) {
-        console.log('ID cards match!');
-      } else {
-        console.log('ID cards do not match!');
-      }
+    useEffect(() => {
+        fetch(`http://localhost:8000/api/company/${user.id_card}`)
+            .then((response) => response.json())
+            .then((apiData) => {
+                setCompany(apiData);
+                console.log(apiData.com_name)
+            })
+            .catch((error) => {
+                console.error("Lỗi khi gửi yêu cầu:", error);
+            });
+    }, []);
+    
     // console.log(data.img_url)
     let placeHolderImg = "";
     const imgPath = `http://localhost:8000${data.img_url}`;
@@ -59,8 +64,8 @@ const MyHomePage = () => {
                             {data.user_name}
                         </div>
                         <div className='mt-2.5'>
-                            <p className='text-sm font-bold text-white sm:text-xl'>～～部</p>
-                            <p className='text-sm font-bold text-white sm:text-xl'>課長</p>
+                            <p className='text-sm font-bold text-white sm:text-xl'>{company.department}</p>
+                            <p className='text-sm font-bold text-white sm:text-xl'>{company.position}</p>
                         </div>
 
                     </li>
@@ -77,7 +82,7 @@ const MyHomePage = () => {
                         {/* myhome-right-title */}
 
                         <div className='flex items-center justify-center w-full h-16 text-2xl font-bold border-2 border-solid sm:text-4xl sm:h-24 rounded-xl sm:mb-12' style={{ color: "#1E5145" }}>
-                            ECC株式会社
+                            {company.com_name}
                         </div>
 
                         {/* email */}
@@ -96,8 +101,7 @@ const MyHomePage = () => {
                                 <img
                                     className='w-5 sm:w-6 mr-1.5'
                                     src='https://cdn-icons-png.flaticon.com/128/900/900782.png' alt='' />
-                                <p className='max-w-full break-words'>{data.x}</p>
-                                {/* {data.x} */}
+                                <p className='max-w-full break-words'>{company.website}</p>
                             </div>
                         </li>
                         {/* tel */}
@@ -106,7 +110,7 @@ const MyHomePage = () => {
                                 <img
                                     className='w-5 sm:w-6 mr-1.5'
                                     src='https://cdn-icons-png.flaticon.com/128/159/159832.png' alt='' />
-                                +080-1234-5678
+                                {company.com_tel}
                             </div>
                         </li>
                         {/* address */}
@@ -115,7 +119,7 @@ const MyHomePage = () => {
                                 <img
                                     className='w-5 sm:w-6 mr-1.5'
                                     src='https://cdn-icons-png.flaticon.com/128/927/927667.png' alt='' />
-                                大阪市北区中崎西2丁目3番地35号
+                                {company.com_address}
                             </div>
                         </li>
                     </ul>
