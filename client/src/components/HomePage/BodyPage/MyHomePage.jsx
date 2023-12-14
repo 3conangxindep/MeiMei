@@ -31,7 +31,7 @@ const MyHomePage = () => {
                 console.error("Lỗi khi gửi yêu cầu:", error);
             });
     }, []);
-    
+
     // console.log(data.img_url)
     let placeHolderImg = "";
     const imgPath = `http://localhost:8000${data.img_url}`;
@@ -91,7 +91,7 @@ const MyHomePage = () => {
                                 <img
                                     className='w-5 sm:w-6 mr-1.5'
                                     src='https://cdn-icons-png.flaticon.com/128/546/546394.png' alt='' />
-                                    <p className='max-w-full break-words'>{data.email}</p>
+                                <p className='max-w-full break-words'>{data.email}</p>
                                 {/* {data.email} */}
                             </div>
                         </li>

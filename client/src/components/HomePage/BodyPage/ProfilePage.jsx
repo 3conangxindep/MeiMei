@@ -2,9 +2,22 @@ import React, { useState, useEffect } from 'react';
 import axios from "axios";
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 import { RiEdit2Line } from 'react-icons/ri';
-
+import Modal from 'react-modal';
 const ProfilePage = () => {
   const history = useHistory()
+  //show modal
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const handleUpdateSuccess = () => {
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+    // Chuyển hướng về trang chủ sau khi cập nhật thành công
+    history.push('/');
+    // Làm mới trang để hiển thị dữ liệu mới
+    window.location.reload();
+  };
 
   //get thông tin trên localstorage
   const userData = JSON.parse(localStorage.getItem('currentUser'));
@@ -84,30 +97,22 @@ const ProfilePage = () => {
         `http://localhost:8000/api/user/${idcard}`,
         updatedDatas
       );
-      // const user = await http.get(
-      //   `http://localhost:8000/api/user/${idcard}`
-      // );
       const current = localStorage.setItem("currentUser", JSON.stringify(userData)); // update localstorage
       setImgUrl(undefined)
       // console.log(response)
       if (update.status === 200) {
         console.log("Updated data Successful: ", update.data.id_card);
+        handleUpdateSuccess();
       } else {
         console.error('Lỗi', update.status);
       }
-
-      // Chuyển hướng về trang chủ sau khi cập nhật thành công
-      history.push('/');
-      // Làm mới trang để hiển thị dữ liệu mới
-      window.location.reload();
-
     } catch (error) {
       console.error("Lỗi:", error);
     }
   };
   const clickName = (e) => {
     const a = document.getElementById("kanjiName")
-    console.log(a)
+    window.alert("hello world")
   }
   return (
     // <div className='w-full h-full py-5 pl-20 pr-5 border-box'>
@@ -263,11 +268,23 @@ const ProfilePage = () => {
         <button className='absolute flex items-center justify-center w-16 h-16 p-2 text-xl font-bold text-white bg-green-400 border-2 border-green-400 border-solid rounded-full cursor-pointer right-2 bottom-2 focus:shadow-md focus: shadow-green-400 hover:bg-green-300 active:shadow-green-400 hover:ring-2 hover:ring-green-400'
           id='btt' type='submit'
         >編集</button>
-        {/* <li className='manageAccount-section-text-item'>
-                    <label htmlFor="currentAddressKana">現在所（フリガナ）</label>
-                    <input type="text" id="currentAddressKana" name="currentAddressKana" />
-                </li> */}
+
       </ul>
+      <Modal
+        isOpen={isModalOpen}
+        contentLabel="Update Success Modal"
+        className=" w-64 mx-auto my-5"
+      >
+        <div className=" bg-green-200 items-center justify-center rounded-lg p-4 mb-4 text-sm text-green-600" role="alert">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+          <span className="font-medium text-sm ml-1">情報が更新されました</span>
+          <div>
+            <button onClick={closeModal}>OK</button>
+          </div>
+        </div>
+      </Modal>
       {/* <div className='absolute bottom-0 right-0 w-16 h-16 rounded-full'> */}
       {/* <button className='flex items-center justify-center w-16 h-16 text-2xl font-bold text-white bg-green-200 border-2 border-green-400 border-solid rounded-md rounded-full cursor-pointer focus:shadow-md shadow-green-400 hover:shadow-green-400 active:shadow-green-400' 
                 id='btt' type='submit'

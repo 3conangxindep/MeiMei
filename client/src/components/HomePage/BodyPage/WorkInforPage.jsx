@@ -53,16 +53,39 @@ const WorkInforPage = () => {
     e.preventDefault();
     try {
       const formData = new FormData();
+
+      // Kiểm tra và thêm giá trị vào formData nếu khác rỗng
+      if (com_name !== "") {
+        formData.append("com_name", com_name);
+      }
+      if (com_tel !== "") {
+        formData.append("com_tel", com_tel);
+      }
+      if (com_fax !== "") {
+        formData.append("com_fax", com_fax);
+      }
+      if (com_email !== "") {
+        formData.append("com_email", com_email);
+      }
+      if (com_post_code !== "") {
+        formData.append("com_post_code", com_post_code);
+      }
+      if (com_address !== "") {
+        formData.append("com_address", com_address);
+      }
+      if (department !== "") {
+        formData.append("department", department);
+      }
+      if (position !== "") {
+        formData.append("position", position);
+      }
+      if (website !== "") {
+        formData.append("website", website);
+      }
+      // Thêm _method vào formData
       formData.append("_method", "PUT");
-      formData.append("com_name", com_name);
-      formData.append("com_tel", com_tel);
-      formData.append("com_fax", com_fax);
-      formData.append("com_email", com_email);
-      formData.append("com_post_code", com_post_code);
-      formData.append("com_address", com_address);
-      formData.append("department", department);
-      formData.append("position", position);
-      formData.append("website", website);
+
+
 
       for (const [key, value] of formData.entries()) {
         console.log(`${key}: ${value}`);
@@ -228,7 +251,7 @@ const WorkInforPage = () => {
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
             <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
           </svg>
-          <span className="font-medium text-sm ml-1">Updated Successful</span>
+          <span className="font-medium text-sm ml-1">情報更新されました！</span>
           <div>
             <button onClick={closeModal}>OK</button>
           </div>
