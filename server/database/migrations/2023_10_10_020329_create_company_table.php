@@ -24,11 +24,12 @@ class CreateCompanyTable extends Migration
             $table->string('department')->nullable();
             $table->string('position')->nullable();
             $table->string('website')->nullable();
+            $table->timestamp('created_at')->useCurrent();
+            $table->timestamp('updated_at')->useCurrent()->useCurrentOnUpdate();
+            $table->softDeletes();
 
             // Foreign key
             $table->foreign('id_card')->references('id_card')->on('user');
-
-            $table->timestamps();
         });
     }
 

@@ -9,6 +9,10 @@ import MyHomePage from './MyHomePage';
 
 const ManageAccount = () => {
     const [currentPage, setCurrentPage] = useState('ProfilePage');
+    const handleReloadPage = () => {
+        window.location.reload();
+      };
+
     return (
         // manageAccount-container
         <div className='box-border relative flex flex-row w-screen h-auto max-w-full px-2 py-4 sm:p-5'>
@@ -84,7 +88,7 @@ const ManageAccount = () => {
                             className='flex items-center justify-center m-5 border-2 border-green-500 border-solid rounded-full w-14 h-14 hover:shadow-md hover:shadow-green-500 hover:ring-2 hover:ring-green-500' 
                             style={{ backgroundColor: currentPage === 'MyHomePage' ? 'white' : '#54bc77' }}
                             to="/MyHomePage" 
-                            onClick={() => setCurrentPage('MyHomePage')}>
+                            onClick={() => {setCurrentPage('MyHomePage'); handleReloadPage(); }}>
                             <img
                                 className='object-cover w-8'
                                 src='https://cdn-icons-png.flaticon.com/128/1946/1946488.png'

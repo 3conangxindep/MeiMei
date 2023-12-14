@@ -27,19 +27,8 @@ const SocialMediaPage = () => {
   const userData = JSON.parse(localStorage.getItem('currentUser'));
   const idcard = userData.data.id_card;
 
-  const [data, setData] = useState([]);
-  useEffect(() => {
-    fetch(`http://127.0.0.1:8000/api/user/${idcard}`)
-      .then((response) => response.json())
-      .then((apiData) => {
-        setData(apiData);
-      })
-      .catch((error) => {
-        console.error("Lỗi khi gửi yêu cầu:", error);
-      });
-  }, []);
-  const [instagram, setInstagram] = useState([""]);
-  const [x, setX] = useState([""]);
+  const [instagram, setInstagram] = useState(userData.data.instagram);
+  const [x, setX] = useState(userData.data.x);
   const updateData = async (id, e) => {
     e.preventDefault();
     try {

@@ -26,7 +26,7 @@ const DescriptionPage = () => {
   const userData = JSON.parse(localStorage.getItem('currentUser'));
   const idcard = userData.data.id_card;
 
-  const [description, setDescription] = useState([""]);
+  const [description, setDescription] = useState(userData.data.description);
   const updateData = async (id, e) => {
     e.preventDefault();
     try {

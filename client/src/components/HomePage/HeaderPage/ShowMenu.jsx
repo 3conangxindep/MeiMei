@@ -9,7 +9,7 @@ const ShowMenu = () => {
     const idcard = userData.data.id_card;
     const [data, setData] = useState([]);
     useEffect(() => {
-        fetch(`http://127.0.0.1:8000/api/user/${idcard}`)
+        fetch(`http://localhost:8000/api/user/${idcard}`)
             .then((response) => response.json())
             .then((apiData) => {
                 setData(apiData);
@@ -27,20 +27,6 @@ const ShowMenu = () => {
         window.location.href = "/";
     }
 
-    let placeHolderImg = "";
-    const imgPath = `http://localhost:8000${data.img_url}`;
-    // console.log(imgPath)
-    if (data.user_name) {
-        const nameSplit = data.user_name.split(" ");
-        placeHolderImg = `https://ui-avatars.com/api/?name=${nameSplit[0]}+${nameSplit[1]}`;
-    }
-
-    // const [showMenu, setShowMenu] = useState(false);
-
-    // const toggleMenu = () => {
-    //     setShowMenu(!showMenu);
-    // }
-
     const [showMenu, setShowMenu] = useState(false);
 
     const toggleMenu = () => {
@@ -49,10 +35,10 @@ const ShowMenu = () => {
 
     useEffect(() => {
         const handleOutsideClick = (event) => {
-        // Kiểm tra xem sự kiện click có xảy ra bên ngoài menu không
-        if (showMenu && !event.target.closest('.menu-container')) {
-            setShowMenu(false);
-        }
+            // Kiểm tra xem sự kiện click có xảy ra bên ngoài menu không
+            if (showMenu && !event.target.closest('.menu-container')) {
+                setShowMenu(false);
+            }
         };
 
         // Đăng ký hàm xử lý sự kiện click khi component được render
@@ -60,9 +46,17 @@ const ShowMenu = () => {
 
         // Hủy đăng ký hàm xử lý sự kiện khi component unmount
         return () => {
-        document.removeEventListener('click', handleOutsideClick);
+            document.removeEventListener('click', handleOutsideClick);
         };
     }, [showMenu]);
+
+    let placeHolderImg = "";
+    const imgPath = `http://localhost:8000${data.img_url}`;
+    // console.log(imgPath)
+    if (data.user_name) {
+        const nameSplit = data.user_name.split(" ");
+        placeHolderImg = `https://ui-avatars.com/api/?name=${nameSplit[0]}+${nameSplit[1]}`;
+    }
 
     return (
         <div className='menu-container'>
