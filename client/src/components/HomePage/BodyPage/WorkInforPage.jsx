@@ -82,6 +82,10 @@ const WorkInforPage = () => {
 
   // Hàm để xử lý định dạng mã bưu điện
   const formatPostcode = (value) => {
+    // Check if value is null or undefined
+    if (value === null || value === undefined) {
+      return ''; // Or you can handle it differently based on your requirements
+    }
     // Loại bỏ tất cả các ký tự không phải số
     const numericValue = String(value).replace(/\D/g, '');
 
@@ -93,6 +97,10 @@ const WorkInforPage = () => {
     }
   };
   const formatFax = (value) => {
+    // Check if value is null or undefined
+    if (value === null || value === undefined) {
+      return ''; // Or you can handle it differently based on your requirements
+    }
     // Loại bỏ tất cả các ký tự không phải số
     const numericValue = String(value).replace(/\D/g, '');
 
@@ -104,6 +112,10 @@ const WorkInforPage = () => {
     }
   };
   const getNumericValue = (value) => {
+    // Check if value is null or undefined
+    if (value === null || value === undefined) {
+      return ''; // Or you can handle it differently based on your requirements
+    }
     // Loại bỏ tất cả các ký tự không phải số
     const numericValue = String(value).replace(/\D/g, '');
 

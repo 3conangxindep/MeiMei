@@ -22,17 +22,6 @@ const ProfilePage = () => {
   const userData = JSON.parse(localStorage.getItem('currentUser'));
   const idcard = userData.data.id_card;
 
-  // const [data, setData] = useState([]);
-  // useEffect(() => {
-  //   fetch(`http://127.0.0.1:8000/api/user/${idcard}`)
-  //     .then((response) => response.json())
-  //     .then((apiData) => {
-  //       setData(apiData);
-  //     })
-  //     .catch((error) => {
-  //       console.error("Lỗi khi gửi yêu cầu:", error);
-  //     });
-  // }, []);
   const [tel, setTel] = useState(userData.data.tel);
   const [kanjiName, setKanjiNames] = useState(userData.data.user_name);
   const [furigana, setFurigana] = useState(userData.data.furigana);
@@ -56,6 +45,10 @@ const ProfilePage = () => {
 
   // Hàm để xử lý định dạng mã bưu điện
   const formatPostcode = (value) => {
+    // Check if value is null or undefined
+    if (value === null || value === undefined) {
+      return ''; // Or you can handle it differently based on your requirements
+    }
     // Loại bỏ tất cả các ký tự không phải số
     const numericValue = value.replace(/\D/g, '');
 
@@ -67,6 +60,10 @@ const ProfilePage = () => {
     }
   };
   const getNumericValue = (value) => {
+    // Check if value is null or undefined
+    if (value === null || value === undefined) {
+      return ''; // Or you can handle it differently based on your requirements
+    }
     // Loại bỏ tất cả các ký tự không phải số
     const numericValue = value.replace(/\D/g, '');
 
