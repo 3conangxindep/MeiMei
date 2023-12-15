@@ -16,30 +16,19 @@ const ProfilePage = () => {
     setIsModalOpen(false);
   };
 
-  const history = useHistory()
+  // const history = useHistory()
 
   //get thông tin trên localstorage
   const userData = JSON.parse(localStorage.getItem('currentUser'));
   const idcard = userData.data.id_card;
 
-  const [data, setData] = useState([]);
-  useEffect(() => {
-    fetch(`http://127.0.0.1:8000/api/user/${idcard}`)
-      .then((response) => response.json())
-      .then((apiData) => {
-        setData(apiData);
-      })
-      .catch((error) => {
-        console.error("Lỗi khi gửi yêu cầu:", error);
-      });
-  }, []);
-  const [phoneNumbers, setPhoneNumbers] = useState([""]);
-  const [kanjiName, setKanjiNames] = useState();
-  const [furigana, setFurigana] = useState([""]);
-  const [birthDay, setBirthDay] = useState([""]);
-  const [post_code, setPostcode] = useState([""]);
-  const [address, setAddress] = useState([""]);
-  const [gender, setGender] = useState([""]);
+  const [tel, setTel] = useState(userData.data.tel);
+  const [kanjiName, setKanjiNames] = useState(userData.data.user_name);
+  const [furigana, setFurigana] = useState(userData.data.furigana);
+  const [birthDay, setBirthDay] = useState(userData.data.birthday);
+  const [post_code, setPostcode] = useState(userData.data.post_code);
+  const [address, setAddress] = useState(userData.data.address);
+  const [gender, setGender] = useState(userData.data.gender);
   const [img_url, setImgUrl] = useState(undefined);
   const http = axios.create({
     baseURL: "http://localhost:8000",
@@ -54,6 +43,33 @@ const ProfilePage = () => {
     setImgUrl(file);
   };
 
+  // Hàm để xử lý định dạng mã bưu điện
+  const formatPostcode = (value) => {
+    // Check if value is null or undefined
+    if (value === null || value === undefined) {
+      return ''; // Or you can handle it differently based on your requirements
+    }
+    // Loại bỏ tất cả các ký tự không phải số
+    const numericValue = value.replace(/\D/g, '');
+
+    // Kiểm tra xem có đủ số để định dạng không
+    if (numericValue.length >= 3) {
+      return `${numericValue.slice(0, 3)}-${numericValue.slice(3)}`;
+    } else {
+      return numericValue;
+    }
+  };
+  const getNumericValue = (value) => {
+    // Check if value is null or undefined
+    if (value === null || value === undefined) {
+      return ''; // Or you can handle it differently based on your requirements
+    }
+    // Loại bỏ tất cả các ký tự không phải số
+    const numericValue = value.replace(/\D/g, '');
+
+    return numericValue;
+  };
+
   //call method updatedata de cap nhat du lieu tren api
   const Updatedata = async (id, e) => {
     e.preventDefault();
@@ -64,7 +80,7 @@ const ProfilePage = () => {
       updatedDatas.append("furigana", furigana);
       updatedDatas.append("birthday", birthDay);
       updatedDatas.append("gender", gender);
-      updatedDatas.append("tel", phoneNumbers);
+      updatedDatas.append("tel", tel);
       updatedDatas.append("post_code", post_code);
       updatedDatas.append("address", address);
       updatedDatas.append("image", img_url);
@@ -164,6 +180,7 @@ const ProfilePage = () => {
               id="gender"
               name="gender"
               value="male"
+              checked={gender === "male"}
               onChange={(e) => setGender(e.target.value)}
             />
             <label htmlFor="gender">男性</label>
@@ -173,6 +190,7 @@ const ProfilePage = () => {
               id="gender"
               name="gender"
               value="female"
+              checked={gender === "female"}
               onChange={(e) => setGender(e.target.value)}
             />
             <label htmlFor="gender">女性</label><br />
@@ -182,6 +200,7 @@ const ProfilePage = () => {
               id="gender"
               name="gender"
               value="other"
+              checked={gender === "other"}
               onChange={(e) => setGender(e.target.value)}
             />
             <label htmlFor="gender">その他</label><br />
@@ -193,11 +212,13 @@ const ProfilePage = () => {
             <input
               className='w-full h-12 p-1 text-xl transition bg-gray-100 border-none rounded-md duration-200s focus:border focus:border-solid focus:border-green-300 focus:outline-0 focus:shadow-md focus:shadow-green-300 hover:bg-green-100 hover:ring-2 hover:ring-green-400'
               placeholder='電話番号'
-              type="tel"
+              maxLength={11}
+              minLength={10}
+              type="text"
               id="tel"
               name="tel"
-              // value="tel"
-              onChange={(e) => setPhoneNumbers(e.target.value)}
+              value={getNumericValue(tel)}
+              onChange={(e) => setTel(e.target.value)}
             />
             {/* <button onClick={() => handleAddRemoveInput('phone', index, 'remove')}>-</button>
                 {phoneNumbers.length - 1 === index && <button onClick={() => handleAddRemoveInput('phone', index, 'add')}>+</button>} */}
@@ -207,10 +228,12 @@ const ProfilePage = () => {
             <input
               className='w-full h-12 p-1 text-xl transition bg-gray-100 border-none rounded-md duration-200s focus:border focus:border-solid focus:border-green-300 focus:outline-0 focus:shadow-md focus:shadow-green-300 hover:bg-green-100 hover:ring-2 hover:ring-green-400'
               placeholder='郵便番号'
+              maxLength={8}
+              minLength={8}
               type="text"
               id="post_code"
               name="post_code"
-              value={post_code}
+              value={formatPostcode(post_code)}
               onChange={(e) => setPostcode(e.target.value)}
             />
           </li>

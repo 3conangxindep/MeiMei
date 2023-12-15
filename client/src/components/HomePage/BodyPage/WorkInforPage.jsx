@@ -33,11 +33,42 @@ const WorkInforPage = () => {
       .then((response) => response.json())
       .then((apiData) => {
         setData(apiData);
+        // setComName(data.com_name);
       })
       .catch((error) => {
         console.error("Lỗi khi gửi yêu cầu:", error);
       });
   }, []);
+
+  useEffect(() => {
+    if (data.com_name) {
+      setComName(data.com_name);
+    }
+    if (data.com_tel) {
+      setComTel(data.com_tel);
+    }
+    if (data.com_fax) {
+      setComFax(data.com_fax);
+    }
+    if (data.com_email) {
+      setComEmail(data.com_email);
+    }
+    if (data.com_post_code) {
+      setComPostCode(data.com_post_code);
+    }
+    if (data.department) {
+      setDepartment(data.department);
+    }
+    if (data.com_address) {
+      setComAddress(data.com_address);
+    }
+    if (data.position) {
+      setPosition(data.position);
+    }
+    if (data.website) {
+      setWebsite(data.website);
+    }
+  }, [data.com_name, data.com_tel, data.com_fax, data.com_email, data.com_post_code, data.com_address, data.department, data.position, data.website]);
 
   const [com_name, setComName] = useState([""]);
   const [com_tel, setComTel] = useState([""]);
@@ -48,6 +79,48 @@ const WorkInforPage = () => {
   const [department, setDepartment] = useState([""]);
   const [position, setPosition] = useState([""]);
   const [website, setWebsite] = useState([""]);
+
+  // Hàm để xử lý định dạng mã bưu điện
+  const formatPostcode = (value) => {
+    // Check if value is null or undefined
+    if (value === null || value === undefined) {
+      return ''; // Or you can handle it differently based on your requirements
+    }
+    // Loại bỏ tất cả các ký tự không phải số
+    const numericValue = String(value).replace(/\D/g, '');
+
+    // Kiểm tra xem có đủ số để định dạng không
+    if (numericValue.length >= 3) {
+      return `${numericValue.slice(0, 3)}-${numericValue.slice(3)}`;
+    } else {
+      return numericValue;
+    }
+  };
+  const formatFax = (value) => {
+    // Check if value is null or undefined
+    if (value === null || value === undefined) {
+      return ''; // Or you can handle it differently based on your requirements
+    }
+    // Loại bỏ tất cả các ký tự không phải số
+    const numericValue = String(value).replace(/\D/g, '');
+
+    // Kiểm tra xem có đủ số để định dạng không
+    if (numericValue.length >= 3) {
+      return `${numericValue.slice(0, 2)}-${numericValue.slice(2, 6)}-${numericValue.slice(6)}`;
+    } else {
+      return numericValue;
+    }
+  };
+  const getNumericValue = (value) => {
+    // Check if value is null or undefined
+    if (value === null || value === undefined) {
+      return ''; // Or you can handle it differently based on your requirements
+    }
+    // Loại bỏ tất cả các ký tự không phải số
+    const numericValue = String(value).replace(/\D/g, '');
+
+    return numericValue;
+  };
 
   const updateData = async (id, e) => {
     e.preventDefault();
@@ -96,9 +169,10 @@ const WorkInforPage = () => {
 
   return (
     <div>
-      <ul className='relative flex flex-col items-start justify-center w-full h-auto px-5 py-5 text-base box-border'>
-        <p className='ml-2 text-2xl font-bold'>勤務情報</p>
-        <form onSubmit={(e) => updateData(idcard, e)}>
+      <form onSubmit={(e) => updateData(idcard, e)}>
+        <ul className='relative flex flex-col items-start justify-center w-full h-auto px-5 py-5 text-base border-box'>
+          <p className='ml-2 text-2xl font-bold'>勤務情報</p>
+
           <li className='w-full h-full p-1 m-1 border-b border-b-gray-500 border-b-solid box-border'>
             {/* <label htmlFor="kanjiName">会社名（漢字）</label> */}
             <input
@@ -154,10 +228,12 @@ const WorkInforPage = () => {
             <input
               className='w-full h-12 p-1 text-xl transition bg-gray-100 border-none rounded-md duration-200s focus:border focus:border-solid focus:border-green-300 focus:outline-0 focus:shadow-md focus:shadow-green-300 hover:bg-green-100 hover:ring-2 hover:ring-green-400'
               placeholder='電話番号'
-              type=""
+              maxLength={11}
+              minLength={10}
+              type="text"
               id="com_tel"
               name="com_tel"
-              value={com_tel}
+              value={getNumericValue(com_tel)}
               onChange={(e) => setComTel(e.target.value)}
             />
             {/* <button onClick={() => handleAddRemoveInput('phone', index, 'remove')}>-</button>
@@ -182,10 +258,12 @@ const WorkInforPage = () => {
             <input
               className='w-full h-12 p-1 text-xl transition bg-gray-100 border-none rounded-md duration-200s focus:border focus:border-solid focus:border-green-300 focus:outline-0 focus:shadow-md focus:shadow-green-300 hover:bg-green-100 hover:ring-2 hover:ring-green-400'
               placeholder='FAX'
+              maxLength={12}
+              minLength={12}
               type="fax"
               id="com_fax"
               name="com_fax"
-              value={com_fax}
+              value={formatFax(com_fax)}
               onChange={(e) => setComFax(e.target.value)}
             />
             {/* <button onClick={() => handleAddRemoveInput('phone', index, 'remove')}>-</button>
@@ -195,10 +273,12 @@ const WorkInforPage = () => {
             <input
               className='w-full h-12 p-1 text-xl transition bg-gray-100 border-none rounded-md duration-200s focus:border focus:border-solid focus:border-green-300 focus:outline-0 focus:shadow-md focus:shadow-green-300 hover:bg-green-100 hover:ring-2 hover:ring-green-400'
               placeholder='郵便番号'
+              maxLength={8}
+              minLength={8}
               type="text"
               id="com_post_code"
               name="com_post_code"
-              value={com_post_code}
+              value={formatPostcode(com_post_code)}
               onChange={(e) => setComPostCode(e.target.value)}
             />
           </li>
@@ -217,8 +297,8 @@ const WorkInforPage = () => {
           <button className='absolute flex items-center justify-center w-16 h-16 p-2 text-xl font-bold text-white bg-green-400 border-2 border-green-400 border-solid rounded-full cursor-pointer right-2 bottom-2 focus:shadow-md focus: shadow-green-400 hover:bg-green-300 active:shadow-green-400 hover:ring-2 hover:ring-green-400'
             id='btt' type='submit'
           >編集</button>
-        </form>
-      </ul>
+        </ul>
+      </form>
       <Modal
         isOpen={isModalOpen}
         contentLabel="Update Success Modal"

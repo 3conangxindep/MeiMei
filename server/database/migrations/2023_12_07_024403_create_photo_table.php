@@ -13,9 +13,9 @@ return new class extends Migration {
         Schema::create('photos', function (Blueprint $table) {
             $table->increments('id');
             $table->string('photo_path', 350);
-            $table->timestamps();
-            // データを消すではなく消す日にちを付ける)関数を使うためのカラム
-            $table->timestamp('deleted_at')->nullable();
+            $table->timestamp('created_at')->useCurrent();
+            $table->timestamp('updated_at')->useCurrent()->useCurrentOnUpdate();
+            $table->softDeletes();
         });
     }
 
