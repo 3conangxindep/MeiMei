@@ -55,6 +55,17 @@ class contactController extends Controller
         return response()->json($contact, 200);
     }
 
+    public function showNotification(string $id)
+    {
+        //lấy các giá trị id cùng nhau
+        $followerContact = Contact::where('contact_id', $id)->get();
+        if (!$followerContact) {
+            // Nếu không tồn tại, trả về lỗi 404 - Not Found
+            return response()->json(['error' => 'Contact not found'], 404);
+        }
+        return response()->json($followerContact, 200);
+    }
+
 
     /**
      * Update the specified resource in storage.
@@ -198,5 +209,23 @@ class contactController extends Controller
         $totalPages = ceil($totalContacts / $perPage);
 
         return response()->json(['data' => $contacts, 'totalPages' => $totalPages], 200);
+    }
+
+    public function getFollowerContacts($id)
+    {
+
+        $followerCount = DB::table('contact')
+            ->where('contact_id', $id)
+            ->count();
+
+        $newFollower = DB::table('contact')
+            ->join('user', 'contact.id_card', '=', 'user.id_card')
+            ->select('contact.*', 'user.*', 'contact.created_at as contact_created_at', 'contact.updated_at as contact_updated_at')
+            ->where('contact.contact_id', $id)
+            ->orderBy('contact.created_at', 'desc') // Add this line for sorting by updated_at in descending order
+            ->first();
+
+
+        return response()->json(['data' => $newFollower, 'followerCount' => $followerCount], 200);
     }
 }

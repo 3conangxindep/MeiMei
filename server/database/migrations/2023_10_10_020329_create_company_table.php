@@ -15,7 +15,7 @@ class CreateCompanyTable extends Migration
     {
         Schema::create('company', function (Blueprint $table) {
             $table->string('id_card')->primary();
-            $table->string('com_name');
+            $table->string('com_name')->nullable();
             $table->string('com_tel')->nullable();
             $table->string('com_fax')->nullable();
             $table->string('com_email')->nullable();
@@ -24,11 +24,12 @@ class CreateCompanyTable extends Migration
             $table->string('department')->nullable();
             $table->string('position')->nullable();
             $table->string('website')->nullable();
+            $table->timestamp('created_at')->useCurrent();
+            $table->timestamp('updated_at')->useCurrent()->useCurrentOnUpdate();
+            $table->softDeletes();
 
             // Foreign key
             $table->foreign('id_card')->references('id_card')->on('user');
-
-            $table->timestamps();
         });
     }
 

@@ -31,6 +31,7 @@ Route::delete('/user/{id}', [UserController::class, 'destroy']);
 //follow
 Route::get('/contact', [contactController::class, 'index']);
 Route::get('/contact/{id}', [contactController::class, 'show']);
+Route::get('/contact/follower/{id}', [contactController::class, 'getFollowerContacts']);
 Route::get('/contact/following/{id_card}/{page}', [contactController::class, 'getFollowingContacts']);
 Route::get('/contact/recent/{id_card}/{page}', [contactController::class, 'getRecentContacts']);
 Route::put('/contact/{id_card}/{contact_id}', [contactController::class, 'updateContact']);
@@ -38,8 +39,9 @@ Route::put('/contact/{id_card}/{contact_id}', [contactController::class, 'update
 //company information
 Route::get('/company', [CompanyController::class, 'index']);
 Route::get('/company/{id}', [CompanyController::class, 'show']);
+Route::post('/company', [CompanyController::class, 'store']);
+Route::put('/company/{id}', [CompanyController::class, 'update']);
 // Route::get('/contact',[CompanyController::class,'index']);
-
 //Login
 Route::post('/login', [UserController::class, 'login']);
 //Logout

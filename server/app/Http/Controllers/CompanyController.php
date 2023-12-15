@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
@@ -27,24 +28,24 @@ class CompanyController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     *
      */
     public function store(Request $request)
     {
         //
+        $company = Company::create($request->all());
+        return response()->json($company, 201);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     *
      */
-    public function show($id)
+    public function show(string $id)
     {
         //
-        $company= Company::find($id);
+        $company = Company::find($id);
         return response()->json($company, 200);
     }
 
@@ -58,7 +59,7 @@ class CompanyController extends Controller
     public function update(Request $request, $id)
     {
         //
-        $company=Company::find($id);
+        $company = Company::find($id);
         if (!$company) {
             return response()->json(['error' => 'User not found'], 404);
         }
