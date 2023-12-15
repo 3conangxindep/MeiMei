@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from "axios";
 import "./SocialMediaPage.css";
 import Modal from 'react-modal';
+import API_BASE_URL from '../../../apiConfig';
 
 
 const SocialMediaPage = () => {
@@ -17,7 +18,7 @@ const SocialMediaPage = () => {
   };
 
   const http = axios.create({
-    baseURL: "http://localhost:8000",
+    baseURL: `http://${API_BASE_URL}:8000`,
     headers: {
       "X-Requested-with": "XMLHttpRequest",
     },
@@ -44,11 +45,11 @@ const SocialMediaPage = () => {
       const csrf = await http.get("/sanctum/csrf-cookie");
       // });
       const update = await http.post(
-        `http://localhost:8000/api/user/${idcard}`,
+        `http://${API_BASE_URL}:8000/api/user/${idcard}`,
         updatedDatas
       );
       const user = await http.get(
-        `http://localhost:8000/api/user/${idcard}`
+        `http://${API_BASE_URL}:8000/api/user/${idcard}`
       );
       const current = localStorage.setItem("currentUser", JSON.stringify(user)); // update localstorage
       // console.log(response)

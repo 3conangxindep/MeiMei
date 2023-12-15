@@ -4,23 +4,24 @@ import './Search.css';
 const Search = () => {
     // Dữ liệu ví dụ
     const initialData = [
-        { id: 1, name: 'huyen trang' },
-        { id: 2, name: 'trang kieu' },
-        { id: 3, name: 'nhi' },
-        { id: 4, name: 'yen nhi' },
-        { id: 5, name: 'trang nhi' },
+        { id: 1, name: 'huyen trang', email: 'huyentrang@example.com' },
+        { id: 2, name: 'trang kieu', email: 'trangkieu@example.com' },
+        { id: 3, name: 'nhi', email: 'nhi@example.com' },
+        { id: 4, name: 'yen nhi', email: 'yennhi@example.com' },
+        { id: 5, name: 'trang nhi', email: 'trangnhi@example.com' },
     ];
 
     const [data, setData] = useState(initialData);
     const [searchTerm, setSearchTerm] = useState('');
 
     const handleSearch = () => {
-        const filteredData = initialData.filter(item =>
-            item.name.toLowerCase().includes(searchTerm.toLowerCase())
+        const filteredData = initialData.filter(
+            item =>
+                item.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                item.email.toLowerCase().includes(searchTerm.toLowerCase())
         );
 
         setData(filteredData);
-        console.log(filteredData);
     };
 
     const handleInputChange = event => {

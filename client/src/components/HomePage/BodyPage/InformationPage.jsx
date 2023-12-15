@@ -1,35 +1,84 @@
 import React, { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
+import API_BASE_URL from '../../../apiConfig';
+import axios from "axios";
+
 
 const InformationPage = () => {
+    const { id_card, contact_id } = useParams();
+    console.log("id_card: ", id_card);
+    console.log("contact_id: ", contact_id);
     // Truy cập dữ liệu người dùng đã lưu trữ sau khi đăng nhập
     const user = JSON.parse(localStorage.getItem('currentUser')).data;
     const [data, setData] = useState([]);
     const [company, setCompany] = useState([]);
 
     useEffect(() => {
-        fetch(`http://127.0.0.1:8000/api/user/${user.id_card}`)
-            .then((response) => response.json())
-            .then((apiData) => {
-                setData(apiData);
-            })
-            .catch((error) => {
-                console.error("Lỗi khi gửi yêu cầu:", error);
-            });
-    }, []);
+        const fetchData = async () => {
+            try {
+                const http = axios.create({
+                    baseURL: `http://${API_BASE_URL}:8000`,
+                    headers: {
+                        "X-Requested-with": "XMLHttpRequest",
+                    },
+                    withCredentials: true,
+                });
+
+                // Ensure CSRF cookie is set
+                await http.get("/sanctum/csrf-cookie");
+
+                // Update the contact table if id_card and contact_id are different
+                if (id_card !== contact_id) {
+                    await http.put(`/api/contact/${id_card}/${contact_id}`);
+                }
+
+                // Fetch user data
+                const response = await http.get(`/api/user/${contact_id}`);
+                setData(response.data);
+                console.log(response.data.user_name);
+            } catch (error) {
+                console.error("Error:", error);
+            }
+        };
+
+        fetchData();
+
+    }, [id_card, contact_id]);
+
     useEffect(() => {
-        fetch(`http://localhost:8000/api/company/${user.id_card}`)
-            .then((response) => response.json())
-            .then((apiData) => {
-                setCompany(apiData);
-                console.log(apiData.com_name)
-            })
-            .catch((error) => {
-                console.error("Lỗi khi gửi yêu cầu:", error);
-            });
-    }, []);
+        const fetchData = async () => {
+            try {
+                const http = axios.create({
+                    baseURL: `http://${API_BASE_URL}:8000`,
+                    headers: {
+                        "X-Requested-with": "XMLHttpRequest",
+                    },
+                    withCredentials: true,
+                });
+
+                // Ensure CSRF cookie is set
+                await http.get("/sanctum/csrf-cookie");
+
+                // Update the contact table if id_card and contact_id are different
+                if (id_card !== contact_id) {
+                    await http.put(`/api/contact/${id_card}/${contact_id}`);
+                }
+
+                // Fetch user data
+                const response = await http.get(`/api/company/${contact_id}`);
+                setCompany(response.data);
+                console.log(response.data.com_name);
+            } catch (error) {
+                console.error("Error:", error);
+            }
+        };
+
+        fetchData();
+
+    }, [id_card, contact_id]);
 
     let placeHolderImg = "";
-    const imgPath = `http://localhost:8000${data.img_url}`;
+    const imgPath = `http://${API_BASE_URL}:8000${data.img_url}`;
     // console.log(imgPath)
     if (data.user_name) {
         const nameSplit = data.user_name.split(" ");
@@ -42,11 +91,11 @@ const InformationPage = () => {
                 {/* account image and name */}
                 <div className='flex items-center'>
                     <div className='flex items-center justify-center w-20 h-20 mr-10 border border-gray-300 border-solid rounded-full'>
-                       {/* account image */}
+                        {/* account image */}
                         <img
-                            className='object-cover w-4/5 rounded-full h-4/5' 
+                            className='object-cover w-4/5 rounded-full h-4/5'
                             src={
-                                imgPath == "http://localhost:8000null"
+                                imgPath === `http://${API_BASE_URL}:8000null`
                                     ? placeHolderImg
                                     : imgPath
                             }
@@ -63,14 +112,14 @@ const InformationPage = () => {
 
                                 className='w-6 h-6'
                                 // male
-                                src= {
+                                src={
                                     data.gender === 'male'
-                                    ? 'https://cdn-icons-png.flaticon.com/128/1340/1340619.png'
-                                // female
-                                    : data.gender === 'female'
-                                    ? 'https://cdn-icons-png.flaticon.com/128/866/866954.png'
-                                // other
-                                    : 'https://cdn-icons-png.flaticon.com/128/45/45799.png'
+                                        ? 'https://cdn-icons-png.flaticon.com/128/1340/1340619.png'
+                                        // female
+                                        : data.gender === 'female'
+                                            ? 'https://cdn-icons-png.flaticon.com/128/866/866954.png'
+                                            // other
+                                            : 'https://cdn-icons-png.flaticon.com/128/45/45799.png'
                                 }
                                 alt=''
                             />
@@ -110,7 +159,7 @@ const InformationPage = () => {
                         </li>
                     </ul>
                 </div>
-                
+
                 {/* about me */}
                 <div className='w-full h-full'>
                     <p className='text-xl font-bold text-orange-400'>私について</p>

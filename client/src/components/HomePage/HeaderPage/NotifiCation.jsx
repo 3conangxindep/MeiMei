@@ -1,5 +1,6 @@
 import React from 'react';
 import './NotifiCation.css';
+import API_BASE_URL from '../../../apiConfig';
 
 const NotifiCation = ({ onClose }) => {
     return (

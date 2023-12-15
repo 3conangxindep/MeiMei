@@ -66,7 +66,7 @@ class UserController extends Controller
 
         if ($request->hasFile('image')) {
             $rules = [
-                'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048', // 画像ファイルの制約を指定する
+                'image' => 'required|image|mimes:jpeg,png,jpg,gif', // 画像ファイルの制約を指定する
             ];
 
             $file = $request->file('image');

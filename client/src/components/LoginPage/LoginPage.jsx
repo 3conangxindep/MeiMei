@@ -2,13 +2,14 @@ import React, { Fragment, useEffect, useState } from 'react';
 import './LoginPage.css';
 import { Link, useHistory } from 'react-router-dom';
 import axios from "axios";
+import API_BASE_URL from '../../apiConfig';
 
 
 const img = 'meimei_img.png';
 const LoginPage = () => {
   const history = useHistory();
   const http = axios.create({
-    baseURL: "http://localhost:8000",
+    baseURL: `http://${API_BASE_URL}:8000`,
 
     headers: {
       "X-Requested-with": "XMLHttpRequest",
@@ -91,7 +92,7 @@ const LoginPage = () => {
                     // placeholder="meimei@gmail.com"
                     required
                   />
-                  <label for="text" className='Label'>メールアドレス</label>
+                  <label for="text" className='Label p-3'>メールアドレス</label>
                 </div>
                 <div className='FormGroup pt-3'>
                   <input
@@ -103,7 +104,7 @@ const LoginPage = () => {
                     // placeholder="******"
                     required
                   />
-                  <label for='password' className='Label'>パスワード</label>
+                  <label for='password' className='Label p-3'>パスワード</label>
                 </div>
               </div>
               <br />

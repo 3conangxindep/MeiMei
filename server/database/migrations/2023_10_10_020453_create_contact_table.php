@@ -17,6 +17,7 @@ class CreateContactTable extends Migration
             $table->string('id_card');
             $table->string('contact_id');
             $table->boolean('like')->default(false); //0
+            $table->boolean('notification')->default(false); //0
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->useCurrent()->useCurrentOnUpdate();
             $table->softDeletes();

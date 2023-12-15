@@ -31,6 +31,10 @@ Route::delete('/user/{id}', [UserController::class, 'destroy']);
 //follow
 Route::get('/contact', [contactController::class, 'index']);
 Route::get('/contact/{id}', [contactController::class, 'show']);
+Route::get('/contact/follower/{id}', [contactController::class, 'getFollowerContacts']);
+Route::get('/contact/following/{id_card}/{page}', [contactController::class, 'getFollowingContacts']);
+Route::get('/contact/recent/{id_card}/{page}', [contactController::class, 'getRecentContacts']);
+Route::put('/contact/{id_card}/{contact_id}', [contactController::class, 'updateContact']);
 Route::put('/contact/{id}', [contactController::class, 'destroy']);
 
 //company information

@@ -3,13 +3,14 @@ import axios from "axios";
 import { Link, Switch, Route } from 'react-router-dom';
 import './ShowMenu.css';
 import { useAuth } from '../../AuthContext';
+import API_BASE_URL from '../../../apiConfig';
 
 const ShowMenu = () => {
     const userData = JSON.parse(localStorage.getItem('currentUser'));
-    const idcard = userData.data.id_card;
+    const id_card = userData.data.id_card;
     const [data, setData] = useState([]);
     useEffect(() => {
-        fetch(`http://localhost:8000/api/user/${idcard}`)
+        fetch(`http://${API_BASE_URL}:8000/api/user/${id_card}`)
             .then((response) => response.json())
             .then((apiData) => {
                 setData(apiData);
@@ -51,7 +52,7 @@ const ShowMenu = () => {
     }, [showMenu]);
 
     let placeHolderImg = "";
-    const imgPath = `http://localhost:8000${data.img_url}`;
+    const imgPath = `http://${API_BASE_URL}:8000${data.img_url}`;
     // console.log(imgPath)
     if (data.user_name) {
         const nameSplit = data.user_name.split(" ");
@@ -68,7 +69,7 @@ const ShowMenu = () => {
                     <img
                         className='object-cover w-4/5 rounded-full h-4/5'
                         src={
-                            imgPath == "http://localhost:8000null"
+                            imgPath === `http://${API_BASE_URL}:8000null`
                                 ? placeHolderImg
                                 : imgPath
                         }
@@ -84,17 +85,17 @@ const ShowMenu = () => {
                                 {/* menuImage */}
                                 <div className='flex items-center justify-center float-left'>
                                     {/* ảnh account */}
-                                    <Link to='/InformationPage' className='flex items-center justify-center border border-gray-500 border-solid rounded-full w-14 h-14'>
+                                    <Link to={`/InformationPage/${id_card}/${id_card}`} className='flex items-center justify-center border border-gray-500 border-solid rounded-full w-14 h-14'>
                                         <img className='object-cover w-4/5 rounded-full h-4/5'
                                             src={
-                                                imgPath == "http://localhost:8000null"
+                                                imgPath === `http://${API_BASE_URL}:8000null`
                                                     ? placeHolderImg
                                                     : imgPath
                                             }
                                             alt='avatar' />
                                     </Link>
                                 </div>
-                                <div className='float-left text-2xl font-bold text-green-950'><b>{data.user_name}</b></div>
+                                <div className='float-left text-2xl font-bold text-green-950 ml-3'><b>{data.user_name}</b></div>
                             </li>
                             <li>
                                 <Link

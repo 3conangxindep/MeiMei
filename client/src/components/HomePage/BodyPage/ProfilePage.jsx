@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from "axios";
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 import Modal from 'react-modal';
+import API_BASE_URL from '../../../apiConfig';
 
 
 const ProfilePage = () => {
@@ -23,15 +24,15 @@ const ProfilePage = () => {
   const idcard = userData.data.id_card;
 
   const [tel, setTel] = useState(userData.data.tel);
-  const [kanjiName, setKanjiNames] = useState(userData.data.user_name);
+  const [user_name, setUserName] = useState(userData.data.user_name);
   const [furigana, setFurigana] = useState(userData.data.furigana);
-  const [birthDay, setBirthDay] = useState(userData.data.birthday);
+  const [birthday, setBirthday] = useState(userData.data.birthday);
   const [post_code, setPostcode] = useState(userData.data.post_code);
   const [address, setAddress] = useState(userData.data.address);
   const [gender, setGender] = useState(userData.data.gender);
   const [img_url, setImgUrl] = useState(undefined);
   const http = axios.create({
-    baseURL: "http://localhost:8000",
+    baseURL: `http://${API_BASE_URL}:8000`,
     headers: {
       "X-Requested-with": "XMLHttpRequest",
     },
@@ -76,9 +77,9 @@ const ProfilePage = () => {
     try {
       const updatedDatas = new FormData();
       updatedDatas.append("_method", "PUT");
-      updatedDatas.append("user_name", kanjiName);
+      updatedDatas.append("user_name", user_name);
       updatedDatas.append("furigana", furigana);
-      updatedDatas.append("birthday", birthDay);
+      updatedDatas.append("birthday", birthday);
       updatedDatas.append("gender", gender);
       updatedDatas.append("tel", tel);
       updatedDatas.append("post_code", post_code);
@@ -92,11 +93,11 @@ const ProfilePage = () => {
       const csrf = await http.get("/sanctum/csrf-cookie");
       // });
       const update = await http.post(
-        `http://localhost:8000/api/user/${idcard}`,
+        `http://${API_BASE_URL}:8000/api/user/${idcard}`,
         updatedDatas
       );
       const user = await http.get(
-        `http://localhost:8000/api/user/${idcard}`
+        `http://${API_BASE_URL}:8000/api/user/${idcard}`
       );
       const current = localStorage.setItem("currentUser", JSON.stringify(user)); // update localstorage
       setImgUrl(undefined)
@@ -143,10 +144,10 @@ const ProfilePage = () => {
               className='w-full h-12 p-1 text-xl transition bg-gray-100 border-none rounded-md duration-200s focus:border focus:border-solid focus:border-green-300 focus:outline-0 focus:shadow-md focus:shadow-green-300 hover:bg-green-100 hover:ring-2 hover:ring-green-400'
               placeholder='氏名（漢字）'
               type="text"
-              id="kanjiName"
-              name="kanjiName"
-              value={kanjiName}
-              onChange={(e) => setKanjiNames(e.target.value)}
+              id="user_name"
+              name="user_name"
+              value={user_name}
+              onChange={(e) => setUserName(e.target.value)}
             />
           </li>
           <li className='w-full h-full p-1 m-1 border-b border-b-gray-500 border-b-solid border-box'>
@@ -155,8 +156,8 @@ const ProfilePage = () => {
               className='w-full h-12 p-1 text-xl transition bg-gray-100 border-none rounded-md duration-200s focus:border focus:border-solid focus:border-green-300 focus:outline-0 focus:shadow-md focus:shadow-green-300 hover:bg-green-100 hover:ring-2 hover:ring-green-400'
               placeholder='氏名（フリガナ）'
               type="text"
-              id="katakanaName"
-              name="katakanaName"
+              id="furigana"
+              name="furigana"
               value={furigana}
               onChange={(e) => setFurigana(e.target.value)}
             />
@@ -167,9 +168,9 @@ const ProfilePage = () => {
               className='w-full h-12 p-1 text-xl transition bg-gray-100 border-none rounded-md duration-200s focus:border focus:border-solid focus:border-green-300 focus:outline-0 focus:shadow-md focus:shadow-green-300 hover:bg-green-100 hover:ring-2 hover:ring-green-400'
               placeholder='生年月日'
               type="date"
-              id="birthdate"
-              name="birthdate"
-              value={birthDay} onChange={(e) => setBirthDay(e.target.value)}
+              id="birthday"
+              name="birthday"
+              value={birthday} onChange={(e) => setBirthday(e.target.value)}
             />
           </li>
           <li className='flex items-center justify-between w-full p-1 m-1 border-b h-14 border-b-gray-500 border-b-solid border-box'>

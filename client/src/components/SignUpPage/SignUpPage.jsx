@@ -5,11 +5,12 @@ import './SignUpPage.css';
 import { Link, useHistory } from 'react-router-dom';
 import axios from "axios";
 import bcrypt from 'bcryptjs';
+import API_BASE_URL from '../../apiConfig';
 
 const img = 'meimei_img.png';
 const SignUpPage = () => {
     const http = axios.create({
-        baseURL: "http://localhost:8000",
+        baseURL: `http://${API_BASE_URL}:8000`,
 
         headers: {
             "X-Requested-with": "XMLHttpRequest",
@@ -67,7 +68,7 @@ const SignUpPage = () => {
             }
             const csrf = await http.get("/sanctum/csrf-cookie");
             const register = await http.post(
-                "http://localhost:8000/api/user",
+                `http://${API_BASE_URL}:8000/api/user`,
                 formData
             );
             console.log("Registration successful:", register);
@@ -125,7 +126,7 @@ const SignUpPage = () => {
                                     // placeholder="123456"
                                     required
                                 />
-                                <label htmlFor="text" className='Label-sign'>ID カード</label>
+                                <label htmlFor="text" className='Label-sign p-1.5'>ID カード</label>
                             </li>
                             <li className='FormGroup pt-4'>
                                 <input
@@ -137,7 +138,7 @@ const SignUpPage = () => {
                                     // placeholder="MeiMei"
                                     required
                                 />
-                                <label htmlFor="text" className='Label-sign'>名前</label>
+                                <label htmlFor="text" className='Label-sign p-1.5'>名前</label>
                             </li>
                             <li className='FormGroup pt-4'>
                                 <input
@@ -148,7 +149,7 @@ const SignUpPage = () => {
                                     onChange={(e) => setEmail(e.target.value)}
                                     required
                                 />
-                                <label htmlFor='email' className='Label-sign'>メールアドレス</label>
+                                <label htmlFor='email' className='Label-sign p-1.5'>メールアドレス</label>
                             </li>
                             <li className='FormGroup pt-4'>
                                 <input
@@ -159,7 +160,7 @@ const SignUpPage = () => {
                                     onChange={(e) => setPassword(e.target.value)}
                                     required
                                 />
-                                <label htmlFor="pass" className='Label-sign'>パスワード</label>
+                                <label htmlFor="pass" className='Label-sign p-1.5'>パスワード</label>
                             </li>
                             <li className='settime'>
                                 <SetTimes

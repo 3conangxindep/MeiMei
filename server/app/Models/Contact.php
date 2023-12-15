@@ -20,6 +20,7 @@ class Contact extends Model
         'id_card',
         'contact_id',
         'like',
+        'notification',
     ];
 
      /**
