@@ -9,7 +9,7 @@ const GenderTheme = ({selectedOption,setSelectedOption}) => {
   
   return (
     <div className="w-full h-full flex flex-col">
-      <label className='font-bold text-green-500 text-sm'>性別</label>
+      <label className='font-bold text-green-500 text-sm py-2'>性別</label>
       <div className='w-full h-full grid grid-cols-3 gap-2'>      
         <div className='w-full h-10 flex justify-around items-center col-span-1 border-solid border border-gray-300 rounded-lg'>
           <label>男性</label>

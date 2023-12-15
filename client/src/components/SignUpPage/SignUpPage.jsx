@@ -112,7 +112,7 @@ const SignUpPage = () => {
                     <h4 className='p-2 text-3xl font-bold text-center border-b border-gray-300 text-green-950 border-b-solid'>新規登録</h4>
                     <form onSubmit={handleSignup}>
                         <ul className='w-full h-full p-2 mt-3'>
-                            <li className='FormGroup'>
+                            <li className='FormGroup pt-2'>
                                 <input
                                     type="text"
                                     maxLength={6}
@@ -127,7 +127,7 @@ const SignUpPage = () => {
                                 />
                                 <label htmlFor="text" className='Label-sign'>ID カード</label>
                             </li>
-                            <li className='FormGroup'>
+                            <li className='FormGroup pt-4'>
                                 <input
                                     type="text"
                                     className='FormInput'
@@ -139,7 +139,7 @@ const SignUpPage = () => {
                                 />
                                 <label htmlFor="text" className='Label-sign'>名前</label>
                             </li>
-                            <li className='FormGroup'>
+                            <li className='FormGroup pt-4'>
                                 <input
                                     type="email"
                                     className='FormInput'
@@ -150,7 +150,7 @@ const SignUpPage = () => {
                                 />
                                 <label htmlFor='email' className='Label-sign'>メールアドレス</label>
                             </li>
-                            <li className='FormGroup'>
+                            <li className='FormGroup pt-4'>
                                 <input
                                     type="password"
                                     className='FormInput'

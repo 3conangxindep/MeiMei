@@ -81,10 +81,10 @@ const LoginPage = () => {
             <br />
             <form onSubmit={handleLogin}>
               <div className='LoginForm'>
-                <div className='FormGroup'>
+                <div className='FormGroup pt-3 mt-2'>
                   <input
                     type="text"
-                    className='FormInput'
+                    className='FormInput mb-2'
                     id="email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
@@ -93,7 +93,7 @@ const LoginPage = () => {
                   />
                   <label for="text" className='Label'>メールアドレス</label>
                 </div>
-                <div className='FormGroup'>
+                <div className='FormGroup pt-3'>
                   <input
                     type="password"
                     id="password"

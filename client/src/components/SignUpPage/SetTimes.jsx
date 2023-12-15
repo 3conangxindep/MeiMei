@@ -20,7 +20,7 @@ const SetTimes = ({ setCurrentMonth, setCurrentDay, setCurrentYear }) => {
 
   return (
     <div className="w-full h-full flex flex-col">
-      <label className='font-bold text-green-500 text-sm'>生年月日</label>
+      <label className='font-bold text-green-500 text-sm py-2'>生年月日</label>
       <div className='w-full h-full grid grid-cols-3 gap-2'>
         <select className="content col-span-1 rounded-lg h-10" 
           value={currentYear} 
