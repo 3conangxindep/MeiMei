@@ -2,39 +2,10 @@ import React, { useState, useEffect } from 'react';
 import ShowMenu from './ShowMenu';
 import NotifiCation from './NotifiCation';
 import './Header.css';
-import axios from "axios";
-import API_BASE_URL from '../../../apiConfig';
 
 const Header = () => {
-    const user = JSON.parse(localStorage.getItem('currentUser')).data;
-    const id_card = user.id_card;
-    const [showNotification, setShowNotification] = useState(false);
-    const [notificationCount, setNotificationCount] = useState(1); // Set the initial count to 1 for demonstration
-    
-    useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const http = axios.create({
-                    baseURL: `http://${API_BASE_URL}:8000`,
-                    headers: {
-                        "X-Requested-with": "XMLHttpRequest",
-                    },
-                    withCredentials: true,
-                });
-
-                await http.get(`/api/contact/${id_card}`);
-
-                // Fetch user data
-                // const response = await http.get(`/api/user/${contact_id}`);
-                // setData(response.data);
-                // console.log(response.data.user_name);
-            } catch (error) {
-                console.error("Error:", error);
-            }
-        };
-
-        fetchData();
-    }, [notificationCount]);
+  const [showNotification, setShowNotification] = useState(false);
+  const [notificationCount, setNotificationCount] = useState(1); // Set the initial count to 1 for demonstration
 
   const handleNotificationClick = () => {
     // When the user clicks on the notification icon

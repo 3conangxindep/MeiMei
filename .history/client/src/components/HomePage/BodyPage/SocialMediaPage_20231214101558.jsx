@@ -93,8 +93,8 @@ const SocialMediaPage = () => {
               type='text'
               id="x"
               name="x"
-              value={x}
-              onChange={(e) => setX(e.target.value)}
+              value={instagram}
+              onChange={(e) => setInstagram(e.target.value)}
             />
           </li>
           <li className='box-border flex items-center w-full p-1 m-1 mb-64 border-b border-b-gray-500 border-b-solid'>
@@ -109,8 +109,8 @@ const SocialMediaPage = () => {
               // }} 
               type='text'
               id="instagram" name="instagram"
-              value={instagram}
-              onChange={(e) => setInstagram(e.target.value)}
+              value={x}
+              onChange={(e) => setX(e.target.value)}
             />
           </li>
           <button className='absolute flex items-center justify-center w-16 h-16 p-2 text-xl font-bold text-white bg-green-400 border-2 border-green-400 border-solid rounded-full cursor-pointer right-2 bottom-2 focus:shadow-md focus: shadow-green-400 hover:bg-green-300 active:shadow-green-400 hover:ring-2 hover:ring-green-400'

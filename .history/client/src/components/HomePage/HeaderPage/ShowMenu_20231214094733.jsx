@@ -7,10 +7,10 @@ import API_BASE_URL from '../../../apiConfig';
 
 const ShowMenu = () => {
     const userData = JSON.parse(localStorage.getItem('currentUser'));
-    const id_card = userData.data.id_card;
+    const idcard = userData.data.id_card;
     const [data, setData] = useState([]);
     useEffect(() => {
-        fetch(`http://${API_BASE_URL}:8000/api/user/${id_card}`)
+        fetch(`http://${API_BASE_URL}:8000/api/user/${idcard}`)
             .then((response) => response.json())
             .then((apiData) => {
                 setData(apiData);
@@ -91,7 +91,7 @@ const ShowMenu = () => {
                                 {/* menuImage */}
                                 <div className='flex items-center justify-center float-left'>
                                     {/* ảnh account */}
-                                    <Link to={`/InformationPage/${id_card}/${id_card}`} className='flex items-center justify-center border border-gray-500 border-solid rounded-full w-14 h-14'>
+                                    <Link to='/InformationPage' className='flex items-center justify-center border border-gray-500 border-solid rounded-full w-14 h-14'>
                                         <img className='object-cover w-4/5 rounded-full h-4/5'
                                             src={
                                                 imgPath === `http://${API_BASE_URL}:8000null`

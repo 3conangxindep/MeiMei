@@ -68,7 +68,7 @@ const SignUpPage = () => {
             }
             const csrf = await http.get("/sanctum/csrf-cookie");
             const register = await http.post(
-                "http://${API_BASE_URL}:8000/api/user",
+                `http://${API_BASE_URL}:8000/api/user`,
                 formData
             );
             console.log("Registration successful:", register);

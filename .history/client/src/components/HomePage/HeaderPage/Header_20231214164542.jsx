@@ -7,7 +7,7 @@ import API_BASE_URL from '../../../apiConfig';
 
 const Header = () => {
     const user = JSON.parse(localStorage.getItem('currentUser')).data;
-    const id_card = user.id_card;
+    
     const [showNotification, setShowNotification] = useState(false);
     const [notificationCount, setNotificationCount] = useState(1); // Set the initial count to 1 for demonstration
     
@@ -22,12 +22,12 @@ const Header = () => {
                     withCredentials: true,
                 });
 
-                await http.get(`/api/contact/${id_card}`);
+                await http.get(`/api/contact/${id_card}/${contact_id}`);
 
                 // Fetch user data
-                // const response = await http.get(`/api/user/${contact_id}`);
-                // setData(response.data);
-                // console.log(response.data.user_name);
+                const response = await http.get(`/api/user/${contact_id}`);
+                setData(response.data);
+                console.log(response.data.user_name);
             } catch (error) {
                 console.error("Error:", error);
             }
