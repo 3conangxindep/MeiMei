@@ -71,7 +71,7 @@ const NotifiCation = ({ onClose }) => {
                                 isNewNotification ? 'bg-gray-200' : ''
                             } hover:bg-gray-200 hover:border hover:border-gray-200 hover:rounded-md`}
                         >
-                            <NotificationItem notification={e} setImg={setImg} isNewNotification={isNewNotification} />
+                            <NotificationItem notification={e} setImg={setImg(e)} isNewNotification={isNewNotification} />
                         </li>
                     );
                 })}

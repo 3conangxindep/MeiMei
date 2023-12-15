@@ -10,8 +10,8 @@ const Header = () => {
     const id_card = user.id_card;
     const [showNotification, setShowNotification] = useState(false);
     const [notificationCount, setNotificationCount] = useState(); // Set the initial count to 1 for demonstration
-    const [notification, setNotification] = useState();
-    const [newNotification, setNewNotification] = useState();
+    const [follower, setFollower] = useState();
+    const [newFollower, setNewFollower] = useState();
 
     useEffect(() => {
     const fetchData = async () => {
@@ -24,15 +24,15 @@ const Header = () => {
                 withCredentials: true,
             });
 
-            const response = await http.get(`/api/contact/newNotification/${id_card}`);
+            const response = await http.get(`/api/contact/newFollower/${id_card}`);
             
-            //lấy số thông báo
-            setNotificationCount(response.data.newNotificationCount);
-            console.log("header - NotificationCount: " + response.data.newNotificationCount);
+            //lấy số thông báo để hiển thị
+            setNotificationCount(response.data.newFollowerCount);
+            console.log("header - NotificationCount: " + response.data.newFollowerCount);
             
-            //lấy new notification
-            setNewNotification(response.data.data);
-            console.log("header - newNotification " + JSON.stringify(response.data.data));
+            //lấy hết follower để hiển thị
+            setNewFollower(response.data.data);
+            console.log("header - Follower " + JSON.stringify(response.data.data));
 
         } catch (error) {
             console.error("Error:", error);
@@ -58,9 +58,9 @@ const Header = () => {
                 await http.get("/sanctum/csrf-cookie");
                 
                 //vừa set notification thành false và trả về newFollower để có màu khác khi hiển thị
-                await http.put(`/api/contact/notification/${id_card}`);
+                const response = await http.put(`/api/contact/follower/${id_card}`);
                 setNotificationCount(0);
-                console.log("header - newNotification turn to False " + notificationCount);
+                console.log("header - New Follower " + notificationCount);
                 // await http.put(`/api/contact/follower/${id_card}`);
                 
             } catch (error) {
@@ -69,7 +69,6 @@ const Header = () => {
         };
 
         fetchData();
-        setShowNotification(true);
   };
 
   const handleNotificationClose = () => {

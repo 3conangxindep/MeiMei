@@ -9,39 +9,33 @@ const Header = () => {
     const user = JSON.parse(localStorage.getItem('currentUser')).data;
     const id_card = user.id_card;
     const [showNotification, setShowNotification] = useState(false);
-    const [notificationCount, setNotificationCount] = useState(); // Set the initial count to 1 for demonstration
-    const [notification, setNotification] = useState();
-    const [newNotification, setNewNotification] = useState();
-
+    const [notificationCount, setNotificationCount] = useState(1); // Set the initial count to 1 for demonstration
+    
     useEffect(() => {
-    const fetchData = async () => {
-        try {
-            const http = axios.create({
-                baseURL: `http://${API_BASE_URL}:8000`,
-                headers: {
-                    "X-Requested-with": "XMLHttpRequest",
-                },
-                withCredentials: true,
-            });
+        const fetchData = async () => {
+            try {
+                const http = axios.create({
+                    baseURL: `http://${API_BASE_URL}:8000`,
+                    headers: {
+                        "X-Requested-with": "XMLHttpRequest",
+                    },
+                    withCredentials: true,
+                });
 
-            const response = await http.get(`/api/contact/newNotification/${id_card}`);
-            
-            //lấy số thông báo
-            setNotificationCount(response.data.newNotificationCount);
-            console.log("header - NotificationCount: " + response.data.newNotificationCount);
-            
-            //lấy new notification
-            setNewNotification(response.data.data);
-            console.log("header - newNotification " + JSON.stringify(response.data.data));
+                const response = await http.get(`/api/contact/follower/${id_card}`);
+                setNotificationCount(response.followerCount);
 
-        } catch (error) {
-            console.error("Error:", error);
-        }
-    };
+                // Fetch user data
+                // const response = await http.get(`/api/user/${contact_id}`);
+                // setData(response.data);
+                // console.log(response.data.user_name);
+            } catch (error) {
+                console.error("Error:", error);
+            }
+        };
 
-    fetchData();
-}, [id_card]);
-
+        fetchData();
+    }, [notificationCount]);
 
   const handleNotificationClick = () => {
     const fetchData = async () => {
@@ -54,13 +48,12 @@ const Header = () => {
                     withCredentials: true,
                 });
 
+                
+
                 // Ensure CSRF cookie is set
                 await http.get("/sanctum/csrf-cookie");
                 
-                //vừa set notification thành false và trả về newFollower để có màu khác khi hiển thị
-                await http.put(`/api/contact/notification/${id_card}`);
-                setNotificationCount(0);
-                console.log("header - newNotification turn to False " + notificationCount);
+                await http.put(`/api/contact/updateNotification/${id_card}`);
                 // await http.put(`/api/contact/follower/${id_card}`);
                 
             } catch (error) {
@@ -69,7 +62,6 @@ const Header = () => {
         };
 
         fetchData();
-        setShowNotification(true);
   };
 
   const handleNotificationClose = () => {

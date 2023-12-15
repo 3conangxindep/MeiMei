@@ -202,12 +202,12 @@ class contactController extends Controller
 
     public function getNewNotification($id)
     {
-        $newNotificationCount = DB::table('contact')
+        $newFollowerCount = DB::table('contact')
             ->where('contact_id', $id)
             ->where('notification', true)
             ->count();
 
-        $newNotification = DB::table('contact')
+        $newFollower = DB::table('contact')
             ->join('user', 'contact.id_card', '=', 'user.id_card')
             ->select('contact.*', 'user.*', 'contact.created_at as contact_created_at', 'contact.updated_at as contact_updated_at')
             ->where('contact.contact_id', $id)
@@ -215,21 +215,23 @@ class contactController extends Controller
             ->orderBy('contact.created_at', 'desc')
             ->get(); // Add this line to execute the query and get the results
 
-        return response()->json(['data' => $newNotification, 'newNotificationCount' => $newNotificationCount], 200);
+        return response()->json(['data' => $newFollower, 'newFollowerCount' => $newFollowerCount], 200);
     }
     public function getNotification($id)
     {
-        $notificationCount = DB::table('contact')
+        $newFollowerCount = DB::table('contact')
             ->where('contact_id', $id)
+            ->where('notification', true)
             ->count();
 
-        $notification = DB::table('contact')
+        $newFollower = DB::table('contact')
             ->join('user', 'contact.id_card', '=', 'user.id_card')
             ->select('contact.*', 'user.*', 'contact.created_at as contact_created_at', 'contact.updated_at as contact_updated_at')
             ->where('contact.contact_id', $id)
+            ->where('notification', true)
             ->orderBy('contact.created_at', 'desc')
             ->get(); // Add this line to execute the query and get the results
 
-        return response()->json(['data' => $notification, 'newFollowerCount' => $notificationCount], 200);
+        return response()->json(['data' => $newFollower, 'newFollowerCount' => $newFollowerCount], 200);
     }
 }

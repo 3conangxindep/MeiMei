@@ -26,10 +26,8 @@ const MyHomePage = () => {
                 // Update the contact table if id_card and contact_id are different
                 if (id_card !== contact_id) {
                     await http.put(`/api/contact/${id_card}/${contact_id}`);
-                    // await http.put(`/api/contact/follower/${id_card}`);
+                    
                 }
-
-
 
                 // Fetch user data
                 const response = await http.get(`/api/user/${contact_id}`);

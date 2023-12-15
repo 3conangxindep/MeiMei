@@ -31,9 +31,8 @@ Route::delete('/user/{id}', [UserController::class, 'destroy']);
 //follow
 Route::get('/contact', [contactController::class, 'index']);
 Route::get('/contact/{id}', [contactController::class, 'show']);
-Route::get('/contact/newNotification/{id}', [contactController::class, 'getNewNotification']);
-Route::get('/contact/notification/{id}', [contactController::class, 'getNotification']);
-Route::put('/contact/notification/{id}', [contactController::class, 'updateNotification']);
+Route::get('/contact/newFollower/{id}', [contactController::class, 'getNewFollower']);
+Route::put('/contact/follower/{id}', [contactController::class, 'updateNotification']);
 Route::get('/contact/following/{id_card}/{page}', [contactController::class, 'getFollowing']);
 Route::get('/contact/recent/{id_card}/{page}', [contactController::class, 'getRecent']);
 Route::put('/contact/{id_card}/{contact_id}', [contactController::class, 'updateContact']);

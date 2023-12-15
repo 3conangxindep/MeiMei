@@ -36,17 +36,16 @@ const NotifiCation = ({ onClose }) => {
     }, [id_card]);
 
     const setImg = (e) => {
-       // console.log(data.img_url)
-      let placeHolderImg = "";
-      let imgPath = `http://${API_BASE_URL}:8000${e.img_url}`;
-      // console.log(imgPath)
-      if (e.user_name) {
-          const nameSplit = e.user_name.split(" ");
-          placeHolderImg = `https://ui-avatars.com/api/?name=${nameSplit[0]}+${nameSplit[1]}`;
-      }
-      return imgPath === `http://${API_BASE_URL}:8000null`? placeHolderImg: imgPath;
-      
-    }
+        let placeHolderImg = '';
+        const imgPath = `http://${API_BASE_URL}:8000${e.img_url || ''}`;
+
+        if (e.user_name) {
+            const nameSplit = e.user_name.split(' ');
+            placeHolderImg = `https://ui-avatars.com/api/?name=${nameSplit[0]}+${nameSplit[1]}`;
+        }
+
+        return imgPath === `http://${API_BASE_URL}:8000null` ? placeHolderImg : imgPath;
+    };
 
     return (
         <div className='absolute right-3 py-2.5 px-3.5 bg-gray-100 border border-solid border-gray-300 rounded-md shadow-md shadow-green-300 z-20'>

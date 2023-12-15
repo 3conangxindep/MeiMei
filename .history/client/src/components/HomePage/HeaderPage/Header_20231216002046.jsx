@@ -32,7 +32,7 @@ const Header = () => {
             
             //lấy new notification
             setNewNotification(response.data.data);
-            console.log("header - newNotification " + JSON.stringify(response.data.data));
+            console.log("header - Follower " + JSON.stringify(response.data.data));
 
         } catch (error) {
             console.error("Error:", error);
@@ -60,7 +60,7 @@ const Header = () => {
                 //vừa set notification thành false và trả về newFollower để có màu khác khi hiển thị
                 await http.put(`/api/contact/notification/${id_card}`);
                 setNotificationCount(0);
-                console.log("header - newNotification turn to False " + notificationCount);
+                console.log("header - New Follower " + notificationCount);
                 // await http.put(`/api/contact/follower/${id_card}`);
                 
             } catch (error) {
