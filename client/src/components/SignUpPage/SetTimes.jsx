@@ -19,30 +19,33 @@ const SetTimes = ({ setCurrentMonth, setCurrentDay, setCurrentYear }) => {
   };
 
   return (
-    <div className="SetTimeContainer">
-      <label className='timeLabel'>生年月日</label>
-      <div className='Row'>
-        <div>
-          <select className="content" value={currentYear} onChange={(e) => setCurrentYearLocal(e.target.value)}>
-            {years.map((year, index) => (
-              <option key={index} value={1970 + index}>{year}</option>
-            ))}
-          </select>
-        </div>
-        <div>
-          <select className="content" value={currentMonth} onChange={(e) => setCurrentMonthLocal(e.target.value)}>
-            {months.map((month, index) => (
-              <option key={index} value={index + 1}>{month}</option>
-            ))}
-          </select>
-        </div>
-        <div>
-          <select className="content" value={currentDay} onChange={(e) => setCurrentDayLocal(e.target.value)}>
-            {days.map((day, index) => (
-              <option key={index} value={index + 1}>{day}</option>
-            ))}
-          </select>
-        </div>
+    <div className="w-full h-full flex flex-col">
+      <label className='font-bold text-green-500 text-sm'>生年月日</label>
+      <div className='w-full h-full grid grid-cols-3 gap-2'>
+        <select className="content col-span-1 rounded-lg h-10" 
+          value={currentYear} 
+          onChange={(e) => setCurrentYearLocal(e.target.value)}
+        >
+          {years.map((year, index) => (
+            <option key={index} value={1970 + index}>{year}</option>
+          ))}
+        </select>       
+        <select className="content col-span-1 rounded-lg h-10"             
+          value={currentMonth} 
+          onChange={(e) => setCurrentMonthLocal(e.target.value)}
+          >
+          {months.map((month, index) => (
+            <option key={index} value={index + 1}>{month}</option>
+          ))}
+        </select>       
+        <select className="content col-span-1 rounded-lg h-10" 
+          value={currentDay} 
+          onChange={(e) => setCurrentDayLocal(e.target.value)}
+          >
+          {days.map((day, index) => (
+            <option key={index} value={index + 1}>{day}</option>
+          ))}
+        </select>
         {handleDateChange()}
       </div>
     </div>
