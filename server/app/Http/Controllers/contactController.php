@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
@@ -54,6 +55,17 @@ class contactController extends Controller
         return response()->json($contact, 200);
     }
 
+    public function showNotification(string $id)
+    {
+        //lấy các giá trị id cùng nhau
+        $followerContact = Contact::where('contact_id', $id)->get();
+        if (!$followerContact) {
+            // Nếu không tồn tại, trả về lỗi 404 - Not Found
+            return response()->json(['error' => 'Contact not found'], 404);
+        }
+        return response()->json($followerContact, 200);
+    }
+
 
     /**
      * Update the specified resource in storage.
@@ -64,7 +76,6 @@ class contactController extends Controller
      */
     public function update(Request $request, $id_card, $contact_id)
     {
-        //
         // Check if the entry already exists in the contact table
         $existingContact = Contact::where('id_card', $id_card)->where('contact_id', $contact_id)->first();
 
@@ -85,7 +96,7 @@ class contactController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Remove the specified resource
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
@@ -93,17 +104,6 @@ class contactController extends Controller
     public function destroy($id)
     {
         //
-    }
-
-    public function showNotification(string $id)
-    {
-        //lấy các giá trị id cùng nhau
-        $followerContact = Contact::where('contact_id', $id)->get();
-        if (!$followerContact) {
-            // Nếu không tồn tại, trả về lỗi 404 - Not Found
-            return response()->json(['error' => 'Contact not found'], 404);
-        }
-        return response()->json($followerContact, 200);
     }
 
     // In contactController.php
@@ -118,6 +118,7 @@ class contactController extends Controller
             $existingContact = Contact::create([
                 'id_card' => $id_card,
                 'contact_id' => $contact_id,
+                'notification' => true,
             ]);
         } else {
             // Manually set the 'updated_at' timestamp to the current time
@@ -138,37 +139,25 @@ class contactController extends Controller
         return response()->json(['message' => 'Contact updated successfully', 'updated_at' => $updatedTime], 200);
     }
 
-    // public function updateContact($id_card, $contact_id)
-    // {
-    //     // Use raw SQL update to set the 'updated_at' timestamp to the current time for the specific row
-    //     $affectedRows = DB::table('contact')
-    //         ->where('id_card', $id_card)
-    //         ->where('contact_id', $contact_id)
-    //         ->update(['updated_at' => now()]);
 
-    //     // If no rows were affected, create a new entry
-    //     if (!$affectedRows) {
-    //         $existingContact = Contact::create([
-    //             'id_card' => $id_card,
-    //             'contact_id' => $contact_id,
-    //         ]);
-    //         $updatedTime = $existingContact->updated_at;
-    //     } else {
-    //         // Retrieve the 'updated_at' timestamp (optional)
-    //         $updatedTime = DB::table('contact')
-    //             ->where('id_card', $id_card)
-    //             ->where('contact_id', $contact_id)
-    //             ->value('updated_at');
-    //     }
-
-    //     return response()->json(['message' => 'Contact updated successfully', 'updated_at' => $updatedTime], 200);
-    // }
-
-    public function getFollowingContacts($id_card, $page)
+    public function updateNotification($id)
     {
-        $perPage = 5; // Số lượng mục trên mỗi trang
+        // Update all records where contact_id is $id and notification is true
+        $affectedRows = Contact::where('contact_id', $id)
+            ->where('notification', true)
+            ->update(['notification' => false]);
 
-        $totalContacts = DB::table('contact')
+        return response()->json(['affectedRows' => $affectedRows], 200);
+    }
+
+
+
+
+    public function getFollowing($id_card, $page)
+    {
+        $perPage = 2; // Số lượng mục trên mỗi trang
+
+        $total = DB::table('contact')
             ->where('id_card', $id_card)
             ->count();
 
@@ -184,16 +173,16 @@ class contactController extends Controller
             ->take($perPage)
             ->get();
 
-        $totalPages = ceil($totalContacts / $perPage);
+        $totalPages = ceil($total / $perPage);
 
         return response()->json(['data' => $contacts, 'totalPages' => $totalPages,], 200);
     }
 
-    public function getRecentContacts($id_card, $page)
+    public function getRecent($id_card, $page)
     {
-        $perPage = 5; // Số lượng mục trên mỗi trang
+        $perPage = 2; // Số lượng mục trên mỗi trang
 
-        $totalContacts = DB::table('contact')
+        $total = DB::table('contact')
             ->where('id_card', $id_card)
             ->count();
 
@@ -206,26 +195,41 @@ class contactController extends Controller
             ->take($perPage)
             ->get();
 
-        $totalPages = ceil($totalContacts / $perPage);
+        $totalPages = ceil($total / $perPage);
 
         return response()->json(['data' => $contacts, 'totalPages' => $totalPages], 200);
     }
 
-    public function getFollowerContacts($id)
+    public function getNewNotification($id)
     {
-
-        $followerCount = DB::table('contact')
+        $newNotificationCount = DB::table('contact')
             ->where('contact_id', $id)
+            ->where('notification', true)
             ->count();
 
-        $newFollower = DB::table('contact')
+        $newNotification = DB::table('contact')
             ->join('user', 'contact.id_card', '=', 'user.id_card')
             ->select('contact.*', 'user.*', 'contact.created_at as contact_created_at', 'contact.updated_at as contact_updated_at')
             ->where('contact.contact_id', $id)
-            ->orderBy('contact.created_at', 'desc') // Add this line for sorting by updated_at in descending order
-            ->first();
+            ->where('notification', true)
+            ->orderBy('contact.created_at', 'desc')
+            ->get(); // Add this line to execute the query and get the results
 
+        return response()->json(['data' => $newNotification, 'newNotificationCount' => $newNotificationCount], 200);
+    }
+    public function getNotification($id)
+    {
+        $notificationCount = DB::table('contact')
+            ->where('contact_id', $id)
+            ->count();
 
-        return response()->json(['data' => $newFollower, 'followerCount' => $followerCount], 200);
+        $notification = DB::table('contact')
+            ->join('user', 'contact.id_card', '=', 'user.id_card')
+            ->select('contact.*', 'user.*', 'contact.created_at as contact_created_at', 'contact.updated_at as contact_updated_at')
+            ->where('contact.contact_id', $id)
+            ->orderBy('contact.created_at', 'desc')
+            ->get(); // Add this line to execute the query and get the results
+
+        return response()->json(['data' => $notification, 'newFollowerCount' => $notificationCount], 200);
     }
 }

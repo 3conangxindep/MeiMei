@@ -74,15 +74,6 @@ const SignUpPage = () => {
             console.log("Registration successful:", register);
             // console.log(user.data.id_card);
 
-            const companyId = new FormData();
-            companyId.append("id_card", idCard);
-            const addCompany = await http.post(
-                "http://localhost:8000/api/company",
-                companyId
-            );
-            console.log("Added Company Id Successful");
-
-
             //login after register
             const login = await http.post("/api/login", {
                 email: email,

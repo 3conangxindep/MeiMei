@@ -32,7 +32,7 @@ const MyHomePage = () => {
 
                 // Fetch user data
                 const response = await http.get(`/api/user/${contact_id}`);
-                
+
                 setData(response.data);
                 console.log(response.data.user_name);
             } catch (error) {

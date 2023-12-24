@@ -9,11 +9,42 @@ const Header = () => {
     const user = JSON.parse(localStorage.getItem('currentUser')).data;
     const id_card = user.id_card;
     const [showNotification, setShowNotification] = useState(false);
-
-    const [notificationCount, setNotificationCount] = useState(1); // Set the initial count to 1 for demonstration
+    const [notificationCount, setNotificationCount] = useState(); // Set the initial count to 1 for demonstration
+    const [notification, setNotification] = useState();
+    const [newNotification, setNewNotification] = useState();
 
     useEffect(() => {
-        const fetchData = async () => {
+    const fetchData = async () => {
+        try {
+            const http = axios.create({
+                baseURL: `http://${API_BASE_URL}:8000`,
+                headers: {
+                    "X-Requested-with": "XMLHttpRequest",
+                },
+                withCredentials: true,
+            });
+
+            const response = await http.get(`/api/contact/newNotification/${id_card}`);
+            
+            //lấy số thông báo
+            setNotificationCount(response.data.newNotificationCount);
+            console.log("header - NotificationCount: " + response.data.newNotificationCount);
+            
+            //lấy new notification
+            setNewNotification(response.data.data);
+            console.log("header - newNotification " + JSON.stringify(response.data.data));
+
+        } catch (error) {
+            console.error("Error:", error);
+        }
+    };
+
+    fetchData();
+}, [id_card]);
+
+
+  const handleNotificationClick = () => {
+    const fetchData = async () => {
             try {
                 const http = axios.create({
                     baseURL: `http://${API_BASE_URL}:8000`,
@@ -22,62 +53,61 @@ const Header = () => {
                     },
                     withCredentials: true,
                 });
-                await http.get(`/api/contact/${id_card}`);
 
-                // Fetch user data
-                // const response = await http.get(`/api/user/${contact_id}`);
-                // setData(response.data);
-                // console.log(response.data.user_name);
+                // Ensure CSRF cookie is set
+                await http.get("/sanctum/csrf-cookie");
+                
+                //vừa set notification thành false và trả về newFollower để có màu khác khi hiển thị
+                await http.put(`/api/contact/notification/${id_card}`);
+                setNotificationCount(0);
+                console.log("header - newNotification turn to False " + notificationCount);
+                // await http.put(`/api/contact/follower/${id_card}`);
+                
             } catch (error) {
                 console.error("Error:", error);
             }
         };
 
         fetchData();
-    }, [notificationCount]);
-
-    const handleNotificationClick = () => {
-        // Khi người dùng nhấn vào biểu tượng thông báo
         setShowNotification(true);
-        // Reset notification count to 0
-        setNotificationCount(0);
-    };
+  };
 
-    const handleNotificationClose = () => {
-        // Khi người dùng nhấn vào ngoài hoặc nút đóng
-        setShowNotification(false);
-    };
+  const handleNotificationClose = () => {
+    // When the user clicks outside or on the close button
+    setShowNotification(false);
+  };
 
-    return (
-        <div className='box-border w-full h-20 px-4'>
-            {/* header-container */}
-            <div className='flex items-center justify-between w-full h-full'>
-                {/* header-text */}
-                <div className='float-left text-4xl pl-2.5 font-bold text-white'>MEIMEI</div>
-                <div className='p-2.5 flex justify-center items-center'>
-
-                    {/* notification */}
-                    {notificationCount > 0 && (
-                        <div className='absolute w-5 h-5 rounded-full border border-solid border-gray-500 flex justify-center items-center bg-red-500 text-white top-3 right-20'>
-                            {notificationCount}
-                        </div>
-                    )}
-                    <div className='flex items-center justify-center mr-4 overflow-hidden transition duration-200 border border-black border-solid rounded-full cursor-pointer h-9 w-9 2-8 hover:shadow-md hover:shadow-green-400 hover:bg-green-200 hover:ring-2 hover:ring-green-500'>
-                        <img
-                            className='object-cover w-4/5 h-4/5'
-                            src='https://cdn-icons-png.flaticon.com/128/3602/3602145.png'
-                            alt='notification'
-                            onClick={handleNotificationClick}
-                        />
-                    </div>
-
-                    {/* account */}
-                    <div><ShowMenu /></div>
-                </div>
+  return (
+    <div className='relative w-full h-20 px-4 border-box'>
+      {/* header-container */}
+      <div className='flex items-center justify-between w-full h-full'>
+        {/* header-text */}
+        <div className='float-left text-4xl pl-2.5 font-bold text-white'>MEIMEI</div>
+        <div className='p-2.5 flex justify-center items-center'>
+          {/* notification */}
+          {notificationCount > 0 && (
+            <div className='absolute w-5 h-5 rounded-full border border-solid border-gray-500 flex justify-center items-center bg-red-500 text-white top-3 right-20'>
+              {notificationCount}
             </div>
-            <div>{showNotification && <NotifiCation onClose={handleNotificationClose} />}</div> {/* Display Notification Component if showNotification is true */}
+          )}
+          <div className='flex items-center justify-center mr-4 overflow-hidden transition duration-200 border border-black border-solid rounded-full cursor-pointer h-9 w-9 2-8 hover:shadow-md hover:shadow-green-400 hover:bg-green-200'>
+            <img
+              className='object-cover w-4/5 rounded-full h-4/5'
+              src='https://cdn-icons-png.flaticon.com/128/3602/3602145.png'
+              alt='notification'
+              onClick={handleNotificationClick}
+            />
+          </div>
+
+          {/* account */}
+          <div>
+            <ShowMenu />
+          </div>
         </div>
-    );
+      </div>
+      <div>{showNotification && <NotifiCation onClose={handleNotificationClose} />}</div> {/* Display Notification Component if showNotification is true */}
+    </div>
+  );
 };
 
 export default Header;

@@ -126,6 +126,14 @@ const WorkInforPage = () => {
   const updateData = async (id, e) => {
     e.preventDefault();
     try {
+      const companyId = new FormData();
+      companyId.append("id_card", idcard);
+      const addCompany = await http.post(
+        `http://${API_BASE_URL}:8000/api/company`,
+        companyId
+      );
+      console.log("Added Company Id Successful");
+
       const formData = new FormData();
       formData.append("_method", "PUT");
       formData.append("com_name", com_name);
