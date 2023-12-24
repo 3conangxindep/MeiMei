@@ -36,15 +36,14 @@
   .GenderInput {
     top:10px;
     appearance: none;
-    width: 16px;
-    height: 16px;
+    /* width: 16px;
+    height: 16px; */
     border: 2px solid #ccc;
     border-radius: 50%;
     background-color: white;
-    position: relative;
     transition: border-color 0.15s ease-in-out;
     cursor: pointer;
-    margin-left: 20px;
+    /* margin-left: 20px; */
   }
 
   .GenderInput:checked::before {
@@ -61,7 +60,7 @@
   
   .GenderInput:focus {
     border-color: #56989A;
-    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+    box-shadow: 0 0 0 0.2rem rgba(0, 255, 123, 0.25);
     background-color: #5BBE7D;
   }
   

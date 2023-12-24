@@ -148,7 +148,7 @@ box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
     vertical-align: middle;
     cursor: pointer;
     border: 1px solid transparent;
-    border-radius: 0.25rem;
+    /* border-radius: 0.25rem; */
     color: #fff;
     background-color: #007bff;
     transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
@@ -170,7 +170,7 @@ box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
     vertical-align: middle;
     cursor: pointer;
     border: 1px solid transparent;
-    border-radius: 0.25rem;
+    /* border-radius: 0.25rem; */
     /* color: #212020; */
     background-image: linear-gradient(to top,#94F7E5,#6CCF9D,#5BBE7D,#56989A);
     transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,

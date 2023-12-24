@@ -1,4 +1,4 @@
-.myhome-container{
+/* .myhome-container{
     box-sizing: border-box;
     width: 100%;
     height: 100%;
@@ -50,14 +50,13 @@
 
 }
 .myhome-textname{
-    width: 90px;
-    height: 50px;
+    width: 100%;
+    height: 40px;
     border-bottom: 4px solid white;
     display: flex;
     justify-content: center;
     align-items: center;
-
-    font-size: 30px;
+    font-size:20px;
     font-weight: bold;
     color: white;
 }
@@ -73,7 +72,7 @@
 }
 
 /* right */
-.myhome-right{
+/* .myhome-right{
     width: 100%;
     background-color: white;
     border-radius: 0 10px 10px 0;
@@ -106,13 +105,12 @@
 .myhome-right li{
     width: 300px;
     padding: 7px;
-}
+} */ 
 .myhome-item{
     padding: 10px;
     display: flex;
     justify-content: flex-start;
     align-items: center;
-
     font-size: 17px;
     color: #3F3D3D;
 }

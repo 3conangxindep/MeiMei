@@ -1,9 +1,10 @@
-.contact-container{
+.contact-container {
     box-sizing: border-box;
     width: 100%;
     padding: 15px;
 }
-.contact-search{
+
+.contact-search {
     width: 100%;
     height: auto;
     margin-bottom: 15px;
@@ -11,21 +12,24 @@
     justify-content: end;
     align-items: center;
 }
-.card{
+
+.card {
     position: relative;
     width: 100%;
     height: 100vh;
     background-color: white;
 }
-.section{
-    position:relative;
-    width:100%;
+
+.section {
+    position: relative;
+    width: 100%;
     height: 55px;
     border-radius: 20px 20px 0 0;
-    background-image: linear-gradient(to left,#13C281,#519A98);
+    background-image: linear-gradient(to left, #13C281, #519A98);
     display: flex;
 }
-.section-item{
+
+.section-item {
     height: auto;
     float: left;
     padding: 15px;
@@ -37,12 +41,14 @@
 
     font-size: 18px;
 }
-.section-item:hover{
+
+.section-item:hover {
     background-color: #34ad8e;
     box-shadow: 0 0 0 5px #34ad8e;
-    border-radius: 5px;
+    border-radius: 10px 5px 5px 5px;
 }
-.contact-container a{
+
+.contact-container a {
     text-decoration: none;
     color: white;
     font-weight: bold;

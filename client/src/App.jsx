@@ -11,15 +11,14 @@ function App() {
 
   return (
     <AuthProvider>
-    <SelectedOptionsProvider>
-      <Router>
-        <Switch>
-          <Route path="/main" component={Main} />
-          <Route path="/signUpPage" component={SignUpPage} />
-          <Route component={LoginPage} />
-      
-        </Switch>
-      </Router>
+      <SelectedOptionsProvider>
+        <Router>
+          <Switch>
+            <Route path={`/main/:contact_id`} component={Main} />
+            <Route path="/signUpPage" component={SignUpPage} />
+            <Route component={LoginPage} />
+          </Switch>
+        </Router>
       </SelectedOptionsProvider>
     </AuthProvider>
   );

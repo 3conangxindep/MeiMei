@@ -22,13 +22,14 @@
 .content{
     width: 100%;
     border: 1px solid #ccc;
-    padding: 10px;
-    border-radius: 10px;
+    cursor: pointer;
+    /* padding: 10px;
+    border-radius: 10px; */
     transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 }
 .content:hover,
 .content:focus {
-border-color: #80bdff;
+border-color: #80ffb1;
 outline: 0;
-box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+box-shadow: 0 0 0 0.2rem rgba(0, 255, 123, 0.25);
 }
