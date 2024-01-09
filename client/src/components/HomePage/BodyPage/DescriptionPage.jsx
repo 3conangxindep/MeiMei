@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from "axios";
 import Modal from 'react-modal';
 import API_BASE_URL from '../../../apiConfig';
@@ -27,7 +27,25 @@ const DescriptionPage = () => {
   const userData = JSON.parse(localStorage.getItem('currentUser'));
   const idcard = userData.data.id_card;
 
-  const [description, setDescription] = useState(userData.data.description);
+  const [data, setData] = useState([]);
+  useEffect(() => {
+    fetch(`http://${API_BASE_URL}:8000/api/user/${idcard}`)
+      .then((response) => response.json())
+      .then((apiData) => {
+        setData(apiData);
+      })
+      .catch((error) => {
+        console.error("Lỗi khi gửi yêu cầu:", error);
+      });
+  }, []);
+
+  useEffect(() => {
+    if (data.description) {
+      setDescription(data.description);
+    }
+  }, [data.description]);
+
+  const [description, setDescription] = useState([""]);
   const updateData = async (id, e) => {
     e.preventDefault();
     try {
@@ -51,7 +69,7 @@ const DescriptionPage = () => {
       const current = localStorage.setItem("currentUser", JSON.stringify(user)); // update localstorage
       // console.log(response)
       if (update.status === 200) {
-        console.log("Updated data Successful: ", update.data.id_card);
+        console.log("Updated Description Successful");
         handleUpdateSuccess();
       } else {
         console.error('Lỗi', update.status);

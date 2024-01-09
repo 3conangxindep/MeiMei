@@ -126,13 +126,21 @@ const WorkInforPage = () => {
   const updateData = async (id, e) => {
     e.preventDefault();
     try {
-      const companyId = new FormData();
-      companyId.append("id_card", idcard);
-      const addCompany = await http.post(
-        `http://${API_BASE_URL}:8000/api/company`,
-        companyId
+      const checkIdCardExistence = await http.get(
+        `http://${API_BASE_URL}:8000/api/company/${idcard}`
       );
-      console.log("Added Company Id Successful");
+      console.log(checkIdCardExistence);
+      if (checkIdCardExistence.data.id_card) {
+        console.log(checkIdCardExistence);
+      } else {
+        const companyId = new FormData();
+        companyId.append("id_card", idcard);
+        const addCompany = await http.post(
+          `http://${API_BASE_URL}:8000/api/company`,
+          companyId
+        );
+        console.log("Added Company Id Successful");
+      }
 
       const formData = new FormData();
       formData.append("_method", "PUT");
@@ -162,7 +170,7 @@ const WorkInforPage = () => {
       // const current = localStorage.setItem("currentUser", JSON.stringify(user)); // update localstorage
       // console.log(response)
       if (update.status === 200) {
-        console.log("Updated Company Successful: ", update.data.id_card);
+        console.log("Updated WorkInforPage Successful");
         handleUpdateSuccess();
       } else {
         console.error('Lỗi', update.status);
