@@ -28,8 +28,30 @@ const SocialMediaPage = () => {
   const userData = JSON.parse(localStorage.getItem('currentUser'));
   const idcard = userData.data.id_card;
 
-  const [instagram, setInstagram] = useState(userData.data.instagram);
-  const [x, setX] = useState(userData.data.x);
+  const [data, setData] = useState([]);
+  useEffect(() => {
+    fetch(`http://${API_BASE_URL}:8000/api/user/${idcard}`)
+      .then((response) => response.json())
+      .then((apiData) => {
+        setData(apiData);
+      })
+      .catch((error) => {
+        console.error("Lỗi khi gửi yêu cầu:", error);
+      });
+  }, []);
+
+  useEffect(() => {
+    if (data.instagram) {
+      setInstagram(data.instagram);
+    }
+    if (data.x) {
+      setX(data.x);
+    }
+  }, [data.instagram, data.x]);
+
+
+  const [instagram, setInstagram] = useState([""]);
+  const [x, setX] = useState([""]);
   const updateData = async (id, e) => {
     e.preventDefault();
     try {
@@ -54,7 +76,7 @@ const SocialMediaPage = () => {
       const current = localStorage.setItem("currentUser", JSON.stringify(user)); // update localstorage
       // console.log(response)
       if (update.status === 200) {
-        console.log("Updated data Successful: ", update.data.id_card);
+        console.log("Updated SocialMediaPage Successful");
         handleUpdateSuccess();
       } else {
         console.error('Lỗi', update.status);

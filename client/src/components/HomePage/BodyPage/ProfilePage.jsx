@@ -23,14 +23,6 @@ const ProfilePage = () => {
   const userData = JSON.parse(localStorage.getItem('currentUser'));
   const idcard = userData.data.id_card;
 
-  const [tel, setTel] = useState(userData.data.tel);
-  const [user_name, setUserName] = useState(userData.data.user_name);
-  const [furigana, setFurigana] = useState(userData.data.furigana);
-  const [birthday, setBirthday] = useState(userData.data.birthday);
-  const [post_code, setPostcode] = useState(userData.data.post_code);
-  const [address, setAddress] = useState(userData.data.address);
-  const [gender, setGender] = useState(userData.data.gender);
-  const [img_url, setImgUrl] = useState(undefined);
   const http = axios.create({
     baseURL: `http://${API_BASE_URL}:8000`,
     headers: {
@@ -38,6 +30,51 @@ const ProfilePage = () => {
     },
     withCredentials: true,
   });
+
+  const [data, setData] = useState([]);
+  useEffect(() => {
+    fetch(`http://${API_BASE_URL}:8000/api/user/${idcard}`)
+      .then((response) => response.json())
+      .then((apiData) => {
+        setData(apiData);
+      })
+      .catch((error) => {
+        console.error("Lỗi khi gửi yêu cầu:", error);
+      });
+  }, []);
+
+  useEffect(() => {
+    if (data.user_name) {
+      setUserName(data.user_name);
+    }
+    if (data.furigana) {
+      setFurigana(data.furigana);
+    }
+    if (data.gender) {
+      setGender(data.gender);
+    }
+    if (data.birthday) {
+      setBirthday(data.birthday);
+    }
+    if (data.tel) {
+      setTel(data.tel);
+    }
+    if (data.post_code) {
+      setPostcode(data.post_code);
+    }
+    if (data.address) {
+      setAddress(data.address);
+    }
+  }, [data.user_name, data.furigana, data.gender, data.birthday, data.tel, data.post_code, data.address]);
+
+  const [user_name, setUserName] = useState([""]);
+  const [furigana, setFurigana] = useState([""]);
+  const [gender, setGender] = useState([""]);
+  const [birthday, setBirthday] = useState([""]);
+  const [tel, setTel] = useState([""]);
+  const [post_code, setPostcode] = useState([""]);
+  const [address, setAddress] = useState([""]);
+  const [img_url, setImgUrl] = useState(undefined);
   //method get path_img
   const handleFileChange = (e) => {
     const file = e.target.files[0];
@@ -51,7 +88,7 @@ const ProfilePage = () => {
       return ''; // Or you can handle it differently based on your requirements
     }
     // Loại bỏ tất cả các ký tự không phải số
-    const numericValue = value.replace(/\D/g, '');
+    const numericValue = String(value).replace(/\D/g, '');
 
     // Kiểm tra xem có đủ số để định dạng không
     if (numericValue.length >= 3) {
@@ -66,7 +103,7 @@ const ProfilePage = () => {
       return ''; // Or you can handle it differently based on your requirements
     }
     // Loại bỏ tất cả các ký tự không phải số
-    const numericValue = value.replace(/\D/g, '');
+    const numericValue = String(value).replace(/\D/g, '');
 
     return numericValue;
   };
@@ -103,7 +140,7 @@ const ProfilePage = () => {
       setImgUrl(undefined)
       // console.log(response)
       if (update.status === 200) {
-        console.log("Updated data Successful: ", update.data.id_card);
+        console.log("Updated ProfilePage Successful");
         handleUpdateSuccess();
       } else {
         console.error('Lỗi', update.status);
