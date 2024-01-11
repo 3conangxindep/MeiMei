@@ -8,17 +8,26 @@ const RecentAccounts = () => {
     const userData = JSON.parse(localStorage.getItem('currentUser'));
     const id_card = userData.data.id_card;
     const [data, setData] = useState([]);
+    const search = localStorage.getItem('searchTerm');
+    // console.log(search);
 
     const [currentPage, setCurrentPage] = useState(1);
     const [totalPages, setTotalPages] = useState(1);
 
 
     useEffect(() => {
-        fetch(`http://${API_BASE_URL}:8000/api/contact/recent/${id_card}/${currentPage}`)
+        let apiUrl = `http://${API_BASE_URL}:8000/api/contact/recent/${id_card}/${currentPage}`;
+      // Kiểm tra xem có từ khóa tìm kiếm không
+      if (search) {
+        apiUrl = `http://${API_BASE_URL}:8000/api/contact/${id_card}/${currentPage}/${search}`;
+      }
+
+      fetch(apiUrl)
             .then((response) => response.json())
             .then((apiData) => {
                 setData(apiData.data);
                 setTotalPages(apiData.totalPages);
+                // console.log(apiData.data);
             })
             .catch((error) => {
                 console.error("Lỗi khi gửi yêu cầu:", error);

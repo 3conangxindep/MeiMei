@@ -2,26 +2,14 @@ import React, { useState } from 'react';
 import './Search.css';
 
 const Search = () => {
-    // Dữ liệu ví dụ
-    const initialData = [
-        { id: 1, name: 'huyen trang', email: 'huyentrang@example.com' },
-        { id: 2, name: 'trang kieu', email: 'trangkieu@example.com' },
-        { id: 3, name: 'nhi', email: 'nhi@example.com' },
-        { id: 4, name: 'yen nhi', email: 'yennhi@example.com' },
-        { id: 5, name: 'trang nhi', email: 'trangnhi@example.com' },
-    ];
-
-    const [data, setData] = useState(initialData);
-    const [searchTerm, setSearchTerm] = useState('');
+    const [searchTerm, setSearchTerm] = useState([""]);
 
     const handleSearch = () => {
-        const filteredData = initialData.filter(
-            item =>
-                item.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                item.email.toLowerCase().includes(searchTerm.toLowerCase())
-        );
-
-        setData(filteredData);
+        // Lưu searchTerm vào localStorage
+        localStorage.setItem('searchTerm', searchTerm);
+        // const search = localStorage.getItem('searchTerm');
+        // console.log(search)
+        // window.location.reload();
     };
 
     const handleInputChange = event => {
@@ -49,11 +37,6 @@ const Search = () => {
                         src='https://cdn-icons-png.flaticon.com/128/711/711319.png' alt=''
                     />
                 </button>
-                {/* <ul>
-                    {data.map(item => (
-                        <li key={item.id}>{item.name}</li>
-                    ))}
-                </ul> */}
             </div>
         </div>
     );

@@ -28,6 +28,7 @@ Route::put('/user/{id}', [UserController::class, 'update']);
 Route::delete('/user/{id}', [UserController::class, 'destroy']);
 
 
+
 //follow
 Route::get('/contact', [contactController::class, 'index']);
 Route::get('/contact/{id}', [contactController::class, 'show']);
@@ -37,6 +38,8 @@ Route::put('/contact/notification/{id}', [contactController::class, 'updateNotif
 Route::get('/contact/following/{id_card}/{page}', [contactController::class, 'getFollowing']);
 Route::get('/contact/recent/{id_card}/{page}', [contactController::class, 'getRecent']);
 Route::put('/contact/{id_card}/{contact_id}', [contactController::class, 'updateContact']);
+Route::get('/contact/{id_card}/{page}/{search}', [contactController::class, 'search']);
+
 
 //company information
 Route::get('/company', [CompanyController::class, 'index']);
