@@ -13,33 +13,58 @@ const RecentAccounts = () => {
 
     const [currentPage, setCurrentPage] = useState(1);
     const [totalPages, setTotalPages] = useState(1);
+    const [isSaved, setIsSaved] = useState(0);
 
 
     useEffect(() => {
-        let apiUrl = `http://${API_BASE_URL}:8000/api/contact/recent/${id_card}/${currentPage}`;
-      // Kiểm tra xem có từ khóa tìm kiếm không
-      if (search) {
-        apiUrl = `http://${API_BASE_URL}:8000/api/contact/${id_card}/${currentPage}/${search}`;
-      }
+        const fetchData = async () => {
+            try {
+                // let apiUrl = `http://${API_BASE_URL}:8000/api/contact/recent/${id_card}/${currentPage}`;
+                const response = await fetch(`http://${API_BASE_URL}:8000/api/contact/recent/${id_card}/${currentPage}`);
+                // Kiểm tra xem có từ khóa tìm kiếm không
+                if (search) {
+                    response = await fetch(`http://${API_BASE_URL}:8000/api/contact/${id_card}/${currentPage}/${search}`);
+                }
+                const apiData = await response.json();
 
-      fetch(apiUrl)
-            .then((response) => response.json())
-            .then((apiData) => {
                 setData(apiData.data);
                 setTotalPages(apiData.totalPages);
                 // console.log(apiData.data);
-            })
-            .catch((error) => {
-                console.error("Lỗi khi gửi yêu cầu:", error);
+
+            } catch (error) {
+                console.error('Lỗi khi gửi yêu cầu:', error);
+            }
+        };
+        fetchData();
+    }, [currentPage, id_card, isSaved]);
+
+    //cách viết phần này của Recent và Following là khác nhau   
+    const handleStarClick = async (event, id_card, contact_id) => {
+        event.preventDefault();
+        event.stopPropagation();
+
+        try {
+            const response = await fetch(`http://${API_BASE_URL}:8000/api/contact/like/${id_card}/${contact_id}`, {
+                method: 'PUT',
             });
-    }, [currentPage, id_card]);
+            const responseData = await response.json();
 
-
-    const [isSaved, setIsSaved] = useState(false);
-
-    const toggleSaved = () => {
-        setIsSaved(!isSaved);
+            console.log('like', responseData);
+            setIsSaved(prevIsSaved => {
+                // Sử dụng hàm callback để đảm bảo cập nhật đồng bộ và kích hoạt useEffect
+                return !prevIsSaved;
+            });
+        } catch (error) {
+            console.error('like', error);
+        }
     };
+
+
+    // const [isSaved, setIsSaved] = useState(false);
+
+    // const toggleSaved = () => {
+    //     setIsSaved(!isSaved);
+    // };
     const setImg = (e) => {
         // console.log(data.img_url)
         let placeHolderImg = "";
@@ -88,8 +113,8 @@ const RecentAccounts = () => {
                                         alt=''
                                     />
                                     {/* set ảnh được đánh dấu sao va không được đánh dấu sao */}
-                                    <div onClick={toggleSaved}>
-                                        {isSaved ? (
+                                    <div onClick={(event) => handleStarClick(event, id_card, e.id_card)}>
+                                        {e.like ? (
                                             <img
                                                 className='w-3.5 hover:bg-gray-200 hover:border-gray-200 hover:border hover:rounded-md'
                                                 style={{ width: '15px' }}
