@@ -155,7 +155,7 @@ class contactController extends Controller
 
     public function getFollowing($id_card, $page)
     {
-        $perPage = 2; // Số lượng mục trên mỗi trang
+        $perPage = 5; // Số lượng mục trên mỗi trang
 
         $total = DB::table('contact')
             ->where('id_card', $id_card)
@@ -178,9 +178,39 @@ class contactController extends Controller
         return response()->json(['data' => $contacts, 'totalPages' => $totalPages,], 200);
     }
 
+    public function search($id_card, $page, $search)
+    {
+        $perPage = 5; // Số lượng mục trên mỗi trang
+
+        $total = DB::table('contact')
+            ->leftJoin('user', 'contact.contact_id', '=', 'user.id_card')
+            ->where('contact.id_card', $id_card)
+            ->where(function ($query) use ($search) {
+                $query->where('user.user_name', 'like', '%' . $search . '%')
+                    ->orWhere('user.email', 'like', '%' . $search . '%');
+            })
+            ->count();
+
+        $users = DB::table('contact')
+            ->leftJoin('user', 'contact.contact_id', '=', 'user.id_card')
+            ->select('contact.*', 'user.*')
+            ->where('contact.id_card', $id_card)
+            ->where(function ($query) use ($search) {
+                $query->where('user.user_name', 'like', '%' . $search . '%')
+                    ->orWhere('user.email', 'like', '%' . $search . '%');
+            })
+            ->skip(($page - 1) * $perPage)
+            ->take($perPage)
+            ->get();
+
+        $totalPages = ceil($total / $perPage);
+
+        return response()->json(['data' => $users, 'totalPages' => $totalPages], 200);
+    }
+
     public function getRecent($id_card, $page)
     {
-        $perPage = 2; // Số lượng mục trên mỗi trang
+        $perPage = 5; // Số lượng mục trên mỗi trang
 
         $total = DB::table('contact')
             ->where('id_card', $id_card)
@@ -232,4 +262,5 @@ class contactController extends Controller
 
         return response()->json(['data' => $notification, 'newFollowerCount' => $notificationCount], 200);
     }
+
 }
