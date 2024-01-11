@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Log;
 
 
 class contactController extends Controller
@@ -139,6 +140,47 @@ class contactController extends Controller
         return response()->json(['message' => 'Contact updated successfully', 'updated_at' => $updatedTime], 200);
     }
 
+    public function updateLike($id_card, $contact_id)
+    {
+        // Find the contact record
+        $contact = Contact::where('id_card', $id_card)
+            ->where('contact_id', $contact_id)
+            ->first(); // Use 'first()' to get a single result
+
+        $contacts = Contact::where('id_card', $id_card)
+            ->get();
+
+
+        if ($contact && $contacts->isNotEmpty()) {
+            // Log the original data
+            Log::info('Original Contact Data', ['data' => $contact->toArray()]);
+            // Log all contacts with the same id_card
+            Log::info('All Contacts with the same id_card', ['data' => $contacts->toArray()], '\n');
+
+            // Toggle the 'like' field
+            $contact->where('id_card', $id_card)
+                ->where('contact_id', $contact_id)
+                ->update(['like' => !$contact->like, 'updated_at' => $contact->updated_at]);
+
+
+            // Log the updated data
+            Log::info('Contact updated', ['data' => $contact->toArray()]);
+
+            // Fetch all contacts with the same id_card
+            $contacts = Contact::where('id_card', $id_card)
+                ->get();
+
+            // Log all contacts with the same id_card
+            Log::info('All Contacts with the same id_card', ['data' => $contacts->toArray()], '\n');
+
+
+            return response()->json(['message' => 'Contact updated successfully', 'data' => $contact, 'all_contacts' => $contacts], 200);
+        } else {
+            // Log the error or handle it appropriately
+            return response()->json(['error' => 'Contact not found'], 404);
+        }
+    }
+
 
     public function updateNotification($id)
     {
@@ -161,12 +203,12 @@ class contactController extends Controller
             ->where('id_card', $id_card)
             ->count();
 
-        $created_at = DB::table('contact')
-            ->where('id_card', $id_card);
+        // $created_at = DB::table('contact')
+        //     ->where('id_card', $id_card);
 
         $contacts = DB::table('contact')
             ->join('user', 'contact.contact_id', '=', 'user.id_card')
-            ->select('contact.*', 'user.*', 'contact.created_at as contact_created_at', 'contact.updated_at as contact_updated_at')
+            ->select('contact.*', 'user.img_url', 'user.user_name', 'user.email', 'contact.created_at as contact_created_at', 'contact.updated_at as contact_updated_at')
             ->where('contact.id_card', $id_card)
             ->orderBy('user.user_name') // Add this line for alphabetical sorting
             ->skip(($page - 1) * $perPage)
@@ -221,6 +263,30 @@ class contactController extends Controller
             ->select('contact.*', 'user.*', 'contact.created_at as contact_created_at', 'contact.updated_at as contact_updated_at')
             ->where('contact.id_card', $id_card)
             ->orderBy('contact.updated_at', 'desc') // Add this line for sorting by updated_at in descending order
+            ->skip(($page - 1) * $perPage)
+            ->take($perPage)
+            ->get();
+
+        $totalPages = ceil($total / $perPage);
+
+        return response()->json(['data' => $contacts, 'totalPages' => $totalPages], 200);
+    }
+
+    public function getFavorite($id_card, $page)
+    {
+        $perPage = 2; // Số lượng mục trên mỗi trang
+
+        $total = DB::table('contact')
+            ->where('id_card', $id_card)
+            ->where('like', true) // Only count rows where 'like' is true
+            ->count();
+
+        $contacts = DB::table('contact')
+            ->join('user', 'contact.contact_id', '=', 'user.id_card')
+            ->select('contact.*', 'user.img_url', 'user.user_name', 'user.email', 'contact.created_at as contact_created_at', 'contact.updated_at as contact_updated_at')
+            ->where('contact.id_card', $id_card)
+            ->where('contact.like', true) // Only fetch rows where 'like' is true
+            ->orderBy('user.user_name')
             ->skip(($page - 1) * $perPage)
             ->take($perPage)
             ->get();
