@@ -9,13 +9,19 @@ import FavoritePage from './FavoritePage';
 
 
 const ContactPage = () => {
+    const [searchTerm, setSearchTerm] = useState("");
+
+    const handleSearchChange = (term) => {
+        setSearchTerm(term);
+    };
+
     const [currentPage, setCurrentPage] = useState('RecentAccounts');
 
     return (
         // contact-container
         <div className='box-border w-full p-4'>
             {/* contact-search */}
-            <div className='flex items-center justify-end w-full h-full mb-4'><Search /></div>
+            <div className='flex items-center justify-end w-full h-full mb-4'><Search onSearch={handleSearchChange} /></div>
             {/* section */}
             <div className='relative flex items-center justify-center w-full bg-green-300 rounded rounded-b h-14 rounded-t-3xl'>
                 <NavLink
@@ -54,10 +60,10 @@ const ContactPage = () => {
             {/* card */}
             <div className='relative w-full h-screen bg-white'>
                 <Switch>
-                    <Route path="/ContactPage/RecentAccounts"><RecentAccounts /></Route>
-                    <Route path="/ContactPage/Following"><Following /></Route>
+                    <Route path="/ContactPage/RecentAccounts"><RecentAccounts searchTerm={searchTerm} onSearchChange={handleSearchChange} /></Route>
+                    <Route path="/ContactPage/Following"><Following searchTerm={searchTerm} onSearchChange={handleSearchChange} /></Route>
                     <Route path="/ContactPage/GroupMembers"><GroupMembers /></Route>
-                    <Route path='/ContactPage/FavoritePage'><FavoritePage /></Route>
+                    <Route path='/ContactPage/FavoritePage'><FavoritePage searchTerm={searchTerm} onSearchChange={handleSearchChange} /></Route>
                     <Redirect to='/ContactPage/RecentAccounts' />
                 </Switch>
             </div>

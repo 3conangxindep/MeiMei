@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import './Search.css';
 
-const Search = () => {
-    const [searchTerm, setSearchTerm] = useState([""]);
+const Search = ({ onSearch }) => {
+    const [searchTerm, setSearchTerm] = useState("");
 
     const handleSearch = () => {
         // Lưu searchTerm vào localStorage
@@ -10,6 +10,7 @@ const Search = () => {
         // const search = localStorage.getItem('searchTerm');
         // console.log(search)
         // window.location.reload();
+        onSearch(searchTerm);
     };
 
     const handleInputChange = event => {

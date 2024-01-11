@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import API_BASE_URL from '../../../apiConfig';
 
 
-const FavoritePage = () => {
+const FavoritePage = ({ searchTerm, onSearchChange }) => {
     // Truy cập dữ liệu người dùng đã lưu trữ sau khi đăng nhập
     const userData = JSON.parse(localStorage.getItem('currentUser'));
     const id_card = userData.data.id_card;
@@ -16,7 +16,14 @@ const FavoritePage = () => {
 
 
     useEffect(() => {
-        fetch(`http://${API_BASE_URL}:8000/api/contact/favorite/${id_card}/${currentPage}`)
+        // setSearch(localStorage.getItem('searchTerm'));
+        let apiUrl = `http://${API_BASE_URL}:8000/api/contact/favorite/${id_card}/${currentPage}`;
+        // Kiểm tra xem có từ khóa tìm kiếm không
+        if (searchTerm) {
+            apiUrl = `http://${API_BASE_URL}:8000/api/contact/favorite/${id_card}/${currentPage}/${searchTerm}`;
+
+        }
+        fetch(apiUrl)
             .then((response) => response.json())
             .then((apiData) => {
                 setData(apiData.data);
@@ -27,7 +34,7 @@ const FavoritePage = () => {
             .catch((error) => {
                 console.error("Lỗi khi gửi yêu cầu:", error);
             });
-    }, [currentPage, id_card, isSaved]);
+    }, [currentPage, id_card, isSaved, searchTerm]);
 
 
     // const toggleSaved = (like) => {
@@ -72,6 +79,11 @@ const FavoritePage = () => {
             setCurrentPage(page);
         }
     };
+
+    useEffect(() => {
+        // Thông báo cho component rằng đã có sự thay đổi trong searchTerm
+        onSearchChange(searchTerm);
+      }, [searchTerm, onSearchChange]);
 
     return (
         <div>

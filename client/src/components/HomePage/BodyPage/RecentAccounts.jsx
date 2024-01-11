@@ -3,12 +3,12 @@ import React, { useState, useEffect } from 'react';
 import "./RecentAccounts.css"
 import API_BASE_URL from '../../../apiConfig';
 
-const RecentAccounts = () => {
+const RecentAccounts = ({ searchTerm, onSearchChange }) => {
     // Truy cập dữ liệu người dùng đã lưu trữ sau khi đăng nhập
     const userData = JSON.parse(localStorage.getItem('currentUser'));
     const id_card = userData.data.id_card;
     const [data, setData] = useState([]);
-    const search = localStorage.getItem('searchTerm');
+    // const search = localStorage.getItem('searchTerm');
     // console.log(search);
 
     const [currentPage, setCurrentPage] = useState(1);
@@ -20,10 +20,10 @@ const RecentAccounts = () => {
         const fetchData = async () => {
             try {
                 // let apiUrl = `http://${API_BASE_URL}:8000/api/contact/recent/${id_card}/${currentPage}`;
-                const response = await fetch(`http://${API_BASE_URL}:8000/api/contact/recent/${id_card}/${currentPage}`);
+                let response = await fetch(`http://${API_BASE_URL}:8000/api/contact/recent/${id_card}/${currentPage}`);
                 // Kiểm tra xem có từ khóa tìm kiếm không
-                if (search) {
-                    response = await fetch(`http://${API_BASE_URL}:8000/api/contact/${id_card}/${currentPage}/${search}`);
+                if (searchTerm) {
+                    response = await fetch(`http://${API_BASE_URL}:8000/api/contact/${id_card}/${currentPage}/${searchTerm}`);
                 }
                 const apiData = await response.json();
 
@@ -36,7 +36,7 @@ const RecentAccounts = () => {
             }
         };
         fetchData();
-    }, [currentPage, id_card, isSaved]);
+    }, [currentPage, id_card, isSaved, searchTerm]);
 
     //cách viết phần này của Recent và Following là khác nhau   
     const handleStarClick = async (event, id_card, contact_id) => {
@@ -83,6 +83,11 @@ const RecentAccounts = () => {
             setCurrentPage(page);
         }
     };
+
+    useEffect(() => {
+        // Thông báo cho component rằng đã có sự thay đổi trong searchTerm
+        onSearchChange(searchTerm);
+      }, [searchTerm, onSearchChange]);
 
     return (
         <div>

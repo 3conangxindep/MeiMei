@@ -39,6 +39,7 @@ Route::put('/contact/notification/{id}', [contactController::class, 'updateNotif
 Route::get('/contact/following/{id_card}/{page}', [contactController::class, 'getFollowing']);
 Route::get('/contact/recent/{id_card}/{page}', [contactController::class, 'getRecent']);
 Route::get('/contact/favorite/{id_card}/{page}', [contactController::class, 'getFavorite']);
+Route::get('/contact/favorite/{id_card}/{page}/{search}', [contactController::class, 'searchFavorite']);
 Route::put('/contact/{id_card}/{contact_id}', [contactController::class, 'updateContact']);
 Route::get('/contact/{id_card}/{page}/{search}', [contactController::class, 'search']);
 

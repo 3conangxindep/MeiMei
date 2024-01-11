@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import API_BASE_URL from '../../../apiConfig';
 
 
-const Following = () => {
+const Following = ({ searchTerm, onSearchChange }) => {
   // Truy cập dữ liệu người dùng đã lưu trữ sau khi đăng nhập
   const userData = JSON.parse(localStorage.getItem('currentUser'));
   const id_card = userData.data.id_card;
@@ -15,7 +15,7 @@ const Following = () => {
   const [isSaved, setIsSaved] = useState();
 
   // const [search, setSearch] = useState("");
-  const search = localStorage.getItem('searchTerm');
+  // const search = localStorage.getItem('searchTerm');
 
 
   // console.log(search);
@@ -25,8 +25,8 @@ const Following = () => {
     // setSearch(localStorage.getItem('searchTerm'));
     let apiUrl = `http://${API_BASE_URL}:8000/api/contact/following/${id_card}/${currentPage}`;
     // Kiểm tra xem có từ khóa tìm kiếm không
-    if (search) {
-      apiUrl = `http://${API_BASE_URL}:8000/api/contact/${id_card}/${currentPage}/${search}`;
+    if (searchTerm) {
+      apiUrl = `http://${API_BASE_URL}:8000/api/contact/${id_card}/${currentPage}/${searchTerm}`;
 
     }
 
@@ -42,7 +42,7 @@ const Following = () => {
       .catch((error) => {
         console.error("Lỗi khi gửi yêu cầu:", error);
       });
-  }, [currentPage, id_card, isSaved]);
+  }, [currentPage, id_card, isSaved, searchTerm]);
 
   // const [isSaved, setIsSaved] = useState(false);
   // const toggleSaved = () => {
@@ -86,6 +86,11 @@ const Following = () => {
       setCurrentPage(page);
     }
   };
+
+  useEffect(() => {
+    // Thông báo cho component rằng đã có sự thay đổi trong searchTerm
+    onSearchChange(searchTerm);
+  }, [searchTerm, onSearchChange]);
 
   return (
     <div>
