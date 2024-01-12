@@ -49,15 +49,16 @@ const NotifiCation = ({ onClose }) => {
     }
 
     return (
-        <div className='absolute right-3 py-2.5 px-3.5 bg-gray-100 border border-solid border-gray-300 rounded-md shadow-md shadow-green-300 z-20'>
+        <div className='absolute right-3 py-2.5 px-3.5 bg-gray-100 border border-solid border-gray-300 rounded-md shadow-md shadow-green-300 z-20 w-10/12 max-w-full sm:w-96 h-64 max-h-screen'>
             <div className='relative flex items-center p-2.5'>
                 <div className='absolute top-0 left-0 text-xl font-bold cursor-pointer text-green-950'>通知</div>
-                <div>
-                    <button className='absolute top-0 right-0 text-sm font-bold cursor-pointer' onClick={onClose}>
+                <div className='absolute top-0 right-0 flex items-center justify-center w-5 h-5 bg-gray-200 border border-gray-300 rounded-full hover:ring hover:ring-gray-300'>
+                    <button className='text-xs font-bold cursor-pointer' onClick={onClose}>
                         X
                     </button>
                 </div>
             </div>
+
 
             <div className='mt-5'>
                 
@@ -65,9 +66,9 @@ const NotifiCation = ({ onClose }) => {
                     const isNewNotification = index < newNotification.length ? true : false;
 
                     return (
-                        <li
+                        <li 
                             key={`notification-${index}`}
-                            className={`list-none transition duration-200 cursor-pointer ${
+                            className={`list-none w-full rounded-md p-2 transition duration-200 cursor-pointer ${
                                 isNewNotification ? 'bg-gray-200' : ''
                             } hover:bg-gray-200 hover:border hover:border-gray-200 hover:rounded-md`}
                         >
@@ -83,12 +84,12 @@ const NotifiCation = ({ onClose }) => {
 
 // NotificationItem component
 const NotificationItem = ({ notification, setImg, isNewNotification }) => (
-    <div className={`relative flex items-center p-2.5 ${isNewNotification ? 'bg-gray-200' : ''}`}>
-        <div className='w-11 h-11 mr-2.5 rounded-full border border-solid border-gray-300 flex justify-center items-center'>
-            <img className='object-cover w-10 h-10 rounded-full' src={setImg(notification)} alt='' />
+    <div className={`relative justify-start flex items-center pt-2 ${isNewNotification ? 'bg-gray-200' : ''}`}>
+        <div className='flex items-center justify-center w-10 h-10 mr-4 border border-gray-300 border-solid rounded-full'>
+            <img className='object-cover rounded-full w-9 h-9' src={setImg(notification)} alt='' />
         </div>
         <div>
-            <div>
+            <div className='max-w-full text-xs break-all'>
                 <b>{notification.user_name}</b>があなたをフォロー中です。
             </div>
             <div className='text-gray-500 text-md'>{notification.created_at}</div>

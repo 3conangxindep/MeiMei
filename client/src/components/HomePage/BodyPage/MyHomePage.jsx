@@ -83,12 +83,13 @@ const MyHomePage = () => {
     }
     return (
         // myhome-container
-        <div className='max-w-sm mx-auto sm:max-w-2xl w-full h-4/6 relative box-border flex items-center justify-center my-3.5'>
+        <div className='max-w-sm mx-auto sm:max-w-2xl w-full h-4/6 relative box-border flex items-center justify-center my-3.5'> 
             {/* myhomecard */}
-            <div className='box-border relative flex items-center justify-center border-8 border-green-900 border-solid w-80 sm:w-full sm:h-full rounded-xl h-72'>
+            <div className='box-border relative flex items-center justify-center w-11/12 h-full border-4 border-solid border-emerald-800 sm:w-full sm:h-full rounded-xl max-h-80'>
                 {/* myhome-left */}
-                <div className='box-border relative flex flex-col items-center float-left w-32 h-full bg-green-700 rounded-l sm:w-96 justify-evenly '>
-                    <li className='flex items-center justify-center border-4 border-white border-solid rounded-full w-14 h-14 sm:w-32 sm:h-32'>
+                <div className='box-border relative flex flex-col items-center float-left w-32 h-full rounded-l-lg bg-emerald-700 sm:w-96 justify-evenly '>
+                    <li className='flex items-center justify-center w-16 h-16 border-2 border-white border-solid rounded-full sm:w-32 sm:h-32'>
+
                         {/* thay doi anh account tai day */}
                         <img
                             className='object-cover w-12 h-12 bg-white rounded-full sm:w-24 sm:h-24'
@@ -101,12 +102,12 @@ const MyHomePage = () => {
                     </li>
                     <li className='flex flex-col items-center justify-between w-full h-auto'>
                         {/* myhome-textname */}
-                        <div className='flex items-center text-center justify-center w-3/5 h-auto text-lg font-bold text-white border-b-2 border-white border-solid sm:border-b-4 sm:text-2xl'>
+                        <div className='flex items-center justify-center w-3/5 h-auto text-lg font-bold text-center text-white border-b-2 border-white border-solid sm:border-b-4 sm:text-2xl'>
                             {data.user_name}
                         </div>
                         <div className='mt-2.5'>
-                            <p className='text-sm font-bold text-white sm:text-xl text-center'>{company.department}</p>
-                            <p className='text-sm font-bold text-white sm:text-xl text-center'>{company.position}</p>
+                            <p className='text-sm font-bold text-center text-white sm:text-xl'>{company.department}</p>
+                            <p className='text-sm font-bold text-center text-white sm:text-xl'>{company.position}</p>
                         </div>
 
                     </li>
@@ -118,8 +119,8 @@ const MyHomePage = () => {
                     </li>
                 </div>
                 {/* myhome-right */}
-                <div className='relative flex flex-col items-center justify-center w-full h-full pt-4 bg-white rounded-l-none rounded-r'>
-                    <ul className='flex flex-col items-center justify-center w-9/12 h-full'>
+                <div className='relative flex flex-col items-center justify-center w-full h-full pt-4 bg-white rounded-l-none rounded-r-lg'>
+                    <ul className='flex flex-col items-center justify-between w-10/12 h-full'>
                         {/* myhome-right-title */}
 
                         <div className='flex items-center justify-center w-full h-16 text-2xl font-bold border-2 border-solid sm:text-4xl sm:h-24 rounded-xl sm:mb-12' style={{ color: "#1E5145" }}>

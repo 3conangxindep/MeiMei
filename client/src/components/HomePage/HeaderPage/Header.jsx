@@ -83,17 +83,17 @@ const Header = () => {
       <div className='flex items-center justify-between w-full h-full'>
         {/* header-text */}
         <div className='float-left text-4xl pl-2.5 font-bold text-white'>MEIMEI</div>
-        <div className='p-2.5 flex justify-center items-center'>
+        <div className='relative p-2.5 flex justify-center items-center'>
           {/* notification */}
           {notificationCount > 0 && (
-            <div className='absolute w-5 h-5 rounded-full border border-solid border-gray-500 flex justify-center items-center bg-red-500 text-white top-3 right-20'>
+            <div className='absolute flex items-center justify-center w-5 h-5 text-black font-bold text-sm bg-[#DD5252] border border-[#0E3A36] border-solid rounded-full top-2 left-9'>
               {notificationCount}
             </div>
           )}
-          <div className='flex items-center justify-center mr-4 overflow-hidden transition duration-200 border border-black border-solid rounded-full cursor-pointer h-9 w-9 2-8 hover:shadow-md hover:shadow-green-400 hover:bg-green-200'>
+          <div className='flex items-center justify-center mr-4 overflow-hidden transition duration-200 bg-[#FFFFFF] border border-[#828080] border-solid rounded-full cursor-pointer h-9 w-9 2-8 hover:shadow-md hover:shadow-green-400 hover:bg-green-200 hover:ring hover:ring-green-400'>
             <img
-              className='object-cover w-4/5 rounded-full h-4/5'
-              src='https://cdn-icons-png.flaticon.com/128/3602/3602145.png'
+              className='object-cover w-6 h-6'
+              src='https://cdn-icons-png.flaticon.com/64/601/601025.png'
               alt='notification'
               onClick={handleNotificationClick}
             />
