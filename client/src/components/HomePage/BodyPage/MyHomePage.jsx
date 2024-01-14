@@ -85,14 +85,14 @@ const MyHomePage = () => {
         // myhome-container
         <div className='max-w-sm mx-auto sm:max-w-2xl w-full h-4/6 relative box-border flex items-center justify-center my-3.5'> 
             {/* myhomecard */}
-            <div className='box-border relative flex items-center justify-center w-11/12 h-full border-4 border-solid border-emerald-800 sm:w-full sm:h-full rounded-xl max-h-80'>
+            <div className='box-border relative flex items-center justify-center w-11/12 h-full border-4 border-solid border-emerald-800 sm:w-full sm:h-full rounded-xl max-h-80 sm:max-h-96'>
                 {/* myhome-left */}
                 <div className='box-border relative flex flex-col items-center float-left w-32 h-full rounded-l-lg bg-emerald-700 sm:w-96 justify-evenly '>
                     <li className='flex items-center justify-center w-16 h-16 border-2 border-white border-solid rounded-full sm:w-32 sm:h-32'>
 
                         {/* thay doi anh account tai day */}
                         <img
-                            className='object-cover w-12 h-12 bg-white rounded-full sm:w-24 sm:h-24'
+                            className='object-cover bg-white rounded-full w-14 h-14 sm:w-28 sm:h-28'
                             src={
                                 imgPath === `http://${API_BASE_URL}:8000null`
                                     ? placeHolderImg
@@ -106,8 +106,8 @@ const MyHomePage = () => {
                             {data.user_name}
                         </div>
                         <div className='mt-2.5'>
-                            <p className='text-sm font-bold text-center text-white sm:text-xl'>{company.department}</p>
-                            <p className='text-sm font-bold text-center text-white sm:text-xl'>{company.position}</p>
+                            <p className='text-sm font-bold text-center text-white break-all sm:text-xl'>{company.department}</p>
+                            <p className='text-sm font-bold text-center text-white break-all sm:text-xl'>{company.position}</p>
                         </div>
 
                     </li>
@@ -120,10 +120,10 @@ const MyHomePage = () => {
                 </div>
                 {/* myhome-right */}
                 <div className='relative flex flex-col items-center justify-center w-full h-full pt-4 bg-white rounded-l-none rounded-r-lg'>
-                    <ul className='flex flex-col items-center justify-between w-10/12 h-full'>
+                    <ul className='flex flex-col items-center justify-between w-11/12 h-full'>
                         {/* myhome-right-title */}
 
-                        <div className='flex items-center justify-center w-full h-16 text-2xl font-bold border-2 border-solid sm:text-4xl sm:h-24 rounded-xl sm:mb-12' style={{ color: "#1E5145" }}>
+                        <div className='flex items-center justify-center w-full h-16 text-lg font-bold border-2 border-[#002019] sm:text-4xl sm:h-24 rounded-xl text-[#002019] break-all text-center'>
                             {company.com_name}
                         </div>
 

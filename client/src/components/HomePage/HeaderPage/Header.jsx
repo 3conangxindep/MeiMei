@@ -90,7 +90,7 @@ const Header = () => {
               {notificationCount}
             </div>
           )}
-          <div className='flex items-center justify-center mr-4 overflow-hidden transition duration-200 bg-[#FFFFFF] border border-[#828080] border-solid rounded-full cursor-pointer h-9 w-9 2-8 hover:shadow-md hover:shadow-green-400 hover:bg-green-200 hover:ring hover:ring-green-400'>
+          <div className='flex items-center justify-center mr-4 overflow-hidden transition duration-200 bg-[#FFFFFF]/90 border border-white border-solid rounded-full cursor-pointer h-9 w-9 2-8 hover:shadow-md hover:shadow-green-400 hover:bg-green-200 hover:ring hover:ring-green-400'>
             <img
               className='object-cover w-6 h-6'
               src='https://cdn-icons-png.flaticon.com/64/601/601025.png'

@@ -16,16 +16,21 @@ const ManageAccount = () => {
 
     return (
         // manageAccount-container
-        <div className='box-border relative flex flex-row w-screen h-auto max-w-full px-2 py-4 sm:p-5'>
+        <div className='box-border relative flex flex-row w-full h-auto max-w-full px-2 py-4 sm:p-5'>
             {/* vertical-nav */}
             {/* <div className='left-0 border-box absolute top-3 mr-4/6 p-2.5 w-1/6 h-auto ml-8 bg-white rounded-md z-10'> */}
+            
             {/*  vertical-nav-inline*/}
-            <div className='fixed z-10 flex flex-col items-center justify-between w-2/12 h-auto bg-green-300 border border-green-500 rounded-md shadow-md p-auto sm:w-32 left-2 top-40 shadow-green-400'>
+            <div className='fixed transform -translate-y-1/2 top-1/2 flex flex-col items-center justify-between w-[20%] h-auto bg-[#36735B] border border-[#ECFF8C]/60 rounded-lg sm:w-32 sm:top-[55%] left-0.5'>
                 {/* manageAccount-section */}
                 {/* <div className='flex items-center justify-center w-20 h-20 rounded-full' style={{ backgroundColor: currentPage === 'ProfilePage' ? 'white' : 'transparent' }}> */}
                 <NavLink
-                    className='flex items-center justify-center m-5 border-2 border-green-500 border-solid rounded-full w-14 h-14 hover:shadow-md hover:shadow-green-500 hover:ring-2 hover:ring-green-500'
-                    style={{ backgroundColor: currentPage === 'ProfilePage' ? 'white' : '#54bc77' }}
+                    className='flex items-center justify-center m-5 border rounded-full border-[#0E3A36] w-14 h-14 ManageFormInput'
+                    style={{ 
+                        backgroundColor: currentPage === 'ProfilePage' ? '#ECFF8C' : '#ECE9E9',
+                        opacity : currentPage === 'ProfilePage' ? '0.9' : '1' ,
+                        borderColor: currentPage === 'ProfilePage' ? 'rgb(34 197 94)':'',
+                        }}
                     to="/ManageAccount/ProfilePage"
                     onClick={() => setCurrentPage('ProfilePage')}
                 >
@@ -41,8 +46,12 @@ const ManageAccount = () => {
                 {/* manageAccount-section */}
                 {/* <div className='flex items-center justify-center w-20 h-20 rounded-full' style={{ backgroundColor: currentPage === 'WorkInforPage' ? 'white' : 'transparent' }}> */}
                 <NavLink
-                    className='flex items-center justify-center m-5 border-2 border-green-500 border-solid rounded-full w-14 h-14 hover:shadow-md hover:shadow-green-500 hover:ring-2 hover:ring-green-500'
-                    style={{ backgroundColor: currentPage === 'WorkInforPage' ? 'white' : '#54bc77' }}
+                    className='flex items-center justify-center m-5 border rounded-full border-[#0E3A36] w-14 h-14 ManageFormInput'
+                    style={{ 
+                        backgroundColor: currentPage === 'WorkInforPage' ? '#ECFF8C' : '#ECE9E9',
+                        opacity : currentPage === 'WorkInforPage' ? '0.9' : '1' ,
+                        borderColor: currentPage === 'WorkInforPage' ? 'rgb(34 197 94)':'',
+                        }}
                     to="/ManageAccount/WorkInforPage"
                     onClick={() => setCurrentPage('WorkInforPage')}
                 >
@@ -56,8 +65,12 @@ const ManageAccount = () => {
                 {/*manageAccount-section  */}
                 {/* <div className='flex items-center justify-center w-20 h-20 rounded-full' style={{ backgroundColor: currentPage === 'SocialMediaPage' ? 'white' : 'transparent' }}> */}
                 <NavLink
-                    className='flex items-center justify-center m-5 border-2 border-green-500 border-solid rounded-full w-14 h-14 hover:shadow-md hover:shadow-green-500 hover:ring-2 hover:ring-green-500'
-                    style={{ backgroundColor: currentPage === 'SocialMediaPage' ? 'white' : '#54bc77' }}
+                    className='flex items-center justify-center m-5 border rounded-full border-[#0E3A36] w-14 h-14 ManageFormInput'
+                    style={{ 
+                        backgroundColor: currentPage === 'SocialMediaPage' ? '#ECFF8C' : '#ECE9E9',
+                        opacity : currentPage === 'SocialMediaPage' ? '0.9' : '1' ,
+                        borderColor: currentPage === 'SocialMediaPage' ? 'rgb(34 197 94)':'',
+                        }}
                     to="/ManageAccount/SocialMediaPage"
                     onClick={() => setCurrentPage('SocialMediaPage')}
                 >
@@ -71,8 +84,12 @@ const ManageAccount = () => {
                 {/*manageAccount-section  */}
                 {/* <div className='flex items-center justify-center w-20 h-20 rounded-full' style={{ backgroundColor: currentPage === 'DescriptionPage' ? 'white' : 'transparent' }}> */}
                 <NavLink
-                    className='flex items-center justify-center m-5 border-2 border-green-500 border-solid rounded-full w-14 h-14 hover:shadow-md hover:shadow-green-500 hover:ring-2 hover:ring-green-500'
-                    style={{ backgroundColor: currentPage === 'DescriptionPage' ? 'white' : '#54bc77' }}
+                    className='flex items-center justify-center m-5 border rounded-full border-[#0E3A36] w-14 h-14 ManageFormInput'
+                    style={{ 
+                        backgroundColor: currentPage === 'DescriptionPage' ? '#ECFF8C' : '#ECE9E9',
+                        opacity : currentPage === 'DescriptionPage' ? '0.9' : '1' ,
+                        borderColor: currentPage === 'DescriptionPage' ? 'rgb(34 197 94)':'',
+                        }}
                     to="/ManageAccount/DescriptionPage"
                     onClick={() => setCurrentPage('DescriptionPage')}
                 >
@@ -86,8 +103,12 @@ const ManageAccount = () => {
                 {/*manageAccount-section  */}
                 {/* <div className='flex items-center justify-center w-20 h-20 rounded-full' style={{ backgroundColor: currentPage === 'MyHomePage' ? 'white' : 'transparent' }}> */}
                 <NavLink
-                    className='flex items-center justify-center m-5 border-2 border-green-500 border-solid rounded-full w-14 h-14 hover:shadow-md hover:shadow-green-500 hover:ring-2 hover:ring-green-500'
-                    style={{ backgroundColor: currentPage === 'MyHomePage' ? 'white' : '#54bc77' }}
+                    className='flex items-center justify-center m-5 border rounded-full border-[#0E3A36] w-14 h-14 ManageFormInput'
+                    style={{ 
+                        backgroundColor: currentPage === 'MyHomePage' ? '#ECFF8C' : '#ECE9E9',
+                        opacity : currentPage === 'MyHomePage' ? '0.9' : '1' ,
+                        borderColor: currentPage === 'MyHomePage' ? 'rgb(34 197 94)':'',
+                        }}
                     to="/MyHomePage"
                     onClick={() => { setCurrentPage('MyHomePage'); handleReloadPage(); }}>
                     <img
@@ -101,7 +122,7 @@ const ManageAccount = () => {
             {/* </div> */}
 
             {/* manageAccount-card */}
-            <div className='box-border relative flex items-center justify-center w-screen h-auto mb-12 bg-gray-100 rounded-lg shadow-md shadow-green-400'>
+            <div className='box-border flex items-center justify-center w-screen h-auto mb-12 bg-white border border-[#0B3E38] rounded-lg'>
                 {/* flex-left */}
                 <div className='w-2/12 sm:w-32'></div>
                 <div className='w-full h-full'>

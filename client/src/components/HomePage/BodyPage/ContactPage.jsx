@@ -15,7 +15,7 @@ const ContactPage = () => {
         setSearchTerm(term);
     };
 
-    const [currentPage, setCurrentPage] = useState('RecentAccounts');
+    const [currentPage, setCurrentPage] = useState('Following');
 
     return (
         // contact-container
@@ -65,7 +65,7 @@ const ContactPage = () => {
                     <Route path="/ContactPage/Following"><Following searchTerm={searchTerm} onSearchChange={handleSearchChange} /></Route>
                     <Route path="/ContactPage/GroupMembers"><GroupMembers /></Route>
                     <Route path='/ContactPage/FavoritePage'><FavoritePage searchTerm={searchTerm} onSearchChange={handleSearchChange} /></Route>
-                    <Redirect to='/ContactPage/RecentAccounts' />
+                    <Redirect to='/ContactPage/Following' />
                 </Switch>
             </div>
         </div>

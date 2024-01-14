@@ -187,13 +187,13 @@ const WorkInforPage = () => {
   return (
     <div>
       <form onSubmit={(e) => updateData(idcard, e)}>
-        <ul className='relative flex flex-col items-start justify-center w-full h-auto px-5 py-5 text-base border-box'>
-          <p className='ml-2 text-2xl font-bold'>勤務情報</p>
+        <ul className='relative flex flex-col items-start justify-center w-full h-auto p-5 text-base border-box'>
+          <p className='ml-2 text-2xl font-bold text-[#0E3A36]'>勤務情報</p>
 
-          <li className='w-full h-full p-1 m-1 border-b border-b-gray-500 border-b-solid box-border'>
+          <li className='box-border w-full h-full p-1 m-1 border-b border-b-gray-500 border-b-solid'>
             {/* <label htmlFor="kanjiName">会社名（漢字）</label> */}
             <input
-              className='w-full h-12 p-1 text-base transition bg-gray-100 border-none rounded-md duration-200s focus:border focus:border-solid focus:border-green-300 focus:outline-0 focus:shadow-md focus:shadow-green-300 hover:bg-green-100 hover:ring-2 hover:ring-green-400'
+              className='w-full h-12 p-1 text-base transition border-none rounded-md duration-200s ManageFormInput'
               placeholder='会社名（漢字）'
               type="text"
               id="com_name"
@@ -203,10 +203,10 @@ const WorkInforPage = () => {
               required
             />
           </li>
-          <li className='w-full h-full p-1 m-1 border-b border-b-gray-500 border-b-solid box-border'>
+          <li className='box-border w-full h-full p-1 m-1 border-b border-b-gray-500 border-b-solid'>
             {/* <label htmlFor="katakanaName">会社名（フリガナ）</label> */}
             <input
-              className='w-full h-12 p-1 text-base transition bg-gray-100 border-none rounded-md duration-200s focus:border focus:border-solid focus:border-green-300 focus:outline-0 focus:shadow-md focus:shadow-green-300 hover:bg-green-100 hover:ring-2 hover:ring-green-400'
+              className='w-full h-12 p-1 text-base transition border-none rounded-md duration-200s ManageFormInput'
               placeholder='ウェブサイト'
               type="text"
               id="website"
@@ -215,10 +215,10 @@ const WorkInforPage = () => {
               onChange={(e) => setWebsite(e.target.value)}
             />
           </li>
-          <li className='w-full h-full p-1 m-1 border-b border-b-gray-500 border-b-solid box-border'>
+          <li className='box-border w-full h-full p-1 m-1 border-b border-b-gray-500 border-b-solid'>
             {/* <label htmlFor="position">役職</label> */}
             <input
-              className='w-full h-12 p-1 text-base transition bg-gray-100 border-none rounded-md duration-200s focus:border focus:border-solid focus:border-green-300 focus:outline-0 focus:shadow-md focus:shadow-green-300 hover:bg-green-100 hover:ring-2 hover:ring-green-400'
+              className='w-full h-12 p-1 text-base transition border-none rounded-md duration-200s ManageFormInput'
               placeholder='部署'
               type="text"
               id="department"
@@ -227,10 +227,10 @@ const WorkInforPage = () => {
               onChange={(e) => setDepartment(e.target.value)}
             />
           </li>
-          <li className='w-full h-full p-1 m-1 border-b border-b-gray-500 border-b-solid box-border'>
+          <li className='box-border w-full h-full p-1 m-1 border-b border-b-gray-500 border-b-solid'>
             {/* <label htmlFor="position">役職</label> */}
             <input
-              className='w-full h-12 p-1 text-base transition bg-gray-100 border-none rounded-md duration-200s focus:border focus:border-solid focus:border-green-300 focus:outline-0 focus:shadow-md focus:shadow-green-300 hover:bg-green-100 hover:ring-2 hover:ring-green-400'
+              className='w-full h-12 p-1 text-base transition border-none rounded-md duration-200s ManageFormInput'
               placeholder='役職'
               type="text"
               id="position"
@@ -240,10 +240,10 @@ const WorkInforPage = () => {
 
             />
           </li>
-          <li className='w-full h-full p-1 m-1 border-b border-b-gray-500 border-b-solid box-border'>
+          <li className='box-border w-full h-full p-1 m-1 border-b border-b-gray-500 border-b-solid'>
             {/* <label htmlFor="tel">電話番号</label> */}
             <input
-              className='w-full h-12 p-1 text-xl transition bg-gray-100 border-none rounded-md duration-200s focus:border focus:border-solid focus:border-green-300 focus:outline-0 focus:shadow-md focus:shadow-green-300 hover:bg-green-100 hover:ring-2 hover:ring-green-400'
+              className='w-full h-12 p-1 text-base transition border-none rounded-md duration-200s ManageFormInput'
               placeholder='電話番号'
               maxLength={11}
               minLength={10}
@@ -256,10 +256,10 @@ const WorkInforPage = () => {
             {/* <button onClick={() => handleAddRemoveInput('phone', index, 'remove')}>-</button>
           {phoneNumbers.length - 1 === index && <button onClick={() => handleAddRemoveInput('phone', index, 'add')}>+</button>} */}
           </li>
-          <li className='w-full h-full p-1 m-1 border-b border-b-gray-500 border-b-solid box-border'>
+          <li className='box-border w-full h-full p-1 m-1 border-b border-b-gray-500 border-b-solid'>
             {/* <label htmlFor="tel">電話番号</label> */}
             <input
-              className='w-full h-12 p-1 text-xl transition bg-gray-100 border-none rounded-md duration-200s focus:border focus:border-solid focus:border-green-300 focus:outline-0 focus:shadow-md focus:shadow-green-300 hover:bg-green-100 hover:ring-2 hover:ring-green-400'
+              className='w-full h-12 p-1 text-base transition border-none rounded-md duration-200s ManageFormInput'
               placeholder='E-MAIL'
               type="mail"
               id="com_email"
@@ -270,10 +270,10 @@ const WorkInforPage = () => {
             {/* <button onClick={() => handleAddRemoveInput('phone', index, 'remove')}>-</button>
           {phoneNumbers.length - 1 === index && <button onClick={() => handleAddRemoveInput('phone', index, 'add')}>+</button>} */}
           </li>
-          <li className='w-full h-full p-1 m-1 border-b border-b-gray-500 border-b-solid box-border'>
+          <li className='box-border w-full h-full p-1 m-1 border-b border-b-gray-500 border-b-solid'>
             {/* <label htmlFor="tel">電話番号</label> */}
             <input
-              className='w-full h-12 p-1 text-xl transition bg-gray-100 border-none rounded-md duration-200s focus:border focus:border-solid focus:border-green-300 focus:outline-0 focus:shadow-md focus:shadow-green-300 hover:bg-green-100 hover:ring-2 hover:ring-green-400'
+              className='w-full h-12 p-1 text-base transition border-none rounded-md duration-200s ManageFormInput'
               placeholder='FAX'
               maxLength={12}
               minLength={12}
@@ -286,9 +286,9 @@ const WorkInforPage = () => {
             {/* <button onClick={() => handleAddRemoveInput('phone', index, 'remove')}>-</button>
           {phoneNumbers.length - 1 === index && <button onClick={() => handleAddRemoveInput('phone', index, 'add')}>+</button>} */}
           </li>
-          <li className='w-full h-full p-1 m-1 border-b border-b-gray-500 border-b-solid box-border'>          {/* <label htmlFor="postalCode">郵便番号</label> */}
+          <li className='box-border w-full h-full p-1 m-1 border-b border-b-gray-500 border-b-solid'>          {/* <label htmlFor="postalCode">郵便番号</label> */}
             <input
-              className='w-full h-12 p-1 text-xl transition bg-gray-100 border-none rounded-md duration-200s focus:border focus:border-solid focus:border-green-300 focus:outline-0 focus:shadow-md focus:shadow-green-300 hover:bg-green-100 hover:ring-2 hover:ring-green-400'
+              className='w-full h-12 p-1 text-base transition border-none rounded-md duration-200s ManageFormInput'
               placeholder='郵便番号'
               maxLength={8}
               minLength={8}
@@ -299,10 +299,10 @@ const WorkInforPage = () => {
               onChange={(e) => setComPostCode(e.target.value)}
             />
           </li>
-          <li className='w-full h-full p-1 m-1 mb-16 border-b border-b-gray-500 border-b-solid box-border'>
+          <li className='box-border w-full h-full p-1 m-1 mb-16 border-b border-b-gray-500 border-b-solid'>
             {/* <label htmlFor="currentAddress">現在所</label> */}
             <input
-              className='w-full h-12 p-1 text-xl transition bg-gray-100 border-none rounded-md duration-200s focus:border focus:border-solid focus:border-green-300 focus:outline-0 focus:shadow-md focus:shadow-green-300 hover:bg-green-100 hover:ring-2 hover:ring-green-400'
+              className='w-full h-12 p-1 text-base transition border-none rounded-md duration-200s ManageFormInput'
               placeholder='現在所'
               type="text"
               id="com_address"
@@ -311,7 +311,7 @@ const WorkInforPage = () => {
               onChange={(e) => setComAddress(e.target.value)}
             />
           </li>
-          <button className='absolute flex items-center justify-center w-16 h-16 p-2 text-xl font-bold text-white bg-green-400 border-2 border-green-400 border-solid rounded-full cursor-pointer right-2 bottom-2 focus:shadow-md focus: shadow-green-400 hover:bg-green-300 active:shadow-green-400 hover:ring-2 hover:ring-green-400'
+          <button className='absolute flex items-center justify-center w-[67px] h-[57px] p-2 text-xl font-bold text-[#ECFF8C] border border-[#ECFF8C] rounded-full cursor-pointer right-2 bottom-2 ManageFormInput bg-gradient-to-tr from-[#08453D] to-[#478E5E]'
             id='btt' type='submit'
           >編集</button>
         </ul>
@@ -319,16 +319,14 @@ const WorkInforPage = () => {
       <Modal
         isOpen={isModalOpen}
         contentLabel="Update Success Modal"
-        className=" w-64 mx-auto my-5"
+        className="fixed z-20 inline-block w-64 h-20 transform -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2"
       >
-        <div className=" bg-green-200 items-center justify-center rounded-lg p-4 mb-4 text-sm text-green-600" role="alert">
+        <div className="flex items-center justify-center w-full h-full p-4 mb-4 text-sm text-green-600 bg-green-200 rounded-lg " role="alert">
+          <span className="mr-1 text-sm font-medium">Updated Successful</span>
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
             <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
           </svg>
-          <span className="font-medium text-sm ml-1">Updated Successful</span>
-          <div>
-            <button onClick={closeModal}>OK</button>
-          </div>
+          <button className='absolute right-2 bottom-1' onClick={closeModal}>OK</button>
         </div>
       </Modal>
     </div>

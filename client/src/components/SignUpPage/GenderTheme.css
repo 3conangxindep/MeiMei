@@ -30,7 +30,7 @@
   .GenderOption label{
     display: flex;
     align-items: center;
-    margin-left: 5px;
+    margin-left: 10px;
     font-size: 14px;
   }
   .GenderInput {
