@@ -102,9 +102,18 @@ class contactController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($id_card, $contact_id)
     {
         //
+        // Use the delete method to delete records based on the given conditions
+        $follower = DB::table('contact')
+            ->where('id_card', $id_card)
+            ->where('contact_id', $contact_id)
+            ->delete();
+        // Records were deleted successfully
+        return response()->json(['message' => 'Contact deleted successfully'], 200);
+
+
     }
 
     // In contactController.php
