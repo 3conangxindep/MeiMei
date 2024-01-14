@@ -34,10 +34,15 @@ const ShowMenu = () => {
         setShowMenu(!showMenu);
     }
 
+    const handleNavigation = () => {
+        // Xử lý khi chuyển hướng trang
+        toggleMenu(false);
+    };
+
     useEffect(() => {
         const handleOutsideClick = (event) => {
             // Kiểm tra xem sự kiện click có xảy ra bên ngoài menu không
-            if (showMenu && !event.target.closest('.menu-container')) {
+            if (showMenu && !event.target.closest('.show-menu')) {
                 setShowMenu(false);
             }
         };
@@ -60,14 +65,14 @@ const ShowMenu = () => {
     }
 
     return (
-        <div className='menu-container'>
+        <div className='show-menu'>
             {/* toggleMenuContainer */}
-            <div className='flex items-center justify-center w-auto h-auto overflow-hidden transition duration-200 bg-white rounded-full cursor-pointer hover:bg-gray-200 hover:shadow-md hover:shadow-green-300 hover:rounded-full hover:ring-2 hover:ring-green-500'>
+            <div className='flex items-center justify-center w-auto h-auto overflow-hidden transition duration-200 bg-white rounded-full cursor-pointer show-menu hover:bg-gray-200 hover:shadow-md hover:shadow-green-300 hover:rounded-full hover:ring-2 hover:ring-green-500'>
                 {/* set ảnh account của bản thân */}
                 {/* toggleMenuContainer-image */}
-                <div className='flex items-center justify-center overflow-hidden border border-gray-500 border-solid rounded-full cursor-pointer w-11 h-11'>
+                <div className='flex items-center justify-center w-10 h-10 overflow-hidden border border-white border-solid rounded-full cursor-pointer'>
                     <img
-                        className='object-cover w-4/5 rounded-full h-4/5'
+                        className='object-cover w-full h-full rounded-full'
                         src={
                             imgPath === `http://${API_BASE_URL}:8000null`
                                 ? placeHolderImg
@@ -81,12 +86,12 @@ const ShowMenu = () => {
                     <div className='absolute z-10 h-auto p-4 bg-gray-100 border border-gray-300 border-solid rounded-md shadow-md right-3 top-20 none w-80 shadow-green-300'>
                         <ul className='p-0 m-3 list-none'>
                             {/* Menu items */}
-                            <li className='flex items-center justify-between p-4 transition duration-200 bg-gray-100 border-b cursor-pointer rounded-t-md border-b-solid border-b-gray-400 : hover:border :hover:border-solid hover:border-gray-200 hover:bg-gray-200 hover:rounded-md'>
+                            <li className='flex items-center justify-between p-4 mb-2 transition duration-200 bg-gray-100 border-b cursor-pointer rounded-t-md border-b-solid border-b-gray-400 : hover:border :hover:border-solid hover:border-gray-200 hover:bg-gray-200 hover:rounded-md' onClick={handleNavigation}>
                                 {/* menuImage */}
                                 <div className='flex items-center justify-center float-left'>
                                     {/* ảnh account */}
-                                    <Link to={`/InformationPage/${id_card}/${id_card}`} className='flex items-center justify-center border border-gray-500 border-solid rounded-full w-14 h-14'>
-                                        <img className='object-cover w-4/5 rounded-full h-4/5'
+                                    <Link to={`/InformationPage/${id_card}/${id_card}`} className='flex items-center justify-center border border-gray-400 border-solid rounded-full w-14 h-14'>
+                                        <img className='object-cover w-12 h-12 rounded-full'
                                             src={
                                                 imgPath === `http://${API_BASE_URL}:8000null`
                                                     ? placeHolderImg
@@ -95,20 +100,20 @@ const ShowMenu = () => {
                                             alt='avatar' />
                                     </Link>
                                 </div>
-                                <div className='float-left text-2xl font-bold text-green-950 ml-3'><b>{data.user_name}</b></div>
+                                <div className='float-left ml-3 text-2xl font-bold text-green-950'><b>{data.user_name}</b></div>
                             </li>
-                            <li>
+                            <li onClick={handleNavigation}>
                                 <Link
-                                    className='flex items-center justify-between w-full h-full p-4 transition duration-200 bg-gray-100 rounded-md cursor-pointer text-green-950 : hover:border :hover:border-solid hover:border-gray-200 hover:bg-gray-200 hover:rounded-md'
+                                    className='flex items-center justify-between w-full h-full p-4 mb-2 transition duration-200 bg-gray-100 rounded-md cursor-pointer text-green-950 : hover:border :hover:border-solid hover:border-gray-200 hover:bg-gray-200 hover:rounded-md'
                                     to="/ManageAccount"
                                 >
                                     アカウントを管理
-                                    <div className='flex items-center justify-center w-6 h-6'><img className='object-cover w-full h-full' src='https://cdn-icons-png.flaticon.com/128/875/875100.png' alt='' /></div>
+                                    <div className='flex items-center justify-center w-6 h-6'><img className='object-cover w-full h-full' src='https://cdn-icons-png.flaticon.com/128/3524/3524636.png' alt='' /></div>
                                 </Link>
                             </li>
-                            <li className='flex items-center justify-between p-4 transition duration-200 bg-gray-100 rounded-md cursor-pointer : hover:border :hover:border-solid hover:border-gray-200 hover:bg-gray-200 hover:rounded-md' onClick={handleLogout}>
+                            <li className='flex items-center justify-between p-4 mb-2 transition duration-200 bg-gray-100 rounded-md cursor-pointer : hover:border :hover:border-solid hover:border-gray-200 hover:bg-gray-200 hover:rounded-md' onClick={handleLogout}>
                                 <p>ログアウト</p>
-                                <div className='flex items-center justify-center w-6 h-6'><img className='object-cover w-full h-full' src='https://cdn-icons-png.flaticon.com/128/10015/10015437.png' alt='' /></div>
+                                <div className='flex items-center justify-center w-6 h-6'><img className='object-cover w-full h-full' src='https://cdn-icons-png.flaticon.com/128/14090/14090275.png' alt='' /></div>
                             </li>
                         </ul>
                     </div>

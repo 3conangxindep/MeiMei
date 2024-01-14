@@ -4,5 +4,14 @@ export default {
   theme: {
     extend: {},
   },
-  plugins: [],
+  plugins: [
+    function ({ addUtilities }) {
+      const newUtilities = {
+        '.clip-triangle': {
+          clipPath: 'polygon(50% 0%, 0% 100%, 100% 100%)',
+        },
+      };
+      addUtilities(newUtilities);
+    },
+  ],
 };
