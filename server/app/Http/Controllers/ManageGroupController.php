@@ -95,9 +95,16 @@ class ManageGroupController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($group_id, $id_card)
     {
-        //
+        $follower = DB::table('manage_group')
+            ->where('group_id', $group_id)
+            ->where('id_card', $id_card)
+            ->delete();
+        // Records were deleted successfully
+        return response()->json(['message' => 'Contact deleted successfully'], 200);
+
+
     }
 
     public function check($group_id, $id_card)

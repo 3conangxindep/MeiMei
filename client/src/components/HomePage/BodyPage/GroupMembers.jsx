@@ -19,7 +19,45 @@ const GroupMembers = ({ searchTerm, onSearchChange }) => {
     const [isSaved, setIsSaved] = useState();
     const [selectedGroupId, setSelectedGroupId] = useState(null);
     // Thêm một sự kiện lắng nghe click ở ngoài menu để đóng menu
+    const [menuVisibleList, setMenuVisibleList] = useState(Array(data.length).fill(false));
+    const [isNewGroupVisible, setNewGroupVisible] = useState(Array(data.length).fill(false));
+    const [openedMenuIndex, setOpenedMenuIndex] = useState(null);
 
+    const handleMenuClick = (e, index) => {
+        e.preventDefault();
+        e.stopPropagation();
+
+        // Đóng menu trước đó nếu có
+        if (openedMenuIndex !== null) {
+            setMenuVisibleList((prevMenuList) => {
+                const updatedMenuList = [...prevMenuList];
+                updatedMenuList[openedMenuIndex] = false;
+                return updatedMenuList;
+            });
+
+        }
+
+        // Mở menu mới
+        setMenuVisibleList((prevMenuList) => {
+            const updatedMenuList = [...prevMenuList];
+            updatedMenuList[index] = !updatedMenuList[index];
+            return updatedMenuList;
+        })
+        // Cập nhật index của menu đang mở
+        setOpenedMenuIndex(index);
+    };
+    const handleCloseMenuClick = (e, index) => {
+        const updatedMenuVisibleList = [...menuVisibleList];
+        updatedMenuVisibleList[index] = false;
+        setMenuVisibleList(updatedMenuVisibleList);
+
+        const updatedisNewGroupVisible = [...isNewGroupVisible];
+        updatedisNewGroupVisible[index] = false;
+        setNewGroupVisible(updatedisNewGroupVisible);
+
+        // Đặt menu đang mở về null khi đóng
+        setOpenedMenuIndex(null);
+    }
 
 
     useEffect(() => {
@@ -99,6 +137,27 @@ const GroupMembers = ({ searchTerm, onSearchChange }) => {
             });
     };
 
+    const handleDeleteFollowerClick = async (e, index, group_id, id_card) => {
+        e.preventDefault();
+        e.stopPropagation();
+    
+        try {
+          const response = await fetch(`http://${API_BASE_URL}:8000/api/manage/${group_id}/${id_card}`, {
+            method: 'DELETE',
+          });
+          const responseData = await response.json();
+    
+          console.log('delete', responseData);
+          setIsSaved(prevIsSaved => {
+            // Sử dụng hàm callback để đảm bảo cập nhật đồng bộ và kích hoạt useEffect
+            return !prevIsSaved;
+          });
+          handleCloseMenuClick(e, index)
+        } catch (error) {
+          console.error('delete', error);
+        }
+      };
+
     const setImg = (e) => {
         // console.log(data.img_url)
         let placeHolderImg = "";
@@ -129,7 +188,7 @@ const GroupMembers = ({ searchTerm, onSearchChange }) => {
                         setShowGroupButton(true);
                         handleClickGroup(event, e.group_id);
                     }}
-                    onMouseLeave={(event,index) => setShowGroupButton(false)}
+                    onMouseLeave={(event, index) => setShowGroupButton(false)}
                 // onMouseEnter={() => setGroupId(e.group_id)}
                 >
                     <button className='relative w-full h-16 bg-[#D9D9D9]/50 rounded-md rounded-t-sm pl-3 text-lg text-left text-[#0E3A36] font-bold border border-gray-300'>
@@ -138,7 +197,7 @@ const GroupMembers = ({ searchTerm, onSearchChange }) => {
                         <div className="absolute w-4 h-2 transform rotate-180 bg-[#0E3A36] clip-triangle right-3 top-7" ></div>
                     </button>
 
-                    {showGroupButton && selectedGroupId === e.group_id &&(
+                    {showGroupButton && selectedGroupId === e.group_id && (
                         <ul className='flex flex-col items-center justify-center w-full max-h-full px-1 transition duration-200 ease-in-out min-h-20'>
 
                             {/* dat map list user o day */}
@@ -154,7 +213,15 @@ const GroupMembers = ({ searchTerm, onSearchChange }) => {
                                         </div>
                                         {/* chinh sua nhom va so thich */}
                                         <div className='absolute right-1'>
-                                            <div className={index} onClick={(event) => handleStarClick(event, id_card, e2.id_card)} style={{ width: '0.75rem' }}>
+                                            {/* <div onClick={(event) =>handleMenuClick(event, id_card, e.id_card)} className='text-left'> */}
+                                            <img
+                                                onClick={(event) => handleMenuClick(event, i)}
+                                                className='w-3 pb-2'
+                                                src='https://cdn-icons-png.flaticon.com/128/2311/2311524.png'
+                                                alt=''
+                                            />
+
+                                            <div className={i} onClick={(event) => handleStarClick(event, id_card, e2.id_card)} style={{ width: '0.75rem' }}>
                                                 {e2.like ? (
                                                     <img
                                                         className='w-3.5 hover:bg-gray-200 hover:border-gray-200 hover:border hover:rounded-md'
@@ -173,6 +240,18 @@ const GroupMembers = ({ searchTerm, onSearchChange }) => {
                                             </div>
                                         </div>
                                     </Link>
+                                    <div className='absolute right-1/2 sm:right-[41%] sm:top-[40%]'>
+                                        {menuVisibleList[i] && (
+                                            <div className='absolute z-10 inline-flex flex-col w-40 h-auto px-1 text-xs bg-gray-100 border border-gray-300 rounded-md left-5 justify-evenly top-1 drop-shadow-md'>
+                                                <div className='absolute flex items-center justify-center w-3 h-3 text-xs rounded-full hover:border-gray-300 hover:border right-1 top-1' onClick={(event) => handleCloseMenuClick(event, i)}>x</div>
+                                                <br />
+                                                <div className='inline-flex items-center justify-between px-1 py-2 text-left transition duration-200 ease-in-out hover:bg-gray-200 hover:border hover:border-gray-300 hover:rounded-md' onClick={(event) => handleDeleteFollowerClick(event, i, e2.group_id, e2.id_card)}>
+                                                    <p>削除</p>
+                                                    <img src='https://cdn-icons-png.flaticon.com/64/484/484662.png' className='w-3' />
+                                                </div>
+                                            </div>
+                                        )}
+                                    </div>
                                     <p className='absolute bottom-0 text-xs text-gray-400 right-2'>{e2.created_at}</p>
                                 </li>
                             ))}
