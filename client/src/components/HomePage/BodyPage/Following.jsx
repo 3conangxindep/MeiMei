@@ -1,14 +1,25 @@
 import { Link, Switch, Route } from 'react-router-dom';
 import React, { useState, useEffect } from 'react';
 import API_BASE_URL from '../../../apiConfig';
+import axios from "axios";
+
 
 
 const Following = ({ searchTerm, onSearchChange }) => {
+  const http = axios.create({
+    baseURL: `http://${API_BASE_URL}:8000`,
+    headers: {
+      "X-Requested-with": "XMLHttpRequest",
+    },
+    withCredentials: true,
+  });
   // Truy cập dữ liệu người dùng đã lưu trữ sau khi đăng nhập
   const userData = JSON.parse(localStorage.getItem('currentUser'));
   const id_card = userData.data.id_card;
 
   const [data, setData] = useState([]);
+  const [group, setGroup] = useState([]);
+
 
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
@@ -20,6 +31,9 @@ const Following = ({ searchTerm, onSearchChange }) => {
   const [showInput, setShowInput] = useState(Array(data.length).fill(false));
   const [showButtom, setShowButtom] = useState(Array(data.length).fill(false));
   const [openedMenuIndex, setOpenedMenuIndex] = useState(null);
+  const [group_name, setGroupName] = useState('');
+  const [id, setId] = useState();
+  const [selectedItems, setSelectedItems] = useState([]);
 
 
 
@@ -63,7 +77,7 @@ const Following = ({ searchTerm, onSearchChange }) => {
 
 
 
-  const handleCloseMenuClick = (e, index) => {
+  const handleCloseMenuClick = (e, index, selectedItems) => {
     const updatedMenuVisibleList = [...menuVisibleList];
     updatedMenuVisibleList[index] = false;
     setMenuVisibleList(updatedMenuVisibleList);
@@ -74,21 +88,18 @@ const Following = ({ searchTerm, onSearchChange }) => {
 
     // Đặt menu đang mở về null khi đóng
     setOpenedMenuIndex(null);
+    setSelectedItems(selectedItems);
   }
 
 
-  const handleAddToGroupClick = (e, index) => {
+  const handleAddToGroupClick = (e, index, id) => {
     e.preventDefault();
     e.stopPropagation();
     const updatedisNewGroupVisible = [...isNewGroupVisible];
     updatedisNewGroupVisible[index] = !updatedisNewGroupVisible[index];
     setNewGroupVisible(updatedisNewGroupVisible);
-  };
-
-  const handleCloseGroup = (e, index) => {
-    const updatedisNewGroupVisible = [...isNewGroupVisible];
-    updatedisNewGroupVisible[index] = false;
-    setNewGroupVisible(updatedisNewGroupVisible);
+    setId(id);
+    // console.log("id", id);
   };
 
   // Thêm một sự kiện lắng nghe click ở ngoài menu để đóng menu
@@ -98,6 +109,9 @@ const Following = ({ searchTerm, onSearchChange }) => {
       // Đóng tất cả các menu và nhóm mới
       setMenuVisibleList(Array(data.length).fill(false));
       setNewGroupVisible(Array(data.length).fill(false));
+      setShowInput(Array(data.length).fill(false));
+      setShowButtom(Array(data.length).fill(false));
+      setSelectedItems([]);
     }
   };
 
@@ -116,7 +130,6 @@ const Following = ({ searchTerm, onSearchChange }) => {
         // Sử dụng hàm callback để đảm bảo cập nhật đồng bộ và kích hoạt useEffect
         return !prevIsSaved;
       });
-      handleCloseMenuClick(e, index);
     } catch (error) {
       console.error('delete', error);
     }
@@ -147,7 +160,7 @@ const Following = ({ searchTerm, onSearchChange }) => {
       .then((apiData) => {
         setData(apiData.data);
         setTotalPages(apiData.totalPages);
-        console.log(apiData.data);
+        console.log('follower', apiData);
         // localStorage.setItem('searchTerm', "")
         // setSearch(localStorage.setItem('searchTerm', ""));
       })
@@ -155,6 +168,22 @@ const Following = ({ searchTerm, onSearchChange }) => {
         console.error("Lỗi khi gửi yêu cầu:", error);
       });
   }, [currentPage, id_card, isSaved, searchTerm]);
+
+
+  useEffect(() => {
+    fetch(`http://${API_BASE_URL}:8000/api/group`)
+      .then((response) => response.json())
+      .then((apiData) => {
+        setGroup(apiData.data);
+        // setTotalPages(apiData.totalPages);
+        console.log('group', apiData.data);
+        // localStorage.setItem('searchTerm', "")
+        // setSearch(localStorage.setItem('searchTerm', ""));
+      })
+      .catch((error) => {
+        console.error("Lỗi khi gửi yêu cầu:", error);
+      });
+  }, []);
 
   // const [isSaved, setIsSaved] = useState(false);
   // const toggleSaved = () => {
@@ -179,6 +208,125 @@ const Following = ({ searchTerm, onSearchChange }) => {
         console.error('like', error);
       });
   };
+
+  //
+  const handleCreateGroup = async (e, index) => {
+    e.preventDefault();
+    try {
+      const formData = new FormData();
+      formData.append("group_name", group_name);
+
+      for (const [key, value] of formData.entries()) {
+        console.log(`${key}: ${value}`);
+      }
+
+      // Gửi dữ liệu bằng updatedDatas
+      const csrf = await http.get("/sanctum/csrf-cookie");
+
+      const addGroup = await http.post(
+        `http://${API_BASE_URL}:8000/api/group`,
+        formData
+      );
+
+      // Lấy danh sách nhóm mới đã thêm
+      const response = await fetch(`http://${API_BASE_URL}:8000/api/group`);
+      const responseData = await response.json();
+      setGroup(responseData.data);
+
+      const user = await http.get(
+        `http://${API_BASE_URL}:8000/api/user/${id_card}`
+      );
+      const current = localStorage.setItem("currentUser", JSON.stringify(user)); // update localstorage
+      console.log("Added Group Successful");
+      setGroupName('');
+      setIsSaved(prevIsSaved => {
+        // Sử dụng hàm callback để đảm bảo cập nhật đồng bộ và kích hoạt useEffect
+        return !prevIsSaved;
+      })
+    } catch (error) {
+      console.error("Lỗi:", error);
+    }
+  };
+
+  // Cập nhật các mục đã chọn
+  // Cập nhật các mục đã chọn
+  const handleCheckboxChange = async (event, group_id, id_card) => {
+    const isChecked = event.target.checked;
+
+    if (isChecked) {
+      try {
+        // Kiểm tra xem id_card đã tồn tại trong group_id hay chưa
+        const checkExistenceResponse = await http.get(`http://${API_BASE_URL}:8000/api/manage/${group_id}/${id_card}`);
+        if (checkExistenceResponse.data.length !== 0) {
+          console.log("User already exists in the group. No action needed.");
+        } else {
+          const formData = new FormData();
+          formData.append("group_id", group_id);
+          formData.append("id_card", id_card);
+
+          for (const [key, value] of formData.entries()) {
+            console.log(`${key}: ${value}`);
+          }
+
+          // Gửi dữ liệu bằng updatedDatas
+          const csrf = await http.get("/sanctum/csrf-cookie");
+
+          const addGroup = await http.post(
+            `http://${API_BASE_URL}:8000/api/manage`,
+            formData
+          );
+
+          // Lấy danh sách nhóm mới đã thêm
+          const response = await fetch(`http://${API_BASE_URL}:8000/api/manage/group/${id_card}`);
+          const responseData = await response.json();
+          setSelectedItems(responseData.data);
+          console.log("new group items", responseData.data);
+          console.log("Added User to Group Successful");
+        }
+      } catch (error) {
+        console.error("Lỗi:", error);
+      }
+    } else {
+      // Nếu không được chọn, bạn có thể thực hiện xử lý khác ở đây nếu cần
+
+      // Bạn có thể giữ nguyên setSelectedItems ở đây nếu muốn giữ lại trạng thái đã chọn trước đó.
+      // setSelectedItems((prevSelected) =>
+      //     prevSelected.filter((item) => item !== id_card)
+      // );
+    }
+  };
+
+
+
+  useEffect(() => {
+    console.log("id:", id);
+
+    fetch(`http://${API_BASE_URL}:8000/api/manage/group/${id}`)
+      .then((response) => response.json())
+      .then((apiData) => {
+        //setSelectedItems(apiData.data);
+        console.log("aaa", Math.max(...apiData.data));
+        for (let i = 0; i <= Math.max(...apiData.data); i++) {
+          for (let int = 0; int < apiData.data.length; int++) {
+            if (apiData.data[int] === i) {
+              selectedItems.splice(i, 0, apiData.data[int]);
+              break;
+            }
+            if (int == apiData.data.length - 1) {
+              selectedItems.splice(i, 0, null);
+            }
+          }
+        }
+
+        setSelectedItems([...selectedItems]);
+        console.log("bbb", selectedItems);
+      })
+      .catch((error) => {
+        console.error("Lỗi khi gửi yêu cầu:", error);
+      });
+    // handleCheckboxChange();
+
+  }, [id]);
 
   const setImg = (e) => {
     // console.log(data.img_url)
@@ -261,10 +409,10 @@ const Following = ({ searchTerm, onSearchChange }) => {
             <div className='absolute right-1/2 sm:right-[41%] sm:top-[40%]'>
               {menuVisibleList[index] && (
                 <div className='absolute z-10 inline-flex flex-col w-40 h-auto px-1 text-xs bg-gray-100 border border-gray-300 rounded-md left-5 justify-evenly top-1 drop-shadow-md'>
-                  <div className='absolute flex items-center justify-center w-3 h-3 text-xs rounded-full hover:border-gray-300 hover:border right-1 top-1' onClick={(event) => handleCloseMenuClick(event, index)}>x</div>
+                  <div className='absolute flex items-center justify-center w-3 h-3 text-xs rounded-full hover:border-gray-300 hover:border right-1 top-1' onClick={(event) => handleCloseMenuClick(event, index, selectedItems)}>x</div>
                   <br />
 
-                  <div className='inline-flex items-center justify-between px-1 py-2 mt-1 text-left transition duration-200 ease-in-out hover:bg-gray-200 hover:border hover:border-gray-300 hover:rounded-md' onClick={(event) => handleAddToGroupClick(event, index)}>
+                  <div className='inline-flex items-center justify-between px-1 py-2 mt-1 text-left transition duration-200 ease-in-out hover:bg-gray-200 hover:border hover:border-gray-300 hover:rounded-md' onClick={(event) => handleAddToGroupClick(event, index, e.contact_id)}>
                     <p>グループに追加する</p>
                     <img src='https://cdn-icons-png.flaticon.com/64/446/446136.png' className='w-3' />
                   </div>
@@ -276,28 +424,44 @@ const Following = ({ searchTerm, onSearchChange }) => {
               )}
 
               {isNewGroupVisible[index] && (
-                <ul className='absolute z-10 inline-flex flex-col w-40 h-auto px-2 py-1 text-xs bg-gray-100 border border-gray-300 rounded-md left-5 justify-evenly top-16 drop-shadow-md'>
 
-                  <div className='absolute flex items-center justify-center w-3 h-3 text-xs rounded-full hover:border-gray-300 hover:border right-1 top-1' onClick={(event) => handleCloseGroup(event, index)}>x</div>
+                <ul className='absolute z-10 inline-flex flex-col w-40 h-auto px-2 py-1 text-xs bg-gray-100 border border-gray-300 rounded-md left-5 justify-evenly top-16 drop-shadow-md'>
                   <br />
-                  <li className='inline-flex items-center justify-between px-1 py-2 text-left transition duration-200 ease-in-out hover:bg-gray-200 hover:border hover:border-gray-300 hover:rounded-md'>
-                    <input type='checkbox' className='w-3 mr-3' />
-                    <h4 className='max-w-full overflow-hidden'>groupname</h4>
-                  </li>
+                  {group.map((event, i) => (
+                    <li className='inline-flex items-center justify-between px-1 py-2 text-left transition duration-200 ease-in-out hover:bg-gray-200 hover:border hover:border-gray-300 hover:rounded-md'
+                    // onChange={(evt) => checkIdCard(evt, index, event.group_id, e.contact_id)}
+                    key={i}
+                    >
+                      <input type='checkbox' className='w-3 mr-3'
+                        // checked={selectedItems[index].group_id == event.group_id && selectedItems[index].id_card == e.contact_id}
+                        checked={event.group_id === selectedItems[i + 1]}
+                        onChange={(ev) => handleCheckboxChange(ev, event.group_id, e.contact_id)} />
+                      <h4 className='max-w-full overflow-hidden'>{event.group_name} {event.group_id} {e.contact_id}</h4>
+                    </li>
+                  ))}
                   <li className='inline-flex items-center justify-between px-1 py-2 text-left transition duration-200 ease-in-out hover:bg-gray-200 hover:border hover:border-gray-300 hover:rounded-md' onClick={(event) => handlePlusGroup(event, index)}>
                     <img src='https://cdn-icons-png.flaticon.com/64/446/446136.png' className='w-3' />
                     <h4>新規グループを作成</h4>
                   </li>
-                  {showInput[index] && (
-                    <li className='inline-flex items-center justify-between px-1 py-2 text-left transition duration-200 ease-in-out border-b border-solid hover:bg-gray-200 hover:border hover:border-gray-300 hover:rounded-md border-b-gray-300'>
-                      <input className='w-full h-full bg-transparent outline-none' placeholder='グループの名前' />
-                    </li>
-                  )}
-                  <br />
-                  {showButtom[index] && (
-                    <buttom className='w-full mb-1 text-right cursor-pointer hover:text-[#36735B] hover:font-bold'>編集</buttom>
-                  )}
+                  <form onSubmit={(e) => handleCreateGroup(e, index)}>
+                    {showInput[index] && (
+                      <li className='inline-flex items-center justify-between px-1 py-2 text-left transition duration-200 ease-in-out border-b border-solid hover:bg-gray-200 hover:border hover:border-gray-300 hover:rounded-md border-b-gray-300'>
+                        <input className='w-full h-full bg-transparent outline-none'
+                          placeholder='グループの名前'
+                          type='text'
+                          id='group_name'
+                          value={group_name}
+                          onChange={(e) => setGroupName(e.target.value)}
+                          required />
+                      </li>
+                    )}
+                    <br />
+                    {showButtom[index] && (
+                      <button className='w-full mb-1 text-right cursor-pointer hover:text-[#36735B] hover:font-bold' id='btt' type='submit'>編集</button>
+                    )}
+                  </form>
                 </ul>
+
               )}
             </div>
 

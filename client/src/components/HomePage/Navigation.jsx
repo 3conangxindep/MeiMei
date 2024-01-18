@@ -5,7 +5,7 @@ import './Navigation.css';
 const Navigation = () => {
   const [currentPage, setCurrentPage] = useState('MyHomePage'); // State để theo dõi trang hiện tại
   const contact_id = JSON.parse(localStorage.getItem('currentUser')).data.id_card;
-  console.log("navigation"+contact_id);
+  // console.log("navigation"+contact_id);
 
   return (
     <div className="relative flex items-center justify-start w-full h-auto ml-6">

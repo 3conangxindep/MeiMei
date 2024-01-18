@@ -28,11 +28,11 @@ const Header = () => {
             
             //lấy số thông báo
             setNotificationCount(response.data.newNotificationCount);
-            console.log("header - NotificationCount: " + response.data.newNotificationCount);
+            // console.log("header - NotificationCount: " + response.data.newNotificationCount);
             
             //lấy new notification
             setNewNotification(response.data.data);
-            console.log("header - newNotification " + JSON.stringify(response.data.data));
+            // console.log("header - newNotification " + JSON.stringify(response.data.data));
 
         } catch (error) {
             console.error("Error:", error);

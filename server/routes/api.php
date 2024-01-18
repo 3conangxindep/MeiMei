@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\GroupController;
+use App\Http\Controllers\ManageGroupController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
@@ -58,3 +60,21 @@ Route::post('/logout', [UserController::class, 'logout'])->middleware('auth:sanc
 
 //photos
 Route::post('/photos', [PhotoController::class, 'upload']);
+
+//group
+Route::get('/group/{id}', [GroupController::class, 'show']);
+Route::post('/group', [GroupController::class, 'store']);
+Route::get('/group', [GroupController::class, 'index']);
+Route::get('/groups/{page}', [GroupController::class, 'group']);
+Route::get('/group/{page}/{search}', [GroupController::class, 'searchGroup']);
+
+//manage group
+Route::get('/manage/{id}', [ManageGroupController::class, 'show']);
+Route::get('/manage/group/{id_card}', [ManageGroupController::class, 'checkId']);
+Route::get('/manage/{group_id}/{id_card}', [ManageGroupController::class, 'check']);
+Route::post('/manage', [ManageGroupController::class, 'store']);
+Route::get('/manage', [ManageGroupController::class, 'index']);
+// Route::get('/manage/', [ManageGroupController::class, 'index']);
+
+
+

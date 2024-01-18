@@ -34,7 +34,7 @@ const MyHomePage = () => {
                 const response = await http.get(`/api/user/${contact_id}`);
 
                 setData(response.data);
-                console.log(response.data.user_name);
+                // console.log(response.data.user_name);
             } catch (error) {
                 console.error("Error:", error);
             }
@@ -65,7 +65,7 @@ const MyHomePage = () => {
                 // Fetch user data
                 const response = await http.get(`/api/company/${contact_id}`);
                 setCompany(response.data);
-                console.log(response.data.com_name);
+                // console.log(response.data.com_name);
             } catch (error) {
                 console.error("Error:", error);
             }
