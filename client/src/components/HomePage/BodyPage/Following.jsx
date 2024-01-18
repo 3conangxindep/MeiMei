@@ -130,6 +130,7 @@ const Following = ({ searchTerm, onSearchChange }) => {
         // Sử dụng hàm callback để đảm bảo cập nhật đồng bộ và kích hoạt useEffect
         return !prevIsSaved;
       });
+      handleCloseMenuClick(e, index)
     } catch (error) {
       console.error('delete', error);
     }
