@@ -9,6 +9,7 @@ import FavoritePage from './FavoritePage';
 
 
 const ContactPage = () => {
+    const img1 ='/meimei_img.png';
     const [searchTerm, setSearchTerm] = useState("");
 
     const handleSearchChange = (term) => {
@@ -20,9 +21,9 @@ const ContactPage = () => {
     return (
         // contact-container
         <div className='box-border w-full p-4'>
+            <img src={img1} className='fixed z-10 h-48 mb-1 -bottom-7 -right-5'/>
             {/* contact-search */}
             <div className='flex items-center justify-end w-full h-full mb-4'><Search onSearch={handleSearchChange} /></div>
-            <img src='https://cdn-icons-png.flaticon.com/128/1662/1662718.png' className='h-20 mb-1'/>
             {/* section */}
             <div className='relative flex items-center justify-center w-full bg-[#36735B] rounded rounded-b h-14 rounded-t-3xl border border-[#ECFF8C]'>
                 <NavLink

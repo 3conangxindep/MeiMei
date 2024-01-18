@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect,useRef } from 'react';
 import { useParams } from 'react-router-dom';
 import API_BASE_URL from '../../../apiConfig';
 import axios from "axios";
@@ -85,6 +85,35 @@ const InformationPage = () => {
         placeHolderImg = `https://ui-avatars.com/api/?name=${nameSplit[0]}+${nameSplit[1]}`;
     }
 
+    const myDivRef_com = useRef();
+    const myDivRef_account = useRef();
+    const [isScrolled, setIsScrolled] = useState(false);
+    // const [scrollRef, setScrollRef] = useState(null);
+    
+    // useEffect(() => {
+    //     setScrollRef(myDivRef_com.current);
+    // }, [myDivRef_com]);
+
+    const scrollToDiv = () => {
+        console.log("Scrolling...");
+        const pageHeight = document.documentElement.scrollHeight;
+        if (isScrolled) {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+              });
+        } else {
+            const scrollPercentage = 0.76; // Adjust this value as needed
+            const scrollToPosition = pageHeight * scrollPercentage;
+    
+            window.scrollTo({
+                top: scrollToPosition,
+                behavior: 'smooth'
+            });
+        }
+        setIsScrolled(!isScrolled);
+      };
+
     return (
         <div className='box-border w-full h-full p-2.5 mt-5 overflow-auto rounded-3xl'>
             <div className='flex flex-col items-start justify-center w-full p-6'>
@@ -136,7 +165,11 @@ const InformationPage = () => {
             </div>
 
             {/* company */}
-            <div className='w-full p-7 bg-[#FFFFFF] rounded-3xl border border-[#ECFF8C] shadow shadow-[#36735Bs]'>
+            <div className='absolute flex flex-col justify-center items-center w-full top-[76%] left-1/2 p-7 transform -translate-x-1/2 bg-[#FFFFFF] rounded-3xl border border-[#ECFF8C] shadow shadow-[#36735Bs]'>
+                {/* <div className={`absolute left-1/2 w-4 h-2 transform -translate-x-1/2 bg-[#0E3A36] clip-triangle ${isScrolled ? 'rotate-0' : 'rotate-180'}`}  onClick={scrollToDiv} /> */}
+                <button className={`${isScrolled ? 'rotate-0' : 'rotate-180'}`} onClick={scrollToDiv}>
+                    <img src='https://cdn-icons-png.flaticon.com/128/10412/10412527.png' className='w-6 h-4' />
+                </button>
                 {/* company */}
                 <div className='relative w-full h-full'>
                     <p className='text-2xl font-bold text-[#0E3A36] mb-2'>勤務先</p>
