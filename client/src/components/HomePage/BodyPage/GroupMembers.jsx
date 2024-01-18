@@ -17,7 +17,7 @@ const GroupMembers = ({ searchTerm, onSearchChange }) => {
     const [currentPage, setCurrentPage] = useState(1);
     const [totalPages, setTotalPages] = useState(1);
     const [isSaved, setIsSaved] = useState();
-
+    const [selectedGroupId, setSelectedGroupId] = useState(null);
     // Thêm một sự kiện lắng nghe click ở ngoài menu để đóng menu
 
 
@@ -62,7 +62,7 @@ const GroupMembers = ({ searchTerm, onSearchChange }) => {
                 setGroupData(apiData.data);
                 setTotalPages(apiData.totalPages);
                 setIsSaved(group_id);
-
+                setSelectedGroupId(group_id); // Lưu group_id vào state
                 console.log(apiData.data);
                 // console.log(groupData.email);
                 // console.log(groupData.id_card);
@@ -124,8 +124,8 @@ const GroupMembers = ({ searchTerm, onSearchChange }) => {
             {/* dropdown button */}
             {/* dat map group o day */}
             {data.map((e, index) => (
-                <div className='w-full max-h-full min-h-16 bg-[#D9D9D9]/10 rounded-md drop-shadow-md drop-shadow-gray-200 border border-[#D9D9D9]'
-                    onMouseEnter={(event,index) => {
+                <div className='w-full my-1 max-h-full min-h-16 bg-[#D9D9D9]/10 rounded-md drop-shadow-md drop-shadow-gray-200 border border-[#D9D9D9]'
+                    onClick={(event, index) => {
                         setShowGroupButton(true);
                         handleClickGroup(event, e.group_id);
                     }}
@@ -138,11 +138,11 @@ const GroupMembers = ({ searchTerm, onSearchChange }) => {
                         <div className="absolute w-4 h-2 transform rotate-180 bg-[#0E3A36] clip-triangle right-3 top-7" ></div>
                     </button>
 
-                    {showGroupButton && (
+                    {showGroupButton && selectedGroupId === e.group_id &&(
                         <ul className='flex flex-col items-center justify-center w-full max-h-full px-1 transition duration-200 ease-in-out min-h-20'>
 
                             {/* dat map list user o day */}
-                            {groupData.map((e2, index) => (
+                            {groupData.map((e2, i) => (
                                 <li className='relative flex items-center w-full h-14 pl-1.5 bg-gray-100 my-1 border rounded-lg border-gray-300 transition duration-200 cursor-pointer hover:bg-gray-200 hover:border-gray-200 hover:border hover:rounded-lg'>
                                     <Link key={e2.id_card} to={`/InformationPage/${id_card}/${e2.id_card}`} className='relative flex items-center w-3/5 p-1 bg-gray-300 border border-gray-300 rounded-lg h-4/5'>
 
@@ -154,8 +154,8 @@ const GroupMembers = ({ searchTerm, onSearchChange }) => {
                                         </div>
                                         {/* chinh sua nhom va so thich */}
                                         <div className='absolute right-1'>
-                                            <div className={index} onClick={(event) => handleStarClick(event, id_card, e.contact_id)} style={{ width: '0.75rem' }}>
-                                                {e.like ? (
+                                            <div className={index} onClick={(event) => handleStarClick(event, id_card, e2.id_card)} style={{ width: '0.75rem' }}>
+                                                {e2.like ? (
                                                     <img
                                                         className='w-3.5 hover:bg-gray-200 hover:border-gray-200 hover:border hover:rounded-md'
                                                         style={{ width: '15px' }}
