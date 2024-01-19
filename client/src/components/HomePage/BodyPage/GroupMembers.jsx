@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import API_BASE_URL from '../../../apiConfig';
 
 const GroupMembers = ({ searchTerm, onSearchChange }) => {
+    const delete_group_btn = '/delete_group_btn.png';
 
     const [showGroupButton, setShowGroupButton] = useState(false);
 
@@ -21,6 +22,7 @@ const GroupMembers = ({ searchTerm, onSearchChange }) => {
     // Thêm một sự kiện lắng nghe click ở ngoài menu để đóng menu
     const [menuVisibleList, setMenuVisibleList] = useState(Array(data.length).fill(false));
     const [isNewGroupVisible, setNewGroupVisible] = useState(Array(data.length).fill(false));
+    const [deleteParentGroup, setdeleteParentGroup] = useState(Array(data.length).fill(false));
     const [openedMenuIndex, setOpenedMenuIndex] = useState(null);
 
     const handleMenuClick = (e, index) => {
@@ -46,6 +48,17 @@ const GroupMembers = ({ searchTerm, onSearchChange }) => {
         // Cập nhật index của menu đang mở
         setOpenedMenuIndex(index);
     };
+
+    // xoa group
+    const handleDeleteParentGroup =(e,index)=>{
+        e.preventDefault();
+        e.stopPropagation();
+        setdeleteParentGroup((prevDeleteParentGroup)=>{
+            const deleteParentGroup = [...prevDeleteParentGroup];
+            deleteParentGroup[index] = !deleteParentGroup[index];
+            return deleteParentGroup;
+        })
+    }
     const handleCloseMenuClick = (e, index) => {
         const updatedMenuVisibleList = [...menuVisibleList];
         updatedMenuVisibleList[index] = false;
@@ -54,6 +67,10 @@ const GroupMembers = ({ searchTerm, onSearchChange }) => {
         const updatedisNewGroupVisible = [...isNewGroupVisible];
         updatedisNewGroupVisible[index] = false;
         setNewGroupVisible(updatedisNewGroupVisible);
+
+        const deleteParentGroup_ = [...deleteParentGroup];
+        deleteParentGroup_[index] = false;
+        setdeleteParentGroup(deleteParentGroup_);
 
         // Đặt menu đang mở về null khi đóng
         setOpenedMenuIndex(null);
@@ -99,9 +116,10 @@ const GroupMembers = ({ searchTerm, onSearchChange }) => {
             .then((apiData) => {
                 setGroupData(apiData.data);
                 setTotalPages(apiData.totalPages);
-                setIsSaved(group_id);
+                // setIsSaved(group_id);
                 setSelectedGroupId(group_id); // Lưu group_id vào state
                 console.log(apiData.data);
+                console.log("apiData.data.group_id",apiData.data);
                 // console.log(groupData.email);
                 // console.log(groupData.id_card);
 
@@ -119,9 +137,9 @@ const GroupMembers = ({ searchTerm, onSearchChange }) => {
     // };
 
     //cách viết phần này của Recent và Following là khác nhau 
-    const handleStarClick = (event, id_card, contact_id) => {
+    const handleStarClick = (event, id_card, contact_id, group_id) => {
         event.preventDefault();
-        //event.stopPropagation();
+        event.stopPropagation();
 
         console.log('click', contact_id);
         fetch(`http://${API_BASE_URL}:8000/api/contact/like/${id_card}/${contact_id}`, {
@@ -131,10 +149,12 @@ const GroupMembers = ({ searchTerm, onSearchChange }) => {
             .then((responseData) => {
                 console.log('like', responseData.data);
                 setIsSaved(responseData.data.like);
+                console.log('responseData.data.like', responseData.data.like);
             })
             .catch((error) => {
                 console.error('like', error);
             });
+            handleClickGroup(event, group_id);
     };
 
     const handleDeleteFollowerClick = async (e, index, group_id, id_card) => {
@@ -143,6 +163,27 @@ const GroupMembers = ({ searchTerm, onSearchChange }) => {
     
         try {
           const response = await fetch(`http://${API_BASE_URL}:8000/api/manage/${group_id}/${id_card}`, {
+            method: 'DELETE',
+          });
+          const responseData = await response.json();
+    
+          console.log('delete', responseData);
+          setIsSaved(prevIsSaved => {
+            // Sử dụng hàm callback để đảm bảo cập nhật đồng bộ và kích hoạt useEffect
+            return !prevIsSaved;
+          });
+          handleCloseMenuClick(e, index)
+        } catch (error) {
+          console.error('delete', error);
+        }
+      };
+
+      const handleDeleteGroupClick = async (e, index, group_id) => {
+        e.preventDefault();
+        e.stopPropagation();
+    
+        try {
+          const response = await fetch(`http://${API_BASE_URL}:8000/api/group/${group_id}`, {
             method: 'DELETE',
           });
           const responseData = await response.json();
@@ -193,8 +234,19 @@ const GroupMembers = ({ searchTerm, onSearchChange }) => {
                 >
                     <button className='relative w-full h-16 bg-[#D9D9D9]/50 rounded-md rounded-t-sm pl-3 text-lg text-left text-[#0E3A36] font-bold border border-gray-300'>
                         {e.group_name}
-                        {/* <img src={'https://cdn-icons-png.flaticon.com/128/649/649731.png'} alt='' className='absolute w-3 transform rotate-180 right-3 top-6'/>  */}
-                        <div className="absolute w-4 h-2 transform rotate-180 bg-[#0E3A36] clip-triangle right-3 top-7" ></div>
+                        
+                        {/* xoa group */}
+                        <img src={delete_group_btn} className="absolute w-2 h-4 transform -translate-y-1/2 top-1/2 right-1" onClick={(e)=>handleDeleteParentGroup(e,index)}/>
+                        {deleteParentGroup[index] &&(
+                            <div className='absolute z-10 inline-flex flex-col w-40 h-auto px-1 text-xs bg-gray-100 border border-gray-300 rounded-md right-1 justify-evenly top-1 drop-shadow-md'>
+                                <div className='absolute flex items-center justify-center w-3 h-3 text-xs rounded-full hover:border-gray-300 hover:border right-1 top-1' onClick={(event) => handleCloseMenuClick(e, index)}>x</div>
+                                <br />
+                                <div className='inline-flex items-center justify-between px-1 py-2 text-left transition duration-200 ease-in-out hover:bg-gray-200 hover:border hover:border-gray-300 hover:rounded-md' onClick={(event) => handleDeleteGroupClick(event, index, e.group_id)}>
+                                    <p>削除</p>
+                                    <img src='https://cdn-icons-png.flaticon.com/64/484/484662.png' className='w-3' />
+                                </div>
+                            </div>
+                        )}
                     </button>
 
                     {showGroupButton && selectedGroupId === e.group_id && (
@@ -221,18 +273,17 @@ const GroupMembers = ({ searchTerm, onSearchChange }) => {
                                                 alt=''
                                             />
 
-                                            <div className={i} onClick={(event) => handleStarClick(event, id_card, e2.id_card)} style={{ width: '0.75rem' }}>
+                                            <div className={i} onClick={(event) => handleStarClick(event, id_card, e2.id_card, e2.group_id)} style={{ width: '0.75rem' }}>
+                                            {console.log('e2.like:', e2)}
                                                 {e2.like ? (
                                                     <img
-                                                        className='w-3.5 hover:bg-gray-200 hover:border-gray-200 hover:border hover:rounded-md'
-                                                        style={{ width: '15px' }}
+                                                        className='w-3'
                                                         src='https://cdn-icons-png.flaticon.com/128/2377/2377810.png'
                                                         alt='save'
                                                     />
                                                 ) : (
                                                     <img
-                                                        className='w-3.5 hover:bg-gray-200 hover:border-gray-200 hover:border hover:rounded-md'
-                                                        style={{ width: '15px' }}
+                                                        className='w-3'
                                                         src='https://cdn-icons-png.flaticon.com/128/2377/2377878.png'
                                                         alt='nosave'
                                                     />

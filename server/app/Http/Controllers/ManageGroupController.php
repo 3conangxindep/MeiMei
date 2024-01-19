@@ -58,8 +58,9 @@ class ManageGroupController extends Controller
     {
         //
         $groupUser = DB::table('manage_group as g')
-            ->select('g.group_id', 'g.id_card', 'g.created_at', 'u.user_name', 'u.email', 'u.img_url')
+            ->select('g.group_id', 'g.id_card', 'g.created_at', 'u.user_name', 'u.email', 'u.img_url', 'c.like')
             ->leftJoin('user as u', 'g.id_card', '=', 'u.id_card')
+            ->leftJoin('contact as c', 'g.id_card', '=', 'c.contact_id')
             ->where('g.group_id', '=', $group_id)
             ->get();
 

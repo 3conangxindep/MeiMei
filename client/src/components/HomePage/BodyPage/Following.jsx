@@ -388,6 +388,7 @@ const Following = ({ searchTerm, onSearchChange }) => {
 
                 {/* set ảnh được đánh dấu sao va không được đánh dấu sao */}
                 <div className={index} onClick={(event) => handleStarClick(event, id_card, e.contact_id)}>
+                {console.log('e2.like:', e)}
                   {e.like ? (
                     <img
                       className='w-3.5 hover:bg-gray-200 hover:border-gray-200 hover:border hover:rounded-md'
