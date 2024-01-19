@@ -20,7 +20,7 @@ class CreateManageGroupTable extends Migration
             $table->timestamp('updated_at')->useCurrent()->useCurrentOnUpdate();
             $table->softDeletes();
             // Foreign key
-            $table->foreign('group_id')->references('group_id')->on('group');
+            $table->foreign('group_id')->references('group_id')->on('group')->onDelete('cascade');
             $table->foreign('id_card')->references('id_card')->on('user');
         });
     }
