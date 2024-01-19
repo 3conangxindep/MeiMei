@@ -14,102 +14,6 @@ const FavoritePage = ({ searchTerm, onSearchChange }) => {
     const [totalPages, setTotalPages] = useState(1);
     const [isSaved, setIsSaved] = useState();
 
-  // hien thi them xoa nhom
-  const [menuVisibleList, setMenuVisibleList] = useState(Array(data.length).fill(false));
-  const [isNewGroupVisible, setNewGroupVisible] = useState(Array(data.length).fill(false));
-  const [showInput, setShowInput] = useState(Array(data.length).fill(false));
-  const [showButtom, setShowButtom] = useState(Array(data.length).fill(false));
-  const [openedMenuIndex, setOpenedMenuIndex] = useState(null);
-
-
-
-  const handlePlusGroup =(e, index)=>{
-      const showInputList = [...showInput];
-      showInputList[index] = !showInputList[index];
-      setShowInput(showInputList);        
-      
-      const showButtomtList = [...showButtom];
-      showButtomtList[index] = !showButtomtList[index];
-      setShowButtom(showButtomtList);
-  };
-
-  const handleMenuClick = (e, index) => {
-    e.preventDefault();
-    e.stopPropagation();
-    
-    // Đóng menu trước đó nếu có
-    if (openedMenuIndex !== null) {
-      setMenuVisibleList((prevMenuList) => {
-        const updatedMenuList = [...prevMenuList];
-        updatedMenuList[openedMenuIndex] = false;
-        return updatedMenuList;
-      });
-      setNewGroupVisible((prevMenuGroupList) => {
-        const updatedMenuGroupList = [...prevMenuGroupList];
-        updatedMenuGroupList[openedMenuIndex] = false;
-        return updatedMenuGroupList;
-      });
-    }
-    
-    // Mở menu mới
-    setMenuVisibleList((prevMenuList) => {
-      const updatedMenuList = [...prevMenuList];
-      updatedMenuList[index] = !updatedMenuList[index];
-      return updatedMenuList;
-    })    
-    // Cập nhật index của menu đang mở
-    setOpenedMenuIndex(index);
-  };
-  
-  
-  
-  const handleCloseMenuClick = (e, index) => {
-    const updatedMenuVisibleList = [...menuVisibleList];
-    updatedMenuVisibleList[index] = false;
-    setMenuVisibleList(updatedMenuVisibleList);
-  
-    const updatedisNewGroupVisible = [...isNewGroupVisible];
-    updatedisNewGroupVisible[index] = false;
-    setNewGroupVisible(updatedisNewGroupVisible);
-  
-    // Đặt menu đang mở về null khi đóng
-    setOpenedMenuIndex(null);
-  }
-  
-  
-    const handleAddToGroupClick = (e, index) => {
-      e.preventDefault();
-      e.stopPropagation();
-      const updatedisNewGroupVisible = [...isNewGroupVisible];
-      updatedisNewGroupVisible[index] = !updatedisNewGroupVisible[index];
-      setNewGroupVisible(updatedisNewGroupVisible);
-    };
-      
-    const handleCloseGroup = (e, index) => {
-      const updatedisNewGroupVisible = [...isNewGroupVisible];
-      updatedisNewGroupVisible[index] = false;
-      setNewGroupVisible(updatedisNewGroupVisible);
-    };
-
-  // Thêm một sự kiện lắng nghe click ở ngoài menu để đóng menu
-  const handleOutsideClick = (e) => {
-    // Kiểm tra xem click có xảy ra bên trong element menu hay không
-    if (!e.target.closest(".show-menu")) {
-      // Đóng tất cả các menu và nhóm mới
-      setMenuVisibleList(Array(data.length).fill(false));
-      setNewGroupVisible(Array(data.length).fill(false));
-    }
-  };
-
-  // Thêm sự kiện lắng nghe click ở cấp cao nhất, chẳng hạn như trên body hoặc một container lớn
-  useEffect(() => {
-    document.addEventListener("click", handleOutsideClick);
-
-    // Cleanup sự kiện khi component unmounts
-    return () => {
-      document.removeEventListener("click", handleOutsideClick);
-    };
-  }, []);
 
     useEffect(() => {
         // setSearch(localStorage.getItem('searchTerm'));
@@ -207,13 +111,6 @@ const FavoritePage = ({ searchTerm, onSearchChange }) => {
 
                                 {/* chinh sua nhom va so thich */}
                                 <div className='absolute right-1'>
-                                {/* <div onClick={(event) =>handleMenuClick(event, id_card, e.id_card)} className='text-left'> */}
-                                    <img
-                                        onClick={(event) =>handleMenuClick(event, index)}
-                                        className='w-3 pb-2'
-                                        src='https://cdn-icons-png.flaticon.com/128/2311/2311524.png'
-                                        alt=''
-                                    />
                                     {/* set ảnh được đánh dấu sao va không được đánh dấu sao */}
                                     <div className={index} onClick={(event) => handleStarClick(event, id_card, e.contact_id)} style={{width:'0.75rem'}}>
                                         {e.like ? (
@@ -236,46 +133,6 @@ const FavoritePage = ({ searchTerm, onSearchChange }) => {
                             </Link>
 
                             <div className='absolute right-1/2 sm:right-[41%] sm:top-[40%]'>
-                            {menuVisibleList[index] &&(
-                                <div className='absolute z-10 inline-flex flex-col w-40 h-auto px-1 text-xs bg-gray-100 border border-gray-300 rounded-md left-5 justify-evenly top-1 drop-shadow-md'>
-                                    <div className='absolute flex items-center justify-center w-3 h-3 text-xs rounded-full hover:border-gray-300 hover:border right-1 top-1' onClick={(event) =>handleCloseMenuClick(event, index)}>x</div>
-                                    <br/>
-                                    
-                                    <div className='inline-flex items-center justify-between px-1 py-2 mt-1 text-left transition duration-200 ease-in-out hover:bg-gray-200 hover:border hover:border-gray-300 hover:rounded-md' onClick={(event) =>handleAddToGroupClick(event, index)}>
-                                        <p>グループに追加する</p>
-                                        <img src='https://cdn-icons-png.flaticon.com/64/446/446136.png' className='w-3'/>
-                                    </div>
-                                    <div className='inline-flex items-center justify-between px-1 py-2 text-left transition duration-200 ease-in-out hover:bg-gray-200 hover:border hover:border-gray-300 hover:rounded-md'>
-                                        <p>削除</p>
-                                        <img src='https://cdn-icons-png.flaticon.com/64/484/484662.png' className='w-3' />
-                                    </div>
-                                </div>
-                            )}
-
-                            {isNewGroupVisible[index] &&(
-                                <ul className='absolute z-10 inline-flex flex-col w-40 h-auto px-2 py-1 text-xs bg-gray-100 border border-gray-300 rounded-md left-5 justify-evenly top-16 drop-shadow-md'>
-                                    
-                                    <div className='absolute flex items-center justify-center w-3 h-3 text-xs rounded-full hover:border-gray-300 hover:border right-1 top-1' onClick={(event) =>handleCloseGroup(event, index)}>x</div>
-                                    <br/>
-                                    <li className='inline-flex items-center justify-between px-1 py-2 text-left transition duration-200 ease-in-out hover:bg-gray-200 hover:border hover:border-gray-300 hover:rounded-md'>
-                                        <input type='checkbox' className='w-3 mr-3'/>
-                                        <h4 className='max-w-full overflow-hidden'>groupname</h4>
-                                    </li>
-                                    <li className='inline-flex items-center justify-between px-1 py-2 text-left transition duration-200 ease-in-out hover:bg-gray-200 hover:border hover:border-gray-300 hover:rounded-md' onClick={(event) =>handlePlusGroup(event, index)}>
-                                        <img src='https://cdn-icons-png.flaticon.com/64/446/446136.png' className='w-3'/>
-                                        <h4>新規グループを作成</h4>
-                                    </li>
-                                    {showInput[index] &&(
-                                        <li className='inline-flex items-center justify-between px-1 py-2 text-left transition duration-200 ease-in-out border-b border-solid hover:bg-gray-200 hover:border hover:border-gray-300 hover:rounded-md border-b-gray-300'>
-                                            <input className='w-full h-full bg-transparent outline-none' placeholder='グループの名前'/>
-                                        </li>
-                                    )}
-                                    <br/>
-                                    {showButtom[index] &&(
-                                        <buttom className='w-full mb-1 text-right cursor-pointer hover:text-[#36735B] hover:font-bold'>編集</buttom>
-                                    )}
-                                </ul>
-                            )}
                         </div>
 
                             {/* set thoi gian */}

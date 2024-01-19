@@ -18,7 +18,7 @@ const GroupMembers = ({ searchTerm, onSearchChange }) => {
     const [currentPage, setCurrentPage] = useState(1);
     const [totalPages, setTotalPages] = useState(1);
     const [isSaved, setIsSaved] = useState();
-    const [selectedGroupId, setSelectedGroupId] = useState(null);
+    const [selectedGroupId, setSelectedGroupId] = useState(null); //group nao duoc chon
     // Thêm một sự kiện lắng nghe click ở ngoài menu để đóng menu
     const [menuVisibleList, setMenuVisibleList] = useState(Array(data.length).fill(false));
     const [isNewGroupVisible, setNewGroupVisible] = useState(Array(data.length).fill(false));
@@ -50,10 +50,10 @@ const GroupMembers = ({ searchTerm, onSearchChange }) => {
     };
 
     // xoa group
-    const handleDeleteParentGroup =(e,index)=>{
+    const handleDeleteParentGroup = (e, index) => {
         e.preventDefault();
         e.stopPropagation();
-        setdeleteParentGroup((prevDeleteParentGroup)=>{
+        setdeleteParentGroup((prevDeleteParentGroup) => {
             const deleteParentGroup = [...prevDeleteParentGroup];
             deleteParentGroup[index] = !deleteParentGroup[index];
             return deleteParentGroup;
@@ -92,7 +92,7 @@ const GroupMembers = ({ searchTerm, onSearchChange }) => {
                 setData(apiData.data);
                 // setGroupId(data.group_id);
                 setTotalPages(apiData.totalPages);
-                console.log(apiData.data);
+                console.log("groups: ", apiData.data);
                 // console.log(groupId);
                 // localStorage.setItem('searchTerm', "")
                 // setSearch(localStorage.setItem('searchTerm', ""));
@@ -107,10 +107,6 @@ const GroupMembers = ({ searchTerm, onSearchChange }) => {
         event.preventDefault();
         //event.stopPropagation();
 
-        console.log(group_id);
-        // let apiUrl = `http://${API_BASE_URL}:8000/api/manage/${group_id}`;
-        // Kiểm tra xem có từ khóa tìm kiếm không
-
         fetch(`http://${API_BASE_URL}:8000/api/manage/${group_id}`)
             .then((response) => response.json())
             .then((apiData) => {
@@ -118,13 +114,7 @@ const GroupMembers = ({ searchTerm, onSearchChange }) => {
                 setTotalPages(apiData.totalPages);
                 // setIsSaved(group_id);
                 setSelectedGroupId(group_id); // Lưu group_id vào state
-                console.log(apiData.data);
-                console.log("apiData.data.group_id",apiData.data);
-                // console.log(groupData.email);
-                // console.log(groupData.id_card);
-
-                // localStorage.setItem('searchTerm', "")
-                // setSearch(localStorage.setItem('searchTerm', ""));
+                console.log("group members: ", apiData.data);
             })
             .catch((error) => {
                 console.error("Lỗi khi gửi yêu cầu:", error);
@@ -154,50 +144,50 @@ const GroupMembers = ({ searchTerm, onSearchChange }) => {
             .catch((error) => {
                 console.error('like', error);
             });
-            handleClickGroup(event, group_id);
+        handleClickGroup(event, group_id);
     };
 
     const handleDeleteFollowerClick = async (e, index, group_id, id_card) => {
         e.preventDefault();
         e.stopPropagation();
-    
-        try {
-          const response = await fetch(`http://${API_BASE_URL}:8000/api/manage/${group_id}/${id_card}`, {
-            method: 'DELETE',
-          });
-          const responseData = await response.json();
-    
-          console.log('delete', responseData);
-          setIsSaved(prevIsSaved => {
-            // Sử dụng hàm callback để đảm bảo cập nhật đồng bộ và kích hoạt useEffect
-            return !prevIsSaved;
-          });
-          handleCloseMenuClick(e, index)
-        } catch (error) {
-          console.error('delete', error);
-        }
-      };
 
-      const handleDeleteGroupClick = async (e, index, group_id) => {
+        try {
+            const response = await fetch(`http://${API_BASE_URL}:8000/api/manage/${group_id}/${id_card}`, {
+                method: 'DELETE',
+            });
+            const responseData = await response.json();
+
+            console.log('delete', responseData);
+            setIsSaved(prevIsSaved => {
+                // Sử dụng hàm callback để đảm bảo cập nhật đồng bộ và kích hoạt useEffect
+                return !prevIsSaved;
+            });
+            handleCloseMenuClick(e, index)
+        } catch (error) {
+            console.error('delete', error);
+        }
+    };
+
+    const handleDeleteGroupClick = async (e, index, group_id) => {
         e.preventDefault();
         e.stopPropagation();
-    
+
         try {
-          const response = await fetch(`http://${API_BASE_URL}:8000/api/group/${group_id}`, {
-            method: 'DELETE',
-          });
-          const responseData = await response.json();
-    
-          console.log('delete', responseData);
-          setIsSaved(prevIsSaved => {
-            // Sử dụng hàm callback để đảm bảo cập nhật đồng bộ và kích hoạt useEffect
-            return !prevIsSaved;
-          });
-          handleCloseMenuClick(e, index)
+            const response = await fetch(`http://${API_BASE_URL}:8000/api/group/${group_id}`, {
+                method: 'DELETE',
+            });
+            const responseData = await response.json();
+
+            console.log('delete', responseData);
+            setIsSaved(prevIsSaved => {
+                // Sử dụng hàm callback để đảm bảo cập nhật đồng bộ và kích hoạt useEffect
+                return !prevIsSaved;
+            });
+            handleCloseMenuClick(e, index)
         } catch (error) {
-          console.error('delete', error);
+            console.error('delete', error);
         }
-      };
+    };
 
     const setImg = (e) => {
         // console.log(data.img_url)
@@ -225,23 +215,24 @@ const GroupMembers = ({ searchTerm, onSearchChange }) => {
             {/* dat map group o day */}
             {data.map((e, index) => (
                 <div className='w-full my-1 max-h-full min-h-16 bg-[#D9D9D9]/10 rounded-md drop-shadow-md drop-shadow-gray-200 border border-[#D9D9D9]'
-                    onClick={(event, index) => {
+                    onClick={(event) => {
                         setShowGroupButton(true);
                         handleClickGroup(event, e.group_id);
                     }}
-                    onMouseLeave={(event, index) => setShowGroupButton(false)}
+                    onMouseLeave={(event) => {
+                        setShowGroupButton(false);
+                        handleCloseMenuClick(event, index);
+                    }}
                 // onMouseEnter={() => setGroupId(e.group_id)}
                 >
                     <button className='relative w-full h-16 bg-[#D9D9D9]/50 rounded-md rounded-t-sm pl-3 text-lg text-left text-[#0E3A36] font-bold border border-gray-300'>
                         {e.group_name}
-                        
+
                         {/* xoa group */}
-                        <img src={delete_group_btn} className="absolute w-2 h-4 transform -translate-y-1/2 top-1/2 right-1" onClick={(e)=>handleDeleteParentGroup(e,index)}/>
-                        {deleteParentGroup[index] &&(
+                        <img src={delete_group_btn} className="absolute w-2 h-4 transform -translate-y-1/2 top-1/2 right-1" onClick={(e) => handleDeleteParentGroup(e, index)} />
+                        {deleteParentGroup[index] && (
                             <div className='absolute z-10 inline-flex flex-col w-40 h-auto px-1 text-xs bg-gray-100 border border-gray-300 rounded-md right-1 justify-evenly top-1 drop-shadow-md'>
-                                <div className='absolute flex items-center justify-center w-3 h-3 text-xs rounded-full hover:border-gray-300 hover:border right-1 top-1' onClick={(event) => handleCloseMenuClick(e, index)}>x</div>
-                                <br />
-                                <div className='inline-flex items-center justify-between px-1 py-2 text-left transition duration-200 ease-in-out hover:bg-gray-200 hover:border hover:border-gray-300 hover:rounded-md' onClick={(event) => handleDeleteGroupClick(event, index, e.group_id)}>
+                                <div className=' m-1 inline-flex items-center justify-between px-1 py-2 text-left transition duration-200 ease-in-out hover:bg-gray-200 hover:border hover:border-gray-300 hover:rounded-md' onClick={(event) => handleDeleteGroupClick(event, index, e.group_id)}>
                                     <p>削除</p>
                                     <img src='https://cdn-icons-png.flaticon.com/64/484/484662.png' className='w-3' />
                                 </div>
@@ -274,7 +265,6 @@ const GroupMembers = ({ searchTerm, onSearchChange }) => {
                                             />
 
                                             <div className={i} onClick={(event) => handleStarClick(event, id_card, e2.id_card, e2.group_id)} style={{ width: '0.75rem' }}>
-                                            {console.log('e2.like:', e2)}
                                                 {e2.like ? (
                                                     <img
                                                         className='w-3'
@@ -294,9 +284,7 @@ const GroupMembers = ({ searchTerm, onSearchChange }) => {
                                     <div className='absolute right-1/2 sm:right-[41%] sm:top-[40%]'>
                                         {menuVisibleList[i] && (
                                             <div className='absolute z-10 inline-flex flex-col w-40 h-auto px-1 text-xs bg-gray-100 border border-gray-300 rounded-md left-5 justify-evenly top-1 drop-shadow-md'>
-                                                <div className='absolute flex items-center justify-center w-3 h-3 text-xs rounded-full hover:border-gray-300 hover:border right-1 top-1' onClick={(event) => handleCloseMenuClick(event, i)}>x</div>
-                                                <br />
-                                                <div className='inline-flex items-center justify-between px-1 py-2 text-left transition duration-200 ease-in-out hover:bg-gray-200 hover:border hover:border-gray-300 hover:rounded-md' onClick={(event) => handleDeleteFollowerClick(event, i, e2.group_id, e2.id_card)}>
+                                                <div className=' m-1 inline-flex items-center justify-between px-1 py-2 text-left transition duration-200 ease-in-out hover:bg-gray-200 hover:border hover:border-gray-300 hover:rounded-md' onClick={(event) => handleDeleteFollowerClick(event, i, e2.group_id, e2.id_card)}>
                                                     <p>削除</p>
                                                     <img src='https://cdn-icons-png.flaticon.com/64/484/484662.png' className='w-3' />
                                                 </div>
@@ -310,7 +298,8 @@ const GroupMembers = ({ searchTerm, onSearchChange }) => {
                         </ul>
                     )}
                 </div>
-            ))}
+            ))
+            }
 
             <div className='fixed bottom-0 flex items-center justify-center h-auto p-0.5 bg-gray-300 rounded-md w-full left-0'>
                 <button onClick={() => goToPage(currentPage - 1)} disabled={currentPage === 1} className='hover:text-[#36735B] hover:cursor-pointer'>
@@ -321,7 +310,7 @@ const GroupMembers = ({ searchTerm, onSearchChange }) => {
                     次のページ
                 </button>
             </div>
-        </div>
+        </div >
     );
 };
 
