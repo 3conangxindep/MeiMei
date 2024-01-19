@@ -206,7 +206,7 @@ class contactController extends Controller
 
     public function getFollowing($id_card, $page)
     {
-        $perPage = 5; // Số lượng mục trên mỗi trang
+        $perPage = 10; // Số lượng mục trên mỗi trang
 
         $total = DB::table('contact')
             ->where('id_card', $id_card)
@@ -231,7 +231,7 @@ class contactController extends Controller
 
     public function search($id_card, $page, $search)
     {
-        $perPage = 5; // Số lượng mục trên mỗi trang
+        $perPage = 10; // Số lượng mục trên mỗi trang
 
         $total = DB::table('contact')
             ->leftJoin('user', 'contact.contact_id', '=', 'user.id_card')
@@ -261,7 +261,7 @@ class contactController extends Controller
 
     public function getRecent($id_card, $page)
     {
-        $perPage = 5; // Số lượng mục trên mỗi trang
+        $perPage = 10; // Số lượng mục trên mỗi trang
 
         $total = DB::table('contact')
             ->where('id_card', $id_card)
@@ -283,7 +283,7 @@ class contactController extends Controller
 
     public function getFavorite($id_card, $page)
     {
-        $perPage = 5; // Số lượng mục trên mỗi trang
+        $perPage = 10; // Số lượng mục trên mỗi trang
 
         $total = DB::table('contact')
             ->where('id_card', $id_card)
@@ -307,7 +307,7 @@ class contactController extends Controller
 
     public function searchFavorite($id_card, $page, $search)
     {
-        $perPage = 5; // Số lượng mục trên mỗi trang
+        $perPage = 10; // Số lượng mục trên mỗi trang
 
         $total = DB::table('contact')
             ->leftJoin('user', 'contact.contact_id', '=', 'user.id_card')

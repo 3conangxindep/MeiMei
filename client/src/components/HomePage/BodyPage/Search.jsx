@@ -18,7 +18,7 @@ const Search = ({ onSearch }) => {
     };
 
     return (
-<div className="box-border relative flex w-9/12 h-full bg-[#ECFF8C] bg-opacity-[65%] border border-[#ECFF8C] rounded-2xl hover:border hover:border-green-300 focus:border-green-300 focus:border hover:shadow-md hover:shadow-green-300">
+        <div className="box-border relative flex w-9/12 h-full bg-[#ECFF8C] bg-opacity-[65%] border border-[#ECFF8C] rounded-2xl hover:border hover:border-green-300 focus:border-green-300 focus:border hover:shadow-md hover:shadow-green-300">
             <div className='float-left w-full'>
                 <input
                     className='w-full p-1.5 text-sm text-[#002629] placeholder-[#002629] font-bold rounded-xl bg-transparent focus:outline-none'

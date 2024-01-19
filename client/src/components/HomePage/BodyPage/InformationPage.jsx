@@ -1,4 +1,4 @@
-import React, { useState, useEffect,useRef } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useParams } from 'react-router-dom';
 import API_BASE_URL from '../../../apiConfig';
 import axios from "axios";
@@ -6,8 +6,6 @@ import axios from "axios";
 
 const InformationPage = () => {
     const { id_card, contact_id } = useParams();
-    console.log("id_card: ", id_card);
-    console.log("contact_id: ", contact_id);
     // Truy cập dữ liệu người dùng đã lưu trữ sau khi đăng nhập
     const user = JSON.parse(localStorage.getItem('currentUser')).data;
     const [data, setData] = useState([]);
@@ -67,7 +65,6 @@ const InformationPage = () => {
                 // Fetch user data
                 const response = await http.get(`/api/company/${contact_id}`);
                 setCompany(response.data);
-                console.log(response.data.com_name);
             } catch (error) {
                 console.error("Error:", error);
             }
@@ -88,31 +85,26 @@ const InformationPage = () => {
     const myDivRef_com = useRef();
     const myDivRef_account = useRef();
     const [isScrolled, setIsScrolled] = useState(false);
-    // const [scrollRef, setScrollRef] = useState(null);
-    
-    // useEffect(() => {
-    //     setScrollRef(myDivRef_com.current);
-    // }, [myDivRef_com]);
 
     const scrollToDiv = () => {
-        console.log("Scrolling...");
+        // console.log("Scrolling...");
         const pageHeight = document.documentElement.scrollHeight;
         if (isScrolled) {
             window.scrollTo({
                 top: 0,
                 behavior: 'smooth'
-              });
+            });
         } else {
             const scrollPercentage = 0.76; // Adjust this value as needed
             const scrollToPosition = pageHeight * scrollPercentage;
-    
+
             window.scrollTo({
                 top: scrollToPosition,
                 behavior: 'smooth'
             });
         }
         setIsScrolled(!isScrolled);
-      };
+    };
 
     return (
         <div className='box-border w-full h-full p-2.5 mt-5 overflow-auto rounded-3xl'>
@@ -126,7 +118,7 @@ const InformationPage = () => {
                                 ? placeHolderImg
                                 : imgPath
                         }
-                        alt='avatar' 
+                        alt='avatar'
                     />
                     <div className='flex flex-col items-start justify-center'>
                         {/* フリガナ */}

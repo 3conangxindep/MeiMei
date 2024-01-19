@@ -102,7 +102,7 @@ class GroupController extends Controller
 
     public function searchGroup($page, $search)
     {
-        $perPage = 5; // Số lượng mục trên mỗi trang
+        $perPage = 10; // Số lượng mục trên mỗi trang
 
         $total = DB::table('group')
             ->where('group_name', 'like', '%' . $search . '%')
@@ -123,7 +123,7 @@ class GroupController extends Controller
     {
         //
         //
-        $perPage = 5; // Số lượng mục trên mỗi trang
+        $perPage = 10; // Số lượng mục trên mỗi trang
 
         // $group = Group::all();
         $total = DB::table('group')

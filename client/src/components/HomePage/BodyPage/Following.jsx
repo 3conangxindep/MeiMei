@@ -32,7 +32,6 @@ const Following = ({ searchTerm, onSearchChange }) => {
   const [showButtom, setShowButtom] = useState(Array(data.length).fill(false));
   const [openedMenuIndex, setOpenedMenuIndex] = useState(null);
   const [group_name, setGroupName] = useState('');
-  const [id, setId] = useState();
   const [selectedItems, setSelectedItems] = useState([]);
 
 
@@ -92,14 +91,18 @@ const Following = ({ searchTerm, onSearchChange }) => {
   }
 
 
-  const handleAddToGroupClick = (e, index, id) => {
+  const handleAddToGroupClick = async (e, index, id) => {
     e.preventDefault();
     e.stopPropagation();
     const updatedisNewGroupVisible = [...isNewGroupVisible];
     updatedisNewGroupVisible[index] = !updatedisNewGroupVisible[index];
     setNewGroupVisible(updatedisNewGroupVisible);
-    setId(id);
-    // console.log("id", id);
+
+    // Lấy danh sách nhóm mới đã thêm
+    const response = await fetch(`http://${API_BASE_URL}:8000/api/manage/group/${id}`);
+    const responseData = await response.json();
+    setSelectedItems(responseData.data);
+    
   };
 
   // Thêm một sự kiện lắng nghe click ở ngoài menu để đóng menu
@@ -161,7 +164,7 @@ const Following = ({ searchTerm, onSearchChange }) => {
       .then((apiData) => {
         setData(apiData.data);
         setTotalPages(apiData.totalPages);
-        console.log('follower', apiData);
+        console.log('follower: ', apiData);
         // localStorage.setItem('searchTerm', "")
         // setSearch(localStorage.setItem('searchTerm', ""));
       })
@@ -177,7 +180,7 @@ const Following = ({ searchTerm, onSearchChange }) => {
       .then((apiData) => {
         setGroup(apiData.data);
         // setTotalPages(apiData.totalPages);
-        console.log('group', apiData.data);
+        console.log('groups: ', apiData.data);
         // localStorage.setItem('searchTerm', "")
         // setSearch(localStorage.setItem('searchTerm', ""));
       })
@@ -277,57 +280,33 @@ const Following = ({ searchTerm, onSearchChange }) => {
             formData
           );
 
-          // Lấy danh sách nhóm mới đã thêm
-          const response = await fetch(`http://${API_BASE_URL}:8000/api/manage/group/${id_card}`);
-          const responseData = await response.json();
-          setSelectedItems(responseData.data);
-          console.log("new group items", responseData.data);
           console.log("Added User to Group Successful");
         }
       } catch (error) {
         console.error("Lỗi:", error);
       }
     } else {
-      // Nếu không được chọn, bạn có thể thực hiện xử lý khác ở đây nếu cần
+      // if (group_id) {
+        const response = await fetch(`http://${API_BASE_URL}:8000/api/manage/${group_id}/${id_card}`, {
+          method: 'DELETE',
+        });
+        const responseData = await response.json();
 
-      // Bạn có thể giữ nguyên setSelectedItems ở đây nếu muốn giữ lại trạng thái đã chọn trước đó.
-      // setSelectedItems((prevSelected) =>
-      //     prevSelected.filter((item) => item !== id_card)
-      // );
+        console.log('delete', responseData);
+        setIsSaved(prevIsSaved => {
+          // Sử dụng hàm callback để đảm bảo cập nhật đồng bộ và kích hoạt useEffect
+          return !prevIsSaved;
+        });
+      // }
     }
+
+    // Lấy danh sách nhóm mới đã thêm
+    const response = await fetch(`http://${API_BASE_URL}:8000/api/manage/group/${id_card}`);
+    const responseData = await response.json();
+    setSelectedItems(responseData.data);
+    console.log("new member of: ", responseData.data);
+    // setGroupId(group_id);
   };
-
-
-
-  useEffect(() => {
-    console.log("id:", id);
-
-    fetch(`http://${API_BASE_URL}:8000/api/manage/group/${id}`)
-      .then((response) => response.json())
-      .then((apiData) => {
-        //setSelectedItems(apiData.data);
-        console.log("aaa", Math.max(...apiData.data));
-        for (let i = 0; i <= Math.max(...apiData.data); i++) {
-          for (let int = 0; int < apiData.data.length; int++) {
-            if (apiData.data[int] === i) {
-              selectedItems.splice(i, 0, apiData.data[int]);
-              break;
-            }
-            if (int == apiData.data.length - 1) {
-              selectedItems.splice(i, 0, null);
-            }
-          }
-        }
-
-        setSelectedItems([...selectedItems]);
-        console.log("bbb", selectedItems);
-      })
-      .catch((error) => {
-        console.error("Lỗi khi gửi yêu cầu:", error);
-      });
-    // handleCheckboxChange();
-
-  }, [id]);
 
   const setImg = (e) => {
     // console.log(data.img_url)
@@ -351,7 +330,7 @@ const Following = ({ searchTerm, onSearchChange }) => {
   useEffect(() => {
     // Thông báo cho component rằng đã có sự thay đổi trong searchTerm
     onSearchChange(searchTerm);
-  }, [searchTerm, onSearchChange]);
+  }, [searchTerm, onSearchChange, selectedItems]);
 
   return (
     <div>
@@ -430,14 +409,22 @@ const Following = ({ searchTerm, onSearchChange }) => {
                   <br />
                   {group.map((event, i) => (
                     <li className='inline-flex items-center justify-between px-1 py-2 text-left transition duration-200 ease-in-out hover:bg-gray-200 hover:border hover:border-gray-300 hover:rounded-md'
-                    // onChange={(evt) => checkIdCard(evt, index, event.group_id, e.contact_id)}
-                    key={i}
+                      // onChange={(evt) => checkIdCard(evt, index, event.group_id, e.contact_id)}
+                      key={i}
                     >
                       <input type='checkbox' className='w-3 mr-3'
                         // checked={selectedItems[index].group_id == event.group_id && selectedItems[index].id_card == e.contact_id}
-                        checked={event.group_id === selectedItems[i + 1]}
+                        // checked={event.group_id === selectedItems[i]}
+                        // {for(let n = 0; selectedItems.length; n++) {
+                        //   if(event.group_id == selectedItems[n]) {
+                        //     checked=true
+                        //   } else if(n = selectedItems.length - 1 ) {
+                        //     checked=false
+                        //   }
+                        // }}
+                        checked={selectedItems.includes(event.group_id)}
                         onChange={(ev) => handleCheckboxChange(ev, event.group_id, e.contact_id)} />
-                      <h4 className='max-w-full overflow-hidden'>{event.group_name} {event.group_id} {e.contact_id}</h4>
+                      <h4 className='max-w-full overflow-hidden'>{event.group_name}</h4>
                     </li>
                   ))}
                   <li className='inline-flex items-center justify-between px-1 py-2 text-left transition duration-200 ease-in-out hover:bg-gray-200 hover:border hover:border-gray-300 hover:rounded-md' onClick={(event) => handlePlusGroup(event, index)}>

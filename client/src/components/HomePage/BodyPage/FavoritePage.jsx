@@ -29,17 +29,12 @@ const FavoritePage = ({ searchTerm, onSearchChange }) => {
                 setData(apiData.data);
                 setTotalPages(apiData.totalPages);
                 // setIsSaved(apiData.data.like);
-                console.log('favorite', apiData);
+                console.log('favorite: ', apiData);
             })
             .catch((error) => {
                 console.error("Lỗi khi gửi yêu cầu:", error);
             });
     }, [currentPage, id_card, isSaved, searchTerm]);
-
-
-    // const toggleSaved = (like) => {
-    //   setIsSaved(!isSaved);
-    // };
 
     //cách viết phần này của Recent và Following là khác nhau 
     const handleStarClick = (event, id_card, contact_id) => {

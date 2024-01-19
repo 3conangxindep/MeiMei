@@ -121,11 +121,6 @@ const GroupMembers = ({ searchTerm, onSearchChange }) => {
             });
     };
 
-    // const [isSaved, setIsSaved] = useState(false);
-    // const toggleSaved = () => {
-    //   setIsSaved(!isSaved);
-    // };
-
     //cách viết phần này của Recent và Following là khác nhau 
     const handleStarClick = (event, id_card, contact_id, group_id) => {
         event.preventDefault();
@@ -139,12 +134,12 @@ const GroupMembers = ({ searchTerm, onSearchChange }) => {
             .then((responseData) => {
                 console.log('like', responseData.data);
                 setIsSaved(responseData.data.like);
-                console.log('responseData.data.like', responseData.data.like);
+                handleClickGroup(event, group_id);
             })
             .catch((error) => {
                 console.error('like', error);
             });
-        handleClickGroup(event, group_id);
+
     };
 
     const handleDeleteFollowerClick = async (e, index, group_id, id_card) => {
@@ -162,10 +157,12 @@ const GroupMembers = ({ searchTerm, onSearchChange }) => {
                 // Sử dụng hàm callback để đảm bảo cập nhật đồng bộ và kích hoạt useEffect
                 return !prevIsSaved;
             });
-            handleCloseMenuClick(e, index)
+            handleCloseMenuClick(e, index);
         } catch (error) {
             console.error('delete', error);
         }
+
+        handleClickGroup(e, group_id);
     };
 
     const handleDeleteGroupClick = async (e, index, group_id) => {
@@ -208,6 +205,12 @@ const GroupMembers = ({ searchTerm, onSearchChange }) => {
         }
     };
 
+    useEffect(() => {
+        // Thông báo cho component rằng đã có sự thay đổi trong searchTerm
+        onSearchChange(searchTerm);
+    }, [searchTerm, onSearchChange, groupData]);
+
+
     return (
         <div className='relative flex flex-col w-full px-3 py-4 bg-white h-lhv border-box'>
 
@@ -218,6 +221,7 @@ const GroupMembers = ({ searchTerm, onSearchChange }) => {
                     onClick={(event) => {
                         setShowGroupButton(true);
                         handleClickGroup(event, e.group_id);
+                        setSelectedGroupId();
                     }}
                     onMouseLeave={(event) => {
                         setShowGroupButton(false);
@@ -264,7 +268,7 @@ const GroupMembers = ({ searchTerm, onSearchChange }) => {
                                                 alt=''
                                             />
 
-                                            <div className={i} onClick={(event) => handleStarClick(event, id_card, e2.id_card, e2.group_id)} style={{ width: '0.75rem' }}>
+                                            <div className={i} onClick={(event) => handleStarClick(event, id_card, e2.id_card, e.group_id)} style={{ width: '0.75rem' }}>
                                                 {e2.like ? (
                                                     <img
                                                         className='w-3'

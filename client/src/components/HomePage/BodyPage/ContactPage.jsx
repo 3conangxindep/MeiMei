@@ -64,7 +64,7 @@ const ContactPage = () => {
                 <Switch>
                     <Route path="/ContactPage/RecentAccounts"><RecentAccounts searchTerm={searchTerm} onSearchChange={handleSearchChange} /></Route>
                     <Route path="/ContactPage/Following"><Following searchTerm={searchTerm} onSearchChange={handleSearchChange} /></Route>
-                    <Route path="/ContactPage/GroupMembers"><GroupMembers /></Route>
+                    <Route path="/ContactPage/GroupMembers"><GroupMembers searchTerm={searchTerm} onSearchChange={handleSearchChange} /></Route>
                     <Route path='/ContactPage/FavoritePage'><FavoritePage searchTerm={searchTerm} onSearchChange={handleSearchChange} /></Route>
                     <Redirect to='/ContactPage/Following' />
                 </Switch>
