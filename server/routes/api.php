@@ -67,6 +67,7 @@ Route::post('/group', [GroupController::class, 'store']);
 Route::get('/group', [GroupController::class, 'index']);
 Route::get('/groups/{page}', [GroupController::class, 'group']);
 Route::get('/group/{page}/{search}', [GroupController::class, 'searchGroup']);
+Route::delete('/group/{id}', [GroupController::class, 'destroy']);
 
 //manage group
 Route::get('/manage/{id}', [ManageGroupController::class, 'show']);
@@ -77,6 +78,3 @@ Route::get('/manage', [ManageGroupController::class, 'index']);
 Route::delete('/manage/{group_id}/{id_card}', [ManageGroupController::class, 'destroy']);
 
 // Route::get('/manage/', [ManageGroupController::class, 'index']);
-
-
-

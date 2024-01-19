@@ -92,6 +92,12 @@ class GroupController extends Controller
     public function destroy($id)
     {
         //
+
+        $follower = DB::table('group')
+            ->where('group_id', $id)
+            ->delete();
+        // Records were deleted successfully
+        return response()->json(['message' => 'Contact deleted successfully'], 200);
     }
 
     public function searchGroup($page, $search)
