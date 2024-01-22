@@ -29,4 +29,11 @@ npm i
 
 npm start
 
+#mysql
+
+php artisan make:migration add_registration_allowed_to_user_table --table=user
+
+INSERT INTO user (id_card, user_name, birthday, gender,email, password) VALUES ('444555', 'meimei', '2024-01-22', 'other','meimei@gmail.com', 'password');  
+    (tạm thời là thêm thẻ mới trước khi gia cho người sử dụng và có REGISTER ALLOWED là TRUE)
+
 
