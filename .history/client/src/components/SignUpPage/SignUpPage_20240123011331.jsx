@@ -70,6 +70,12 @@ const SignUpPage = () => {
                 setIdErrorMessage("IDカードは0で始まることか数字ではないことか登録できません");
                 return;
             }
+    
+            // Kiểm tra xem gender có được chọn hay không
+            if (!gender) {
+                setGenderErrorMessage("性別を選択してください");
+                return;
+            }
 
             // Check if ID exists
             const idExists = await checkIdExists();
@@ -84,12 +90,6 @@ const SignUpPage = () => {
             console.log('isRegistrationAllowed',isRegistrationAllowed);
             if (!isRegistrationAllowed) {
                 setErrorMessage('IDカードが既に登録しています');
-                return;
-            }
-
-             // Kiểm tra xem gender có được chọn hay không
-            if (!gender) {
-                setGenderErrorMessage("性別を選択してください");
                 return;
             }
 
@@ -133,7 +133,7 @@ const SignUpPage = () => {
     };
 
     return (
-        <div className='box-border flex flex-col items-center justify-around w-full h-lvh sm:h-screen py-7'style={{ backgroundImage: 'linear-gradient(#0E3A36,#00584A,#007758,#009860,#34A05F,#2E9059,#287F52,#0C844B,#047645,#185541,#13473B,#0E3A36)' }}>
+        <div className='box-border flex flex-col items-center justify-around w-full h-lvh py-7'style={{ backgroundImage: 'linear-gradient(#0E3A36,#00584A,#007758,#009860,#34A05F,#2E9059,#287F52,#0C844B,#047645,#185541,#13473B,#0E3A36)' }}>
         <div className='flex items-center justify-around w-full h-36 sm:px-[30%]'>
                 <img src={img} alt='' className='w-32 h-32 border border-white rounded-full' />
                 <h1 className='text-4xl font-bold text-white sm:text-5xl'>MEIMEI</h1>

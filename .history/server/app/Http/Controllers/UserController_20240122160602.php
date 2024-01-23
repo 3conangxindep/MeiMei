@@ -25,24 +25,24 @@ class UserController extends Controller
         return response()->json($user, 200);
     }
 
-    public function isRegistrationAllowed(string $id)
+    public function isRegistrationAllowed(Request $request)
     {
-        $registrationAllowed = false;
+        $registrationAllowed = $request->input('registration_allowed', true);
 
-        $user = User::where('id_card', $id)->first();
-
-        // Check if a user with the given id_card exists
-        if ($user) {
-            // If the user exists, check if registration is allowed
-            $registrationAllowed = $user->registration_allowed;
+        // Check if registration is allowed
+        if (!$registrationAllowed) {
+            return response()->json(['error' => 'Registration is not allowed.'], 403);
         }
-        // If the user does not exist, registration is allowed by default
-        return response()->json([
-            'exists' => $user,
-            'registration_allowed' =>  $registrationAllowed,
-        ]);
-    }
 
+        // ... existing code ...
+
+        $user = User::create($request->all());
+
+        // Set registration_allowed to false after registration
+        $user->update(['registration_allowed' => false]);
+
+        return response()->json($user, 201);
+    }
 
     /**
      * Store a newly created resource in storage.
@@ -51,25 +51,8 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        $idCard = $request->input('id_card');
-
-        // Check if a user with the given ID card already exists
-        $existingUser = User::where('id_card', $idCard)->first();
-
-        if ($existingUser) {
-            // Update the existing user's information
-            $existingUser->update($request->all());
-            $user = $existingUser;
-        } else {
-            // Create a new user
-            $user = User::create($request->all());
-        }
-
-        // Update registration_allowed based on your business logic
-        // For example, set it to false if some condition is met
-        $user->update(['registration_allowed' => false]);
-
-        // Return the updated user data
+        //
+        $user = User::create($request->all());
         return response()->json($user, 201);
     }
 

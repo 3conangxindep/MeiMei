@@ -27,7 +27,6 @@ class UserController extends Controller
 
     public function isRegistrationAllowed(string $id)
     {
-        $registrationAllowed = false;
 
         $user = User::where('id_card', $id)->first();
 
@@ -35,11 +34,17 @@ class UserController extends Controller
         if ($user) {
             // If the user exists, check if registration is allowed
             $registrationAllowed = $user->registration_allowed;
+
+            return response()->json([
+                'exists' => true,
+                'registration_allowed' => $registrationAllowed,
+            ]);
         }
+
         // If the user does not exist, registration is allowed by default
         return response()->json([
-            'exists' => $user,
-            'registration_allowed' =>  $registrationAllowed,
+            'exists' => false,
+            'registration_allowed' => true,
         ]);
     }
 
@@ -51,19 +56,8 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        $idCard = $request->input('id_card');
-
-        // Check if a user with the given ID card already exists
-        $existingUser = User::where('id_card', $idCard)->first();
-
-        if ($existingUser) {
-            // Update the existing user's information
-            $existingUser->update($request->all());
-            $user = $existingUser;
-        } else {
-            // Create a new user
-            $user = User::create($request->all());
-        }
+        // Create a new user
+        $user = User::create($request->all());
 
         // Update registration_allowed based on your business logic
         // For example, set it to false if some condition is met

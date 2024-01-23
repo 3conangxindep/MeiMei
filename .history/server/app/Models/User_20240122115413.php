@@ -41,8 +41,7 @@ class User extends Authenticatable
         'instagram',
         'x',
         'description',
-        'group_id',
-        'registration_allowed',
+        'group_id'
     ];
 
     /**

@@ -26,7 +26,7 @@ use App\Http\Controllers\PhotoController;
 Route::get('/user', [UserController::class, 'index']);
 Route::get('/user/{id}', [UserController::class, 'show']);
 Route::post('/user', [UserController::class, 'store']);
-Route::get('/user/is_registration_allowed/{id}', [UserController::class, 'isRegistrationAllowed']);
+Route::post('/user/is_registration_allowed', [UserController::class, 'isRegistrationAllowed']);
 Route::put('/user/{id}', [UserController::class, 'update']);
 Route::delete('/user/{id}', [UserController::class, 'destroy']);
 

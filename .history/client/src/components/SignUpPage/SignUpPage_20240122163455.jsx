@@ -1,28 +1,24 @@
 import React, { useState } from 'react';
 import SetTimes from './SetTimes';
 import GenderTheme from './GenderTheme';
-import './SignUpPage.css';
 import { Link, useHistory } from 'react-router-dom';
 import axios from "axios";
 import bcrypt from 'bcryptjs';
 import API_BASE_URL from '../../apiConfig';
 
+import './SignUpPage.css';
+
 const img = 'meimei_login_img.png';
+
 const SignUpPage = () => {
     const http = axios.create({
-        baseURL: `http://${API_BASE_URL}:8000`,
-
+        baseURL: `${API_BASE_URL}:8000`,
         headers: {
             "X-Requested-with": "XMLHttpRequest",
         },
         withCredentials: true,
     });
 
-    const [user, setUser] = useState(
-        localStorage.hasOwnProperty("currentUser") === true
-            ? JSON.parse(localStorage.getItem("currentUser"))
-            : null
-    );
     const history = useHistory();
     const [loading, setLoading] = useState(false);
     const [idCard, setIdCard] = useState('');
@@ -47,16 +43,6 @@ const SignUpPage = () => {
         }
     };
 
-    const checkRegistrationAllowed = async () => {
-        try {
-            const response = await http.get(`/api/user/is_registration_allowed/${idCard}`);
-            return response.data.registration_allowed;
-        } catch (error) {
-            console.error('Error checking Registration allowed:', error);
-            return false;
-        }
-    };
-
     const handleSignup = async (e) => {
         e.preventDefault();
 
@@ -65,65 +51,52 @@ const SignUpPage = () => {
             setErrorMessage("");
             setGenderErrorMessage("");
             setLoading(true);
-            //kiem tra id co phai la so khong
+
+            // Validate ID card format
             if (!/^[1-9]\d*$/.test(idCard)) {
                 setIdErrorMessage("IDカードは0で始まることか数字ではないことか登録できません");
                 return;
             }
 
-            // Check if ID exists
-            const idExists = await checkIdExists();
-            console.log('idExistsssss',idExists);
-            if (!idExists) {
-                setErrorMessage('IDカードが存在していません');
-                return;
-            }
-            
-            // Check if registration allowed
-            const isRegistrationAllowed = await checkRegistrationAllowed();
-            console.log('isRegistrationAllowed',isRegistrationAllowed);
-            if (!isRegistrationAllowed) {
-                setErrorMessage('IDカードが既に登録しています');
+            // Validate gender selection
+            if (!gender) {
+                setGenderErrorMessage("性別を選択してください");
                 return;
             }
 
-             // Kiểm tra xem gender có được chọn hay không
-            if (!gender) {
-                setGenderErrorMessage("性別を選択してください");
+            // Check if ID exists
+            const idExists = await checkIdExists();
+            console.log('idExists',idExists);
+            if (!idExists) {
+                setErrorMessage('IDカードが存在していません');
                 return;
             }
 
             const formData = new FormData();
             formData.append("id_card", idCard);
             formData.append("user_name", userName);
-            formData.append("birthday", birthYear + "-" + birthMonth + "-" + birthDay);
+            formData.append("birthday", `${birthYear}-${birthMonth}-${birthDay}`);
             formData.append("gender", gender);
             formData.append("email", email);
             formData.append("password", await bcrypt.hash(password, 10));
-            //formData.append("password", password);
+
             for (const [key, value] of formData.entries()) {
                 console.log(`${key}: ${value}`);
             }
-            const csrf = await http.get("/sanctum/csrf-cookie");
-            const register = await http.post(
-                `http://${API_BASE_URL}:8000/api/user`,
-                formData
-            );
-            console.log("Registration successful:", register);
-            // console.log(user.data.id_card);
 
-            //login after register
+            await http.get("/sanctum/csrf-cookie");
+            const register = await http.post(`/api/user`, formData);
+            console.log("Registration successful:", register);
+
+            // Login after registration
             const login = await http.post("/api/login", {
                 email: email,
                 password: password,
             });
-            const current = localStorage.setItem(
-                "currentUser",
-                JSON.stringify(login)
-            );
-            setUser(login);
+
+            localStorage.setItem("currentUser", JSON.stringify(login.data));
             history.push(`/main/${idCard}`);
-            console.log("dang nhap thanh cong")
+            console.log("dang nhap thanh cong");
         } catch (error) {
             setErrorMessage("IDカードかメールアドレスか既に登録しています");
             console.error("Register failed:", error);
@@ -132,8 +105,9 @@ const SignUpPage = () => {
         }
     };
 
+
     return (
-        <div className='box-border flex flex-col items-center justify-around w-full h-lvh sm:h-screen py-7'style={{ backgroundImage: 'linear-gradient(#0E3A36,#00584A,#007758,#009860,#34A05F,#2E9059,#287F52,#0C844B,#047645,#185541,#13473B,#0E3A36)' }}>
+        <div className='box-border flex flex-col items-center justify-around w-full h-lvh py-7'style={{ backgroundImage: 'linear-gradient(#0E3A36,#00584A,#007758,#009860,#34A05F,#2E9059,#287F52,#0C844B,#047645,#185541,#13473B,#0E3A36)' }}>
         <div className='flex items-center justify-around w-full h-36 sm:px-[30%]'>
                 <img src={img} alt='' className='w-32 h-32 border border-white rounded-full' />
                 <h1 className='text-4xl font-bold text-white sm:text-5xl'>MEIMEI</h1>
