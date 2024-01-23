@@ -236,7 +236,7 @@ const GroupMembers = ({ searchTerm, onSearchChange }) => {
                         <img src={delete_group_btn} className="absolute w-2 h-4 transform -translate-y-1/2 top-1/2 right-1" onClick={(e) => handleDeleteParentGroup(e, index)} />
                         {deleteParentGroup[index] && (
                             <div className='absolute z-10 inline-flex flex-col w-40 h-auto px-1 text-xs bg-gray-100 border border-gray-300 rounded-md right-1 justify-evenly top-1 drop-shadow-md'>
-                                <div className=' m-1 inline-flex items-center justify-between px-1 py-2 text-left transition duration-200 ease-in-out hover:bg-gray-200 hover:border hover:border-gray-300 hover:rounded-md' onClick={(event) => handleDeleteGroupClick(event, index, e.group_id)}>
+                                <div className='inline-flex items-center justify-between px-1 py-2 m-1 text-left transition duration-200 ease-in-out hover:bg-gray-200 hover:border hover:border-gray-300 hover:rounded-md' onClick={(event) => handleDeleteGroupClick(event, index, e.group_id)}>
                                     <p>削除</p>
                                     <img src='https://cdn-icons-png.flaticon.com/64/484/484662.png' className='w-3' />
                                 </div>
@@ -288,14 +288,14 @@ const GroupMembers = ({ searchTerm, onSearchChange }) => {
                                     <div className='absolute right-1/2 sm:right-[41%] sm:top-[40%]'>
                                         {menuVisibleList[i] && (
                                             <div className='absolute z-10 inline-flex flex-col w-40 h-auto px-1 text-xs bg-gray-100 border border-gray-300 rounded-md left-5 justify-evenly top-1 drop-shadow-md'>
-                                                <div className=' m-1 inline-flex items-center justify-between px-1 py-2 text-left transition duration-200 ease-in-out hover:bg-gray-200 hover:border hover:border-gray-300 hover:rounded-md' onClick={(event) => handleDeleteFollowerClick(event, i, e2.group_id, e2.id_card)}>
+                                                <div className='inline-flex items-center justify-between px-1 py-2 m-1 text-left transition duration-200 ease-in-out hover:bg-gray-200 hover:border hover:border-gray-300 hover:rounded-md' onClick={(event) => handleDeleteFollowerClick(event, i, e2.group_id, e2.id_card)}>
                                                     <p>削除</p>
                                                     <img src='https://cdn-icons-png.flaticon.com/64/484/484662.png' className='w-3' />
                                                 </div>
                                             </div>
                                         )}
                                     </div>
-                                    <p className='absolute bottom-0 text-xs text-gray-400 right-2'>{e2.created_at}</p>
+                                    <p className='absolute bottom-0 right-1 text-[11px] sm:text-xs text-gray-400'>{e2.created_at}</p>
                                 </li>
                             ))}
 

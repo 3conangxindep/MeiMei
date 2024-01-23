@@ -111,20 +111,18 @@ const RecentAccounts = ({ searchTerm, onSearchChange }) => {
                             </div>
 
                             {/* chinh sua nhom va so thich */}
-                            <div className='absolute right-1'>
+                            <div className='absolute top-7 right-1'>
                                 {/* set ảnh được đánh dấu sao va không được đánh dấu sao */}
                                 <div onClick={(event) => handleStarClick(event, id_card, e.id_card)} className='w-3'>
                                     {e.like ? (
                                         <img
-                                            className=' hover:bg-gray-200 hover:border-gray-200 hover:border hover:rounded-md'
-                                            style={{ width: '15px' }}
+                                            className=' 3'
                                             src='https://cdn-icons-png.flaticon.com/128/2377/2377810.png'
                                             alt='save'
                                         />
                                     ) : (
                                         <img
-                                            className=' hover:bg-gray-200 hover:border-gray-200 hover:border hover:rounded-md'
-                                            style={{ width: '15px' }}
+                                            className=' 3'
                                             src='https://cdn-icons-png.flaticon.com/128/2377/2377878.png'
                                             alt='nosave'
                                         />
@@ -134,7 +132,7 @@ const RecentAccounts = ({ searchTerm, onSearchChange }) => {
                         </Link>
 
                         {/* set thoi gian */}
-                        <div className='absolute bottom-0 text-xs text-gray-400 right-2'>{e.contact_updated_at}</div>
+                        <div className='absolute bottom-0 text-xs text-gray-400 right-1'>{e.contact_updated_at}</div>
                     </div>
                 ))}
             </div>

@@ -21,9 +21,12 @@ const ContactPage = () => {
     return (
         // contact-container
         <div className='box-border w-full p-4'>
-            <img src={img1} className='fixed z-10 h-48 mb-1 -bottom-7 -right-5'/>
+            {/* <img src={img1} className='fixed z-10 mb-1 h-14'/> */}
             {/* contact-search */}
-            <div className='flex items-center justify-end w-full h-full mb-4'><Search onSearch={handleSearchChange} /></div>
+            <div className='relative flex items-center justify-end w-full h-full mb-4'>
+                <img src={img1} className='absolute h-24 mb-1 -left-5 '/>
+                <Search onSearch={handleSearchChange} />
+            </div>
             {/* section */}
             <div className='relative flex items-center justify-center w-full bg-[#36735B] rounded rounded-b h-14 rounded-t-3xl border border-[#ECFF8C]'>
                 <NavLink

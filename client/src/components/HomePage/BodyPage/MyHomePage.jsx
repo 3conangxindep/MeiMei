@@ -6,6 +6,8 @@ import API_BASE_URL from '../../../apiConfig';
 
 
 const MyHomePage = () => {
+    const img1 ='/meimei_img.png';
+    
     // Truy cập dữ liệu người dùng đã lưu trữ sau khi đăng nhập
     const user = JSON.parse(localStorage.getItem('currentUser')).data;
     const { id_card, contact_id } = useParams();
@@ -83,7 +85,10 @@ const MyHomePage = () => {
     }
     return (
         // myhome-container
-        <div className='max-w-sm mx-auto sm:max-w-2xl w-full h-4/6 relative box-border flex items-center justify-center my-3.5'> 
+        <div className='max-w-sm mx-auto sm:max-w-2xl w-full h-full absolute box-border flex items-center justify-center my-3.5 -translate-y-1/2 top-[55%] -translate-x-1/2 left-1/2'> 
+            
+            <img src={img1} className='absolute top-[9%] sm:h-[47%] sm:-right-[45%] sm:top-[45%] h-28 right-[7%]'/>
+
             {/* myhomecard */}
             <div className='box-border relative flex items-center justify-center w-11/12 h-full border-4 border-solid border-emerald-800 sm:w-full sm:h-full rounded-xl max-h-80 sm:max-h-96'>
                 {/* myhome-left */}

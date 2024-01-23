@@ -86,9 +86,9 @@ const ShowMenu = () => {
                     <div className='absolute z-10 h-auto p-4 bg-gray-100 border border-gray-300 border-solid rounded-md shadow-md right-3 top-20 none w-80 shadow-green-300'>
                         <ul className='p-0 m-3 list-none'>
                             {/* Menu items */}
-                            <li className='flex items-center justify-between p-4 mb-2 transition duration-200 bg-gray-100 border-b cursor-pointer rounded-t-md border-b-solid border-b-gray-400 : hover:border :hover:border-solid hover:border-gray-200 hover:bg-gray-200 hover:rounded-md' onClick={handleNavigation}>
+                            <li onClick={handleNavigation}>
                                 {/* menuImage */}
-                                <Link to={`/InformationPage/${id_card}/${id_card}`} className='flex items-center justify-center float-left'>
+                                <Link to={`/InformationPage/${id_card}/${id_card}`} className='flex items-center justify-between w-full h-full p-4 mb-2 transition duration-200 bg-gray-100 border-b cursor-pointer rounded-t-md border-b-solid border-b-gray-400 : hover:border :hover:border-solid hover:border-gray-200 hover:bg-gray-200 hover:rounded-md'>
                                     {/* ảnh account */}
                                     <div className='flex items-center justify-center border border-gray-400 border-solid rounded-full w-14 h-14'>
                                         <img className='object-cover w-12 h-12 rounded-full'
@@ -100,7 +100,7 @@ const ShowMenu = () => {
                                             alt='avatar' />
 
                                     </div>
-                                    <div className='float-left ml-3 text-2xl font-bold text-green-950'><b>{data.user_name}</b></div>
+                                    <div className='ml-3 text-2xl font-bold text-green-950'><b>{data.user_name}</b></div>
                                 </Link>
                             </li>
                             <li onClick={handleNavigation}>
