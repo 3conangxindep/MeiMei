@@ -369,15 +369,13 @@ const Following = ({ searchTerm, onSearchChange }) => {
                 <div className={index} onClick={(event) => handleStarClick(event, id_card, e.contact_id)}>
                   {e.like ? (
                     <img
-                      className='w-3.5 hover:bg-gray-200 hover:border-gray-200 hover:border hover:rounded-md'
-                      style={{ width: '15px' }}
+                      className='w-3'
                       src='https://cdn-icons-png.flaticon.com/128/2377/2377810.png'
                       alt='save'
                     />
                   ) : (
                     <img
-                      className='w-3.5 hover:bg-gray-200 hover:border-gray-200 hover:border hover:rounded-md'
-                      style={{ width: '15px' }}
+                      className='w-3'
                       src='https://cdn-icons-png.flaticon.com/128/2377/2377878.png'
                       alt='nosave'
                     />
@@ -454,7 +452,7 @@ const Following = ({ searchTerm, onSearchChange }) => {
             </div>
 
             {/* set thoi gian */}
-            <div className='absolute bottom-0 text-xs text-gray-400 right-2'>{e.contact_created_at}</div>
+            <div className='absolute bottom-0 text-xs text-gray-400 right-1'>{e.contact_created_at}</div>
           </div>
         ))}
       </div>

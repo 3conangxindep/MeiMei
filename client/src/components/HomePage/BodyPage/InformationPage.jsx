@@ -157,7 +157,7 @@ const InformationPage = () => {
             </div>
 
             {/* company */}
-            <div className='absolute flex flex-col justify-center items-center w-full top-[76%] left-1/2 p-7 transform -translate-x-1/2 bg-[#FFFFFF] rounded-3xl border border-[#ECFF8C] shadow shadow-[#36735Bs]'>
+            <div className='absolute flex flex-col justify-center items-center w-full top-[75%] sm:top-[50%] left-1/2 p-7 transform -translate-x-1/2 bg-[#FFFFFF] rounded-3xl border border-[#ECFF8C] shadow shadow-[#36735Bs]'>
                 {/* <div className={`absolute left-1/2 w-4 h-2 transform -translate-x-1/2 bg-[#0E3A36] clip-triangle ${isScrolled ? 'rotate-0' : 'rotate-180'}`}  onClick={scrollToDiv} /> */}
                 <button className={`${isScrolled ? 'rotate-0' : 'rotate-180'}`} onClick={scrollToDiv}>
                     <img src='https://cdn-icons-png.flaticon.com/128/10412/10412527.png' className='w-6 h-4' />
@@ -166,7 +166,7 @@ const InformationPage = () => {
                 <div className='relative w-full h-full'>
                     <p className='text-2xl font-bold text-[#0E3A36] mb-2'>勤務先</p>
                     <ul className='relative w-full h-full pl-2'>
-                        <div className='absolute w-full max-h-full border-l h-[90%] bottom-4 border-l-gray-400 z-999 left-4 border-l-solid'></div>
+                        <div className='absolute w-full max-h-full border-l h-[90%] bottom-5 border-l-gray-400 z-999 left-4 border-l-solid'></div>
                         <li className='flex items-center h-12 mb-1'><div className='z-10 w-4 h-4 mr-4 bg-[#0E3A36]/90 rounded-full'></div><p className='w-10/12'>{company.com_name}</p></li>
                         <li className='flex items-center h-12 mb-1'><div className='z-10 w-4 h-4 mr-4 bg-[#0E3A36]/90 rounded-full'></div><p className='w-10/12'>住所: 〒{company.com_post_code} - {company.com_address}</p></li>
                         <li className='flex items-center h-12 mb-1'><div className='z-10 w-4 h-4 mr-4 bg-[#0E3A36]/90 rounded-full'></div>電話番号: {company.com_tel}</li>
