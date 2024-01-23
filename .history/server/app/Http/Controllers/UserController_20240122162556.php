@@ -25,21 +25,31 @@ class UserController extends Controller
         return response()->json($user, 200);
     }
 
-    public function isRegistrationAllowed(string $id)
+    public function isRegistrationAllowed(Request $request)
     {
-        $registrationAllowed = false;
+        $request->validate([
+            'id_card' => ['required', 'numeric'],
+        ]);
 
-        $user = User::where('id_card', $id)->first();
+        $idCard = $request->id_card;
+
+        $user = User::where('id_card', $idCard)->first();
 
         // Check if a user with the given id_card exists
         if ($user) {
             // If the user exists, check if registration is allowed
             $registrationAllowed = $user->registration_allowed;
+
+            return response()->json([
+                'exists' => true,
+                'registration_allowed' => $registrationAllowed,
+            ]);
         }
+
         // If the user does not exist, registration is allowed by default
         return response()->json([
-            'exists' => $user,
-            'registration_allowed' =>  $registrationAllowed,
+            'exists' => false,
+            'registration_allowed' => true,
         ]);
     }
 
@@ -51,25 +61,34 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        $idCard = $request->input('id_card');
+        $request->validate([
+            'id_card' => ['required', 'numeric'],
+        ]);
 
-        // Check if a user with the given ID card already exists
-        $existingUser = User::where('id_card', $idCard)->first();
+        $idCard = $request->id_card;
 
-        if ($existingUser) {
-            // Update the existing user's information
-            $existingUser->update($request->all());
-            $user = $existingUser;
-        } else {
-            // Create a new user
-            $user = User::create($request->all());
+        $user = User::where('id_card', $idCard)->first();
+
+        // Check if a user with the given id_card exists
+        if (!$user) {
+            return response()->json(['error' => 'User does not exist.'], 404);
         }
 
-        // Update registration_allowed based on your business logic
-        // For example, set it to false if some condition is met
+        $registrationAllowed = $user->registration_allowed;
+
+        // Check if registration is allowed
+        if (!$registrationAllowed) {
+            return response()->json(['error' => 'Registration is not allowed.'], 403);
+        }
+
+        // ... existing code ...
+
+        // Create the user
+        $user = User::create($request->all());
+
+        // Set registration_allowed to false after registration
         $user->update(['registration_allowed' => false]);
 
-        // Return the updated user data
         return response()->json($user, 201);
     }
 

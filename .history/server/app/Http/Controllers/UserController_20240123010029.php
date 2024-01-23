@@ -27,7 +27,6 @@ class UserController extends Controller
 
     public function isRegistrationAllowed(string $id)
     {
-        $registrationAllowed = false;
 
         $user = User::where('id_card', $id)->first();
 
@@ -35,11 +34,22 @@ class UserController extends Controller
         if ($user) {
             // If the user exists, check if registration is allowed
             $registrationAllowed = $user->registration_allowed;
+
+            if ($registrationAllowed) {
+                return response()->json([
+                    'exists' => true,
+                    'registration_allowed' => $registrationAllowed,
+                ]);
+            }
+            // If the user does not exist, registration is allowed by default
+            return response()->json([
+                'exists' => true,
+                'registration_allowed' => false,
+            ]);
         }
         // If the user does not exist, registration is allowed by default
         return response()->json([
-            'exists' => $user,
-            'registration_allowed' =>  $registrationAllowed,
+            'exists' => false,
         ]);
     }
 
