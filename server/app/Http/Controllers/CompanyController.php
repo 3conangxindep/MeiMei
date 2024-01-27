@@ -35,6 +35,10 @@ class CompanyController extends Controller
         //
         $company = Company::create($request->all());
         return response()->json($company, 201);
+<<<<<<< HEAD
+=======
+
+>>>>>>> 5644c4466969afe0214d8f60170aaaca6c6f4e04
     }
 
     /**

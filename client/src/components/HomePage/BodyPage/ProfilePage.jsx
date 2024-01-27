@@ -163,12 +163,21 @@ const ProfilePage = () => {
     <div>
       <form onSubmit={(e) => Updatedata(idcard, e)}>
         <meta name="csrf-token" content="YOUR_CSRF_TOKEN_HERE"></meta>
+<<<<<<< HEAD
         <ul className='relative flex flex-col items-start justify-center w-full h-auto px-5 py-5 text-base border-box'>
           <p className='ml-2 text-2xl font-bold'>個人情報</p>
           <li className='w-full h-full p-1 m-1 border-b border-b-gray-500 border-b-solid border-box' onClose={() => setImgUrl(false)}>
             <label htmlFor="file-input" className="text-base">プロフィール写真</label>
             <input
               className='w-full h-12 p-1 text-base transition bg-gray-100 border-none rounded-md duration-200s focus:border focus:border-solid focus:border-green-300 focus:outline-0 focus:shadow-md focus:shadow-green-300 hover:bg-green-100 hover:ring-2 hover:ring-green-400'
+=======
+        <ul className='relative flex flex-col items-start justify-center w-full h-auto p-5 text-base border-box'>
+          <p className='ml-2 text-2xl font-bold text-[#0E3A36]'>個人情報</p>
+          <li className='w-full h-full p-1 m-1 border-b border-b-gray-500 border-b-solid border-box' onClose={() => setImgUrl(false)}>
+            <label htmlFor="file-input" className="text-base">プロフィール写真</label>
+            <input
+              className='w-full h-12 p-1 text-base transition rounded-md outline-none duration-200s ManageFormInput'
+>>>>>>> 5644c4466969afe0214d8f60170aaaca6c6f4e04
               type="file"
               id="image"
               name='image'
@@ -178,7 +187,11 @@ const ProfilePage = () => {
           <li className='w-full h-full p-1 m-1 border-b border-b-gray-500 border-b-solid border-box'>
             {/* <label htmlFor="kanjiName">氏名（漢字）</label> */}
             <input
+<<<<<<< HEAD
               className='w-full h-12 p-1 text-xl transition bg-gray-100 border-none rounded-md duration-200s focus:border focus:border-solid focus:border-green-300 focus:outline-0 focus:shadow-md focus:shadow-green-300 hover:bg-green-100 hover:ring-2 hover:ring-green-400'
+=======
+              className='w-full h-12 p-1 text-xl transition border-none rounded-md duration-200s ManageFormInput'
+>>>>>>> 5644c4466969afe0214d8f60170aaaca6c6f4e04
               placeholder='氏名（漢字）'
               type="text"
               id="user_name"
@@ -190,7 +203,11 @@ const ProfilePage = () => {
           <li className='w-full h-full p-1 m-1 border-b border-b-gray-500 border-b-solid border-box'>
             {/* <label htmlFor="katakanaName">氏名（フリガナ）</label> */}
             <input
+<<<<<<< HEAD
               className='w-full h-12 p-1 text-xl transition bg-gray-100 border-none rounded-md duration-200s focus:border focus:border-solid focus:border-green-300 focus:outline-0 focus:shadow-md focus:shadow-green-300 hover:bg-green-100 hover:ring-2 hover:ring-green-400'
+=======
+              className='w-full h-12 p-1 text-xl transition border-none rounded-md duration-200s ManageFormInput'
+>>>>>>> 5644c4466969afe0214d8f60170aaaca6c6f4e04
               placeholder='氏名（フリガナ）'
               type="text"
               id="furigana"
@@ -202,7 +219,11 @@ const ProfilePage = () => {
           <li className='w-full h-full p-1 m-1 border-b border-b-gray-500 border-b-solid border-box'>
             {/* <label htmlFor="birthdate">生年月日</label> */}
             <input
+<<<<<<< HEAD
               className='w-full h-12 p-1 text-xl transition bg-gray-100 border-none rounded-md duration-200s focus:border focus:border-solid focus:border-green-300 focus:outline-0 focus:shadow-md focus:shadow-green-300 hover:bg-green-100 hover:ring-2 hover:ring-green-400'
+=======
+              className='w-full h-12 p-1 text-xl transition border-none rounded-md duration-200s ManageFormInput'
+>>>>>>> 5644c4466969afe0214d8f60170aaaca6c6f4e04
               placeholder='生年月日'
               type="date"
               id="birthday"
@@ -248,7 +269,11 @@ const ProfilePage = () => {
           <li className='w-full h-full p-1 m-1 border-b border-b-gray-500 border-b-solid border-box'>
             {/* <label htmlFor="tel">電話番号</label> */}
             <input
+<<<<<<< HEAD
               className='w-full h-12 p-1 text-xl transition bg-gray-100 border-none rounded-md duration-200s focus:border focus:border-solid focus:border-green-300 focus:outline-0 focus:shadow-md focus:shadow-green-300 hover:bg-green-100 hover:ring-2 hover:ring-green-400'
+=======
+              className='w-full h-12 p-1 text-xl transition border-none rounded-md duration-200s ManageFormInput'
+>>>>>>> 5644c4466969afe0214d8f60170aaaca6c6f4e04
               placeholder='電話番号'
               maxLength={11}
               minLength={10}
@@ -264,7 +289,11 @@ const ProfilePage = () => {
           <li className='w-full h-full p-1 m-1 border-b border-b-gray-500 border-b-solid border-box'>
             {/* <label htmlFor="post_code">郵便番号</label> */}
             <input
+<<<<<<< HEAD
               className='w-full h-12 p-1 text-xl transition bg-gray-100 border-none rounded-md duration-200s focus:border focus:border-solid focus:border-green-300 focus:outline-0 focus:shadow-md focus:shadow-green-300 hover:bg-green-100 hover:ring-2 hover:ring-green-400'
+=======
+              className='w-full h-12 p-1 text-xl transition border-none rounded-md duration-200s ManageFormInput'
+>>>>>>> 5644c4466969afe0214d8f60170aaaca6c6f4e04
               placeholder='郵便番号'
               maxLength={8}
               minLength={8}
@@ -278,7 +307,11 @@ const ProfilePage = () => {
           <li className='w-full h-full p-1 m-1 mb-16 border-b border-b-gray-500 border-b-solid border-box'>
             {/* <label htmlFor="address">現在所</label> */}
             <input
+<<<<<<< HEAD
               className='w-full h-12 p-1 text-xl transition bg-gray-100 border-none rounded-md duration-200s focus:border focus:border-solid focus:border-green-300 focus:outline-0 focus:shadow-md focus:shadow-green-300 hover:bg-green-100 hover:ring-2 hover:ring-green-400'
+=======
+              className='w-full h-12 p-1 text-xl transition border-none rounded-md duration-200s ManageFormInput'
+>>>>>>> 5644c4466969afe0214d8f60170aaaca6c6f4e04
               placeholder='現在所'
               type="text"
               id="address"
@@ -286,7 +319,11 @@ const ProfilePage = () => {
               value={address} onChange={(e) => setAddress(e.target.value)}
             />
           </li>
+<<<<<<< HEAD
           <button className='absolute flex items-center justify-center w-16 h-16 p-2 text-xl font-bold text-white bg-green-400 border-2 border-green-400 border-solid rounded-full cursor-pointer right-2 bottom-2 focus:shadow-md focus: shadow-green-400 hover:bg-green-300 active:shadow-green-400 hover:ring-2 hover:ring-green-400'
+=======
+          <button className='absolute flex items-center justify-center w-[67px] h-[57px] p-2 text-xl font-bold text-[#ECFF8C] border border-[#ECFF8C] rounded-full cursor-pointer right-2 bottom-2 ManageFormInput bg-gradient-to-tr from-[#08453D] to-[#478E5E]'
+>>>>>>> 5644c4466969afe0214d8f60170aaaca6c6f4e04
             id='btt' type='submit'
           >編集</button>
         </ul>
@@ -295,6 +332,7 @@ const ProfilePage = () => {
       <Modal
         isOpen={isModalOpen}
         contentLabel="Update Success Modal"
+<<<<<<< HEAD
         className=" w-64 mx-auto my-5"
       >
         <div className=" bg-green-200 items-center justify-center rounded-lg p-4 mb-4 text-sm text-green-600" role="alert">
@@ -305,6 +343,16 @@ const ProfilePage = () => {
           <div>
             <button onClick={closeModal}>OK</button>
           </div>
+=======
+        className="fixed z-20 inline-block w-64 h-20 transform -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2"
+      >
+        <div className="flex items-center justify-center w-full h-full p-4 mb-4 text-sm text-green-600 bg-green-200 rounded-lg " role="alert">
+          <span className="mr-1 text-sm font-medium">Updated Successful</span>
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+          <button className='absolute right-2 bottom-1' onClick={closeModal}>OK</button>
+>>>>>>> 5644c4466969afe0214d8f60170aaaca6c6f4e04
         </div>
       </Modal>
     </div>

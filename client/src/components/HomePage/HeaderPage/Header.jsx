@@ -28,11 +28,19 @@ const Header = () => {
             
             //lấy số thông báo
             setNotificationCount(response.data.newNotificationCount);
+<<<<<<< HEAD
             console.log("header - NotificationCount: " + response.data.newNotificationCount);
             
             //lấy new notification
             setNewNotification(response.data.data);
             console.log("header - newNotification " + JSON.stringify(response.data.data));
+=======
+            // console.log("header - NotificationCount: " + response.data.newNotificationCount);
+            
+            //lấy new notification
+            setNewNotification(response.data.data);
+            // console.log("header - newNotification " + JSON.stringify(response.data.data));
+>>>>>>> 5644c4466969afe0214d8f60170aaaca6c6f4e04
 
         } catch (error) {
             console.error("Error:", error);
@@ -83,6 +91,7 @@ const Header = () => {
       <div className='flex items-center justify-between w-full h-full'>
         {/* header-text */}
         <div className='float-left text-4xl pl-2.5 font-bold text-white'>MEIMEI</div>
+<<<<<<< HEAD
         <div className='p-2.5 flex justify-center items-center'>
           {/* notification */}
           {notificationCount > 0 && (
@@ -94,6 +103,19 @@ const Header = () => {
             <img
               className='object-cover w-4/5 rounded-full h-4/5'
               src='https://cdn-icons-png.flaticon.com/128/3602/3602145.png'
+=======
+        <div className='relative p-2.5 flex justify-center items-center'>
+          {/* notification */}
+          {notificationCount > 0 && (
+            <div className='absolute flex items-center justify-center w-5 h-5 text-black font-bold text-sm bg-[#DD5252] border border-[#0E3A36] border-solid rounded-full top-2 left-9'>
+              {notificationCount}
+            </div>
+          )}
+          <div className='flex items-center justify-center mr-4 overflow-hidden transition duration-200 bg-[#FFFFFF]/90 border border-white border-solid rounded-full cursor-pointer h-9 w-9 2-8 hover:shadow-md hover:shadow-green-400 hover:bg-green-200 hover:ring hover:ring-green-400'>
+            <img
+              className='object-cover w-6 h-6'
+              src='https://cdn-icons-png.flaticon.com/64/601/601025.png'
+>>>>>>> 5644c4466969afe0214d8f60170aaaca6c6f4e04
               alt='notification'
               onClick={handleNotificationClick}
             />

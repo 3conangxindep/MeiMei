@@ -20,11 +20,7 @@ const ContactPage = () => {
 
     return (
         // contact-container
-        <div className='box-border w-full p-4'>
-<<<<<<< HEAD
-=======
-            {/* <img src={img1} className='fixed z-10 mb-1 h-14'/> */}
->>>>>>> 5644c4466969afe0214d8f60170aaaca6c6f4e04
+        <div className='w-full p-4 border-box'>
             {/* contact-search */}
             <div className='relative flex items-center justify-end w-full h-full mb-4'>
                 <img src={img1} className='absolute h-24 mb-1 -left-5 '/>

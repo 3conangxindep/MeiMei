@@ -11,6 +11,10 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Log;
+<<<<<<< HEAD
+=======
+
+>>>>>>> 5644c4466969afe0214d8f60170aaaca6c6f4e04
 
 class contactController extends Controller
 {
@@ -101,9 +105,18 @@ class contactController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($id_card, $contact_id)
     {
         //
+        // Use the delete method to delete records based on the given conditions
+        $follower = DB::table('contact')
+            ->where('id_card', $id_card)
+            ->where('contact_id', $contact_id)
+            ->delete();
+        // Records were deleted successfully
+        return response()->json(['message' => 'Contact deleted successfully'], 200);
+
+
     }
 
     // In contactController.php
@@ -139,8 +152,11 @@ class contactController extends Controller
         return response()->json(['message' => 'Contact updated successfully', 'updated_at' => $updatedTime], 200);
     }
 
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> 5644c4466969afe0214d8f60170aaaca6c6f4e04
     public function updateLike($id_card, $contact_id)
     {
         // Find the contact record
@@ -182,6 +198,10 @@ class contactController extends Controller
         }
     }
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 5644c4466969afe0214d8f60170aaaca6c6f4e04
     public function updateNotification($id)
     {
         // Update all records where contact_id is $id and notification is true
@@ -197,7 +217,11 @@ class contactController extends Controller
 
     public function getFollowing($id_card, $page)
     {
+<<<<<<< HEAD
         $perPage = 2; // Số lượng mục trên mỗi trang
+=======
+        $perPage = 10; // Số lượng mục trên mỗi trang
+>>>>>>> 5644c4466969afe0214d8f60170aaaca6c6f4e04
 
         $total = DB::table('contact')
             ->where('id_card', $id_card)
@@ -220,9 +244,45 @@ class contactController extends Controller
         return response()->json(['data' => $contacts, 'totalPages' => $totalPages,], 200);
     }
 
+<<<<<<< HEAD
     public function getRecent($id_card, $page)
     {
         $perPage = 2; // Số lượng mục trên mỗi trang
+=======
+    public function search($id_card, $page, $search)
+    {
+        $perPage = 10; // Số lượng mục trên mỗi trang
+
+        $total = DB::table('contact')
+            ->leftJoin('user', 'contact.contact_id', '=', 'user.id_card')
+            ->where('contact.id_card', $id_card)
+            ->where(function ($query) use ($search) {
+                $query->where('user.user_name', 'like', '%' . $search . '%')
+                    ->orWhere('user.email', 'like', '%' . $search . '%');
+            })
+            ->count();
+
+        $users = DB::table('contact')
+            ->leftJoin('user', 'contact.contact_id', '=', 'user.id_card')
+            ->select('contact.*', 'user.*')
+            ->where('contact.id_card', $id_card)
+            ->where(function ($query) use ($search) {
+                $query->where('user.user_name', 'like', '%' . $search . '%')
+                    ->orWhere('user.email', 'like', '%' . $search . '%');
+            })
+            ->skip(($page - 1) * $perPage)
+            ->take($perPage)
+            ->get();
+
+        $totalPages = ceil($total / $perPage);
+
+        return response()->json(['data' => $users, 'totalPages' => $totalPages], 200);
+    }
+
+    public function getRecent($id_card, $page)
+    {
+        $perPage = 10; // Số lượng mục trên mỗi trang
+>>>>>>> 5644c4466969afe0214d8f60170aaaca6c6f4e04
 
         $total = DB::table('contact')
             ->where('id_card', $id_card)
@@ -244,7 +304,11 @@ class contactController extends Controller
 
     public function getFavorite($id_card, $page)
     {
+<<<<<<< HEAD
         $perPage = 2; // Số lượng mục trên mỗi trang
+=======
+        $perPage = 10; // Số lượng mục trên mỗi trang
+>>>>>>> 5644c4466969afe0214d8f60170aaaca6c6f4e04
 
         $total = DB::table('contact')
             ->where('id_card', $id_card)
@@ -266,6 +330,40 @@ class contactController extends Controller
         return response()->json(['data' => $contacts, 'totalPages' => $totalPages], 200);
     }
 
+<<<<<<< HEAD
+=======
+    public function searchFavorite($id_card, $page, $search)
+    {
+        $perPage = 10; // Số lượng mục trên mỗi trang
+
+        $total = DB::table('contact')
+            ->leftJoin('user', 'contact.contact_id', '=', 'user.id_card')
+            ->where('contact.id_card', $id_card)
+            ->where('contact.like', true)
+            ->where(function ($query) use ($search) {
+                $query->where('user.user_name', 'like', '%' . $search . '%')
+                    ->orWhere('user.email', 'like', '%' . $search . '%');
+            })
+            ->count();
+
+        $users = DB::table('contact')
+            ->leftJoin('user', 'contact.contact_id', '=', 'user.id_card')
+            ->select('contact.*', 'user.*')
+            ->where('contact.id_card', $id_card)
+            ->where('contact.like', true)
+            ->where(function ($query) use ($search) {
+                $query->where('user.user_name', 'like', '%' . $search . '%')
+                    ->orWhere('user.email', 'like', '%' . $search . '%');
+            })
+            ->skip(($page - 1) * $perPage)
+            ->take($perPage)
+            ->get();
+
+        $totalPages = ceil($total / $perPage);
+
+        return response()->json(['data' => $users, 'totalPages' => $totalPages], 200);
+    }
+>>>>>>> 5644c4466969afe0214d8f60170aaaca6c6f4e04
 
     public function getNewNotification($id)
     {
@@ -299,4 +397,8 @@ class contactController extends Controller
 
         return response()->json(['data' => $notification, 'newFollowerCount' => $notificationCount], 200);
     }
+<<<<<<< HEAD
+=======
+
+>>>>>>> 5644c4466969afe0214d8f60170aaaca6c6f4e04
 }

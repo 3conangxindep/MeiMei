@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\GroupController;
+use App\Http\Controllers\ManageGroupController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
@@ -24,8 +26,10 @@ use App\Http\Controllers\PhotoController;
 Route::get('/user', [UserController::class, 'index']);
 Route::get('/user/{id}', [UserController::class, 'show']);
 Route::post('/user', [UserController::class, 'store']);
+Route::get('/user/is_registration_allowed/{id}', [UserController::class, 'isRegistrationAllowed']);
 Route::put('/user/{id}', [UserController::class, 'update']);
 Route::delete('/user/{id}', [UserController::class, 'destroy']);
+
 
 
 //follow
@@ -38,7 +42,15 @@ Route::put('/contact/notification/{id}', [contactController::class, 'updateNotif
 Route::get('/contact/following/{id_card}/{page}', [contactController::class, 'getFollowing']);
 Route::get('/contact/recent/{id_card}/{page}', [contactController::class, 'getRecent']);
 Route::get('/contact/favorite/{id_card}/{page}', [contactController::class, 'getFavorite']);
+<<<<<<< HEAD
 Route::put('/contact/{id_card}/{contact_id}', [contactController::class, 'updateContact']);
+=======
+Route::get('/contact/favorite/{id_card}/{page}/{search}', [contactController::class, 'searchFavorite']);
+Route::put('/contact/{id_card}/{contact_id}', [contactController::class, 'updateContact']);
+Route::get('/contact/{id_card}/{page}/{search}', [contactController::class, 'search']);
+Route::delete('/contact/{id_card}/{contact_id}', [contactController::class, 'destroy']);
+
+>>>>>>> 5644c4466969afe0214d8f60170aaaca6c6f4e04
 
 //company information
 Route::get('/company', [CompanyController::class, 'index']);
@@ -53,3 +65,22 @@ Route::post('/logout', [UserController::class, 'logout'])->middleware('auth:sanc
 
 //photos
 Route::post('/photos', [PhotoController::class, 'upload']);
+<<<<<<< HEAD
+=======
+
+//group
+Route::get('/group/{id}', [GroupController::class, 'show']);
+Route::post('/group', [GroupController::class, 'store']);
+Route::get('/group', [GroupController::class, 'index']);
+Route::get('/groups/{page}', [GroupController::class, 'group']);
+Route::get('/group/{page}/{search}', [GroupController::class, 'searchGroup']);
+Route::delete('/group/{id}', [GroupController::class, 'destroy']);
+
+//manage group
+Route::get('/manage/{id}', [ManageGroupController::class, 'show']);
+Route::get('/manage/group/{id_card}', [ManageGroupController::class, 'checkId']);
+Route::get('/manage/{group_id}/{id_card}', [ManageGroupController::class, 'check']);
+Route::post('/manage', [ManageGroupController::class, 'store']);
+Route::get('/manage', [ManageGroupController::class, 'index']);
+Route::delete('/manage/{group_id}/{id_card}', [ManageGroupController::class, 'destroy']);
+>>>>>>> 5644c4466969afe0214d8f60170aaaca6c6f4e04

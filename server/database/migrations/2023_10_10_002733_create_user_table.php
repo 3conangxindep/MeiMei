@@ -28,8 +28,10 @@ class CreateUserTable extends Migration
             $table->string('instagram')->nullable();
             $table->string('x')->nullable();
             $table->text('description')->nullable();
-            $table->timestamps();
-            $table->softDeletes();
+            $table->boolean('registration_allowed')->default(true);
+            $table->timestamp('created_at')->useCurrent();
+            $table->timestamp('updated_at')->useCurrent()->useCurrentOnUpdate();
+            $table->softDeletes(); // カラム名の初期値は、deleted_at
         });
     }
 

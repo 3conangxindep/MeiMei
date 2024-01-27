@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateContactTable extends Migration
+class CreateManageGroupTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,19 +13,14 @@ class CreateContactTable extends Migration
      */
     public function up()
     {
-        Schema::create('contact', function (Blueprint $table) {
+        Schema::create('manage_group', function (Blueprint $table) {
+            $table->unsignedBigInteger('group_id');
             $table->string('id_card');
-            $table->string('contact_id');
-            $table->boolean('like')->default(false); //0
-<<<<<<< HEAD
-            $table->boolean('notification')->default(false);
-=======
-            $table->boolean('notification')->default(false); //0
->>>>>>> 5644c4466969afe0214d8f60170aaaca6c6f4e04
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->useCurrent()->useCurrentOnUpdate();
             $table->softDeletes();
             // Foreign key
+            $table->foreign('group_id')->references('group_id')->on('group')->onDelete('cascade');
             $table->foreign('id_card')->references('id_card')->on('user');
         });
     }
@@ -37,6 +32,6 @@ class CreateContactTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('contact');
+        Schema::dropIfExists('manage_group');
     }
 }

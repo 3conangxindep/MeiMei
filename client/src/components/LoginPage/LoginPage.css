@@ -25,7 +25,7 @@
 .Label {
   position: absolute;
   left: 0rem;
-  top: 0.75rem;
+  top: 1.5rem;
   transition: transform 0.3s, font-size 0.3s;
   display: block;
   font-weight: 500;
@@ -79,11 +79,19 @@
   border: 1px solid #ccc;
   box-shadow: 0 2px 2px rgba(0,0,0,0.1);  
   border-radius: 10px; 
+<<<<<<< HEAD
 } */
 /* .FormGroup{
   padding-bottom: 5%;
 } */
 /* .LoginBorder{
+=======
+}
+/* .FormGroup{
+  padding-bottom: 5%;
+} */
+.LoginBorder{
+>>>>>>> 5644c4466969afe0214d8f60170aaaca6c6f4e04
     background-color: white;
     width: 90%;
     max-height: 100%;
@@ -122,13 +130,13 @@
     border-radius: 0.4rem;
     transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
   }
-.FormInput:hover,
-.FormInput:focus {
-border-color: #ffffff;
-outline: 0;
-box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
-}
-.FormError {
+  .FormInput:hover,
+  .FormInput:focus {
+    border-color: rgb(34 197 94);
+    outline: 0;
+    box-shadow: 0 0 0 0.2rem rgba(34, 197, 94, 0.25);
+  }
+  .FormError {
     color: #dc3545;
     font-size: 12px;
   }
@@ -144,7 +152,10 @@ box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
     vertical-align: middle;
     cursor: pointer;
     border: 1px solid transparent;
+<<<<<<< HEAD
     /* border-radius: 0.25rem; */
+=======
+>>>>>>> 5644c4466969afe0214d8f60170aaaca6c6f4e04
     color: #fff;
     background-color: #007bff;
     transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
@@ -164,8 +175,15 @@ box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
     white-space: nowrap;
     vertical-align: middle;
     cursor: pointer;
+<<<<<<< HEAD
     border: 1px solid #ECFF8C;
     background-color: #36735B;
+=======
+    border: 1px solid transparent;
+    /* border-radius: 0.25rem; */
+    /* color: #212020; */
+    background-image: linear-gradient(to top,#94F7E5,#6CCF9D,#5BBE7D,#56989A);
+>>>>>>> 5644c4466969afe0214d8f60170aaaca6c6f4e04
     transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
     border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
   }

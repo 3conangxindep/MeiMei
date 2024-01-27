@@ -9,6 +9,10 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+<<<<<<< HEAD
+=======
+
+>>>>>>> 5644c4466969afe0214d8f60170aaaca6c6f4e04
 
 class Contact extends Model
 {
@@ -21,7 +25,11 @@ class Contact extends Model
         'id_card',
         'contact_id',
         'like',
+<<<<<<< HEAD
         'notification'
+=======
+        'notification',
+>>>>>>> 5644c4466969afe0214d8f60170aaaca6c6f4e04
     ];
 
     /**

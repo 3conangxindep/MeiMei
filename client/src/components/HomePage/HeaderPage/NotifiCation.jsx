@@ -49,6 +49,7 @@ const NotifiCation = ({ onClose }) => {
     }
 
     return (
+<<<<<<< HEAD
         <div className='absolute right-3 py-2.5 px-3.5 bg-gray-100 border border-solid border-gray-300 rounded-md shadow-md shadow-green-300 z-20'>
             <div className='relative flex items-center p-2.5'>
                 <div className='absolute top-0 left-0 text-xl font-bold cursor-pointer text-green-950'>通知</div>
@@ -77,12 +78,40 @@ const NotifiCation = ({ onClose }) => {
                 })}
 
             </div>
+=======
+        <div className='absolute z-20 w-10/12 max-w-full max-h-screen p-2 bg-gray-100 border border-gray-300 border-solid rounded-md shadow-md right-3 shadow-green-300 sm:w-96 min-h-64'>
+            <div className='relative flex items-center p-2.5 m-3'>
+                <div className='absolute top-0 left-0 text-xl font-bold cursor-pointer text-green-950'>通知</div>
+                <div className='absolute top-0 right-0 flex items-center justify-center w-5 h-5 bg-gray-200 border border-gray-300 rounded-full hover:ring hover:ring-gray-300'>
+                    <button className='text-xs font-bold cursor-pointer' onClick={onClose}>
+                        X
+                    </button>
+                </div>
+            </div>        
+                
+            {notification.map((e, index) => {
+                const isNewNotification = index < newNotification.length ? true : false;
+
+                return (
+                    <div 
+                        key={`notification-${index}`}
+                        className={`list-none w-full rounded-md p-2 transition duration-200 cursor-pointer ${
+                            isNewNotification ? 'bg-gray-200' : ''
+                        } hover:bg-gray-200 hover:border hover:border-gray-200 hover:rounded-md mb-2`}
+                    >
+                        <NotificationItem notification={e} setImg={setImg} isNewNotification={isNewNotification} />
+                    </div>
+                );
+            })}
+            
+>>>>>>> 5644c4466969afe0214d8f60170aaaca6c6f4e04
         </div>
     );
 };
 
 // NotificationItem component
 const NotificationItem = ({ notification, setImg, isNewNotification }) => (
+<<<<<<< HEAD
     <div className={`relative flex items-center p-2.5 ${isNewNotification ? 'bg-gray-200' : ''}`}>
         <div className='w-11 h-11 mr-2.5 rounded-full border border-solid border-gray-300 flex justify-center items-center'>
             <img className='object-cover w-10 h-10 rounded-full' src={setImg(notification)} alt='' />
@@ -92,9 +121,24 @@ const NotificationItem = ({ notification, setImg, isNewNotification }) => (
                 <b>{notification.user_name}</b>があなたをフォロー中です。
             </div>
             <div className='text-gray-500 text-md'>{notification.created_at}</div>
+=======
+    <div className={`list-none w-full rounded-md relative justify-start flex items-center p-1 mb-2 ${isNewNotification ? 'bg-gray-200' : ''}`}>
+        <div className='flex items-center justify-center w-10 h-10 mr-2 border border-gray-300 border-solid rounded-full'>
+            <img className='object-cover rounded-full w-9 h-9' src={setImg(notification)} alt='' />
+        </div>
+        <div className='w-10/12'>
+            <div className='max-w-full text-sm break-all'>
+                <b>{notification.user_name}</b>があなたをフォロー中です。
+            </div>
+            <div className='text-xs text-gray-500'>{notification.created_at}</div>
+>>>>>>> 5644c4466969afe0214d8f60170aaaca6c6f4e04
         </div>
     </div>
 );
 
 
+<<<<<<< HEAD
 export default NotifiCation;
+=======
+export default NotifiCation;
+>>>>>>> 5644c4466969afe0214d8f60170aaaca6c6f4e04

@@ -17,7 +17,11 @@ const Main = () => {
   const { contact_id } = useParams();
   console.log("main contact_id: " + contact_id);
   return (
+<<<<<<< HEAD
     <div className="box-border w-screen h-screen overflow-auto" style={{ backgroundImage: 'linear-gradient(to top,#002629,#94F7B2)' }}>
+=======
+    <div className="box-border w-screen h-screen overflow-auto" style={{ backgroundImage: 'linear-gradient(#0E3A36,#00584A,#007758,#009860,#34A05F,#2E9059,#287F52,#0C844B,#047645,#185541,#13473B,#0E3A36)' }}>
+>>>>>>> 5644c4466969afe0214d8f60170aaaca6c6f4e04
       <SelectedOptionsProvider>
         <BrowserRouter>
           <Header />
