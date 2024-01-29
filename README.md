@@ -11,13 +11,9 @@ composer install
 
 php artisan key:generate
 
-php artisan migrate (tạo database meimei trước khi nhập câu lệnh này)
-
-php artisan db:seed --class=UserSeeder (chay Seeder)
+php artisan migrate (tạo database meimei trước khi nhập câu lệnh này create database meimei; )
 
 php artisan storage:link (tao link lien ket den anh)
-
-php artisan serve
 
 php artisan serve --port=8000 --host=0.0.0.0  (mở port truy cập bằng điện thoại)
 
@@ -29,13 +25,10 @@ npm i
 
 npm start
 
-#mysql
+** ADMIN
 
-php artisan make:migration add_registration_allowed_to_user_table --table=user
+email: admin@meimei.com
 
-INSERT INTO user (id_card, user_name, birthday, gender,email, password) VALUES ('444555', 'meimei', '2024-01-22', 'other','meimei@gmail.com', 'password');  
-    (tạm thời là thêm thẻ mới trước khi gia cho người sử dụng và có REGISTER ALLOWED là TRUE)
-
-INSERT INTO manager (id_card,role) VALUES ('111111', 'admin');
+password: admin
 
 
