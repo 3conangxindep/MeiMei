@@ -26,7 +26,9 @@ npm i
 npm start
 
 ** ADMIN
+
 email: admin@meimei.com
+
 password: admin
 
 
