@@ -3,6 +3,8 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use App\Models\Manager;
+
 
 class CreateManagerTable extends Migration
 {
@@ -20,6 +22,13 @@ class CreateManagerTable extends Migration
             $table->timestamps(); // Add this line to create created_at and updated_at columns
             $table->softDeletes(); // The default column name is 'deleted_at'
         });
+
+        // Thêm giá trị vào bảng sau khi tạo
+        Manager::create([
+            'id_card' => '111111',
+            'status' => false, // Hoặc giá trị mặc định khác
+            'role' => 'admin', // Hoặc giá trị mặc định khác
+        ]);
     }
 
     /**

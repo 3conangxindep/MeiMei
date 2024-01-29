@@ -3,6 +3,9 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use App\Models\User;
+use Illuminate\Support\Facades\Hash;
+
 
 class CreateUserTable extends Migration
 {
@@ -34,6 +37,16 @@ class CreateUserTable extends Migration
             // Foreign key
             // $table->foreign('id_card')->references('id_card')->on('manager');
         });
+
+            // Thêm giá trị vào bảng sau khi tạo
+        User::create([
+            'id_card' => '111111',
+            'user_name' => 'admin', // Hoặc giá trị mặc định khác
+            'birthday' => '2023-01-01', // Hoặc giá trị mặc định khác
+            'gender' => 'other', // Hoặc giá trị mặc định khác
+            'password' => Hash::make('admin'), // Hoặc giá trị mặc định khác
+            'email' => 'admin@meimei.com', // Hoặc giá trị mặc định khác
+        ]);
     }
 
     /**

@@ -58,8 +58,8 @@ const LoginPage = () => {
         password: password,
       });
 
-      const userRole = login.data.role; // Lấy vai trò từ dữ liệu trả về
-      if (userRole === 'admin') {
+      const userId = login.data.id_card; // Lấy vai trò từ dữ liệu trả về
+      if (userId == '111111') {
         history.push('/cardManages'); // Điều hướng đến trang dashboard của admin
       } else {
         const current = localStorage.setItem(
@@ -69,8 +69,8 @@ const LoginPage = () => {
         setUser(login);
         const userFromLocalStorage = JSON.parse(localStorage.getItem('currentUser'));
         history.push(`/main/${userFromLocalStorage.data.id_card}`);
-    }
-    console.log("dang nhap thanh cong",)
+      }
+      console.log("dang nhap thanh cong",)
     } catch (error) {
       setErrorMessage("メールアドレスかパスワードか間違っています");
       console.error("Login failed:", error);
@@ -82,15 +82,15 @@ const LoginPage = () => {
   return (
     <Fragment>
       {/* <div className='Border-me'> */}
-      <div className='box-border flex flex-col items-center justify-around w-full h-screen py-7'style={{ backgroundImage: 'linear-gradient(#0E3A36,#00584A,#007758,#009860,#34A05F,#2E9059,#287F52,#0C844B,#047645,#185541,#13473B,#0E3A36)' }}>
+      <div className='box-border flex flex-col items-center justify-around w-full h-screen py-7' style={{ backgroundImage: 'linear-gradient(#0E3A36,#00584A,#007758,#009860,#34A05F,#2E9059,#287F52,#0C844B,#047645,#185541,#13473B,#0E3A36)' }}>
         <div className='flex items-center justify-around w-full h-36 sm:px-[30%]'>
-            <img src={img} alt='' className='w-32 h-32 border border-white rounded-full' />
-            <h1 className='text-4xl font-bold text-white sm:text-5xl'>MEIMEI</h1>
-        </div> 
-        <br/>           
+          <img src={img} alt='' className='w-32 h-32 border border-white rounded-full' />
+          <h1 className='text-4xl font-bold text-white sm:text-5xl'>MEIMEI</h1>
+        </div>
+        <br />
         <div className='relative w-10/12 sm:w-96 h-auto p-5 bg-white border border-[#ECFF8C] border-solid shadow-md rounded-2xl shadow-[#ECFF8C]'>
           <h2 className='p-2 text-3xl font-bold text-center border-b border-gray-300 text-[#0E3A36] border-b-solid'>ログイン</h2>
-          
+
           <form onSubmit={handleLogin}>
             <div className='mt-4 LoginForm'>
               <div className='pt-3 mt-2 mb-2 FormGroup'>
@@ -150,23 +150,23 @@ const LoginPage = () => {
           {/* <br /> */}
           {errorMessage && <div className="mt-5 text-red-600">{errorMessage}</div>}
         </div>
-        <br/>
+        <br />
         {/* dang ki bang google va twitter */}
         <div className='w-full px-7 sm:pl-[39%] sm:mt-2'>
-            <div className='flex items-center mb-2'>
-                <img src='https://cdn-icons-png.flaticon.com/64/300/300221.png' className='w-5 mr-1'/>
-                <a href='#' className='text-lg text-white hover:text-blue-800 hover:border-b hover:border-blue-800'>Googleアカウントでログイン</a>
-            </div>
-            <div className='flex items-center'>
-                <img src='https://cdn-icons-png.flaticon.com/64/5969/5969020.png' className='w-5 mr-1'/>
-                <a href='#' className='text-lg text-white hover:text-blue-800 hover:border-b hover:border-blue-800'>X(Twitter)アカウントでログイン</a>
-            </div>
+          <div className='flex items-center mb-2'>
+            <img src='https://cdn-icons-png.flaticon.com/64/300/300221.png' className='w-5 mr-1' />
+            <a href='#' className='text-lg text-white hover:text-blue-800 hover:border-b hover:border-blue-800'>Googleアカウントでログイン</a>
+          </div>
+          <div className='flex items-center'>
+            <img src='https://cdn-icons-png.flaticon.com/64/5969/5969020.png' className='w-5 mr-1' />
+            <a href='#' className='text-lg text-white hover:text-blue-800 hover:border-b hover:border-blue-800'>X(Twitter)アカウントでログイン</a>
+          </div>
         </div>
-        <br/>
+        <br />
         <h3 className='text-[#ECFF8C] font-bold text-xl ml-60 sm:ml-[15%] hover:border-b hover:border-[#ECFF8C]' onClick={handleNavigation}>新規登録</h3>
       </div>
-      
-      
+
+
     </Fragment>
   );
 };

@@ -41,7 +41,7 @@ const CreateIDCardPage = () => {
                     value={idCard}
                     onChange={(e) => setIdCard(e.target.value)}
                     className='w-full py-3 text-2xl flex justify-center px-2 border border-[#36735B] text-[#36735B] rounded-xl bg-transparent outline-none mb-[15%] sm:mb-[10%] ManageFormInputId'
-                    placeholder='カードID'
+                    placeholder='カードID: 6ケタ'
                 />
 
                 <input 
@@ -49,7 +49,7 @@ const CreateIDCardPage = () => {
                     value={role}
                     onChange={(e) => setRole(e.target.value)}
                     className='w-full py-3 text-2xl flex justify-center px-2 border border-[#36735B] text-[#36735B] rounded-xl bg-transparent outline-none mb-[15%] sm:mb-[10%] ManageFormInputRole'
-                    placeholder='役割'
+                    placeholder='役割: user'
                 />
 
                 <button 

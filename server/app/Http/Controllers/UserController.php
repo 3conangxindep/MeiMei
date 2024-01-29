@@ -172,13 +172,12 @@ class UserController extends Controller
         // Lấy thông tin user đã đăng nhập
         $user = Auth::user();
         // Kiểm tra vai trò của user trong bảng manager
-        $manager = Manager::where('id_card', $user->id_card)->first();
+        // $manager = Manager::where('id_card', $user->id_card)->first();
 
         // Trả về dữ liệu bao gồm thông tin user và vai trò của manager
-        return response()->json([
-            'user' => $user,
-            'role' => $manager ? $manager->role : null,
-        ]);
+        return response()->json(
+            $user
+        );
     }
 
     public function logout(Request $request)
