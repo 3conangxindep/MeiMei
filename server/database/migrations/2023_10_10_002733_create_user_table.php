@@ -45,7 +45,7 @@ class CreateUserTable extends Migration
             'birthday' => '2023-01-01', // Hoặc giá trị mặc định khác
             'gender' => 'other', // Hoặc giá trị mặc định khác
             'password' => Hash::make('admin'), // Hoặc giá trị mặc định khác
-            'email' => 'admin@meimei.com', // Hoặc giá trị mặc định khác
+            'email' => 'meimei@gmail.com', // Hoặc giá trị mặc định khác
         ]);
     }
 
