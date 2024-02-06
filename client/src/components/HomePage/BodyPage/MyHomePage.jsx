@@ -6,7 +6,7 @@ import API_BASE_URL from '../../../apiConfig';
 
 
 const MyHomePage = () => {
-    const img1 ='/meimei_img.png';
+    const img1 ='/meimeilogo.png';
     
     // Truy cập dữ liệu người dùng đã lưu trữ sau khi đăng nhập
     const user = JSON.parse(localStorage.getItem('currentUser')).data;
@@ -85,12 +85,12 @@ const MyHomePage = () => {
     }
     return (
         // myhome-container
-        <div className='max-w-sm mx-auto sm:max-w-2xl w-full h-full absolute box-border flex items-center justify-center my-3.5 -translate-y-1/2 top-[55%] -translate-x-1/2 left-1/2'> 
+        <div className='max-w-sm mx-auto sm:max-w-2xl w-full h-3/4 absolute box-border flex flex-col items-center justify-center my-3.5 -translate-x-1/2 left-1/2'> 
             
-            <img src={img1} className='absolute top-[9%] sm:h-[47%] sm:-right-[45%] sm:top-[45%] h-28 right-[7%]'/>
-
+            {/* <img src={img1} className='absolute top-[9%] sm:h-[47%] sm:-right-[45%] sm:top-[45%] h-28 right-[7%]'/> */}
             {/* myhomecard */}
             <div className='box-border relative flex items-center justify-center w-11/12 h-full border-4 border-solid border-emerald-800 sm:w-full sm:h-full rounded-xl max-h-80 sm:max-h-96'>
+            <img src={img1} className='absolute -top-[50%] h-44 right-2 sm:h-64 sm:-right-[25%] sm:top-[45%] right-[7%]'/>
                 {/* myhome-left */}
                 <div className='box-border relative flex flex-col items-center float-left w-32 h-full rounded-l-lg bg-emerald-700 sm:w-96 justify-evenly '>
                     <li className='flex items-center justify-center w-16 h-16 border-2 border-white border-solid rounded-full sm:w-32 sm:h-32'>

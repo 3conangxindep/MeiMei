@@ -16,12 +16,12 @@ const ManageAccount = () => {
 
     return (
         // manageAccount-container
-        <div className='box-border relative flex flex-row w-full h-auto max-w-full px-2 py-4 sm:p-5'>
+        <div className='box-border relative flex flex-row w-screen h-auto max-w-full px-2 py-4 sm:p-5 '>
             {/* vertical-nav */}
             {/* <div className='left-0 border-box absolute top-3 mr-4/6 p-2.5 w-1/6 h-auto ml-8 bg-white rounded-md z-10'> */}
             
             {/*  vertical-nav-inline*/}
-            <div className='fixed bottom-1 flex flex-col items-center justify-between w-[20%] h-auto bg-[#36735B] border border-[#ECFF8C]/60 rounded-lg sm:w-32 left-0.5'>
+            <div className='absolute flex flex-col items-center justify-between w-[20%] h-auto bg-[#36735B] border border-[#ECFF8C]/60 rounded-lg sm:w-32 left-0.5 -translate-y-1/3 top-1/3'>
                 {/* manageAccount-section */}
                 {/* <div className='flex items-center justify-center w-20 h-20 rounded-full' style={{ backgroundColor: currentPage === 'ProfilePage' ? 'white' : 'transparent' }}> */}
                 <NavLink

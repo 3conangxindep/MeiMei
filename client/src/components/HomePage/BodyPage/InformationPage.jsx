@@ -88,18 +88,19 @@ const InformationPage = () => {
 
     const scrollToDiv = () => {
         // console.log("Scrolling...");
-        const pageHeight = document.documentElement.scrollHeight;
+        // const pageHeight = document.documentElement.scrollHeight;
+        const pageHeight = window.screen.height
         if (isScrolled) {
             window.scrollTo({
                 top: 0,
                 behavior: 'smooth'
             });
         } else {
-            const scrollPercentage = 0.76; // Adjust this value as needed
-            const scrollToPosition = pageHeight * scrollPercentage;
+            // const scrollPercentage = 0.01; // Adjust this value as needed
+            // const scrollToPosition = pageHeight * scrollPercentage;
 
             window.scrollTo({
-                top: scrollToPosition,
+                top: pageHeight,
                 behavior: 'smooth'
             });
         }
@@ -157,7 +158,7 @@ const InformationPage = () => {
             </div>
 
             {/* company */}
-            <div className='absolute flex flex-col justify-center items-center w-full top-[75%] sm:top-[50%] left-1/2 p-7 transform -translate-x-1/2 bg-[#FFFFFF] rounded-3xl border border-[#ECFF8C] shadow shadow-[#36735Bs]'>
+            <div className='absolute flex flex-col justify-center items-center w-full top-11/12 sm:top-[81%] left-1/2 p-7 transform -translate-x-1/2 bg-[#FFFFFF] rounded-3xl border border-[#ECFF8C] shadow shadow-[#36735Bs]'>
                 {/* <div className={`absolute left-1/2 w-4 h-2 transform -translate-x-1/2 bg-[#0E3A36] clip-triangle ${isScrolled ? 'rotate-0' : 'rotate-180'}`}  onClick={scrollToDiv} /> */}
                 <button className={`${isScrolled ? 'rotate-0' : 'rotate-180'}`} onClick={scrollToDiv}>
                     <img src='https://cdn-icons-png.flaticon.com/128/10412/10412527.png' className='w-6 h-4' />
