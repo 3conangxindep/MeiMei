@@ -18,5 +18,6 @@ class Group extends Model
     protected $fillable = [
         'group_id',
         'group_name',
+        'id_card',
     ];
 }

@@ -16,6 +16,7 @@ class CreateGroupTable extends Migration
         Schema::create('group', function (Blueprint $table) {
             $table->id('group_id');
             $table->string('group_name');
+            $table->string('id_card');
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->useCurrent()->useCurrentOnUpdate();
             $table->softDeletes(); // カラム名の初期値は、deleted_at

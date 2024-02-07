@@ -175,7 +175,7 @@ const Following = ({ searchTerm, onSearchChange }) => {
 
 
   useEffect(() => {
-    fetch(`http://${API_BASE_URL}:8000/api/group`)
+    fetch(`http://${API_BASE_URL}:8000/api/groups/${id_card}`)
       .then((response) => response.json())
       .then((apiData) => {
         setGroup(apiData.data);
@@ -219,6 +219,7 @@ const Following = ({ searchTerm, onSearchChange }) => {
     try {
       const formData = new FormData();
       formData.append("group_name", group_name);
+      formData.append("id_card", id_card);
 
       for (const [key, value] of formData.entries()) {
         console.log(`${key}: ${value}`);
@@ -233,7 +234,7 @@ const Following = ({ searchTerm, onSearchChange }) => {
       );
 
       // Lấy danh sách nhóm mới đã thêm
-      const response = await fetch(`http://${API_BASE_URL}:8000/api/group`);
+      const response = await fetch(`http://${API_BASE_URL}:8000/api/groups/${id_card}`);
       const responseData = await response.json();
       setGroup(responseData.data);
 

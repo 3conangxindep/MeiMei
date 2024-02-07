@@ -79,10 +79,10 @@ const GroupMembers = ({ searchTerm, onSearchChange }) => {
 
     useEffect(() => {
         // setSearch(localStorage.getItem('searchTerm'));
-        let apiUrl = `http://${API_BASE_URL}:8000/api/groups/${currentPage}`;
+        let apiUrl = `http://${API_BASE_URL}:8000/api/groups/${id_card}/${currentPage}`;
         // Kiểm tra xem có từ khóa tìm kiếm không
         if (searchTerm) {
-            apiUrl = `http://${API_BASE_URL}:8000/api/group/${currentPage}/${searchTerm}`;
+            apiUrl = `http://${API_BASE_URL}:8000/api/group/${id_card}/${currentPage}/${searchTerm}`;
 
         }
 

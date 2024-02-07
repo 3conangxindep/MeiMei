@@ -17,7 +17,7 @@ class CreateUserTable extends Migration
     public function up()
     {
         Schema::create('user', function (Blueprint $table) {
-            $table->string('id_card')->primary();
+            $table->string('id_card');
             $table->string('user_name');
             $table->string('furigana')->nullable();
             $table->date('birthday');
@@ -35,7 +35,7 @@ class CreateUserTable extends Migration
             $table->timestamp('updated_at')->useCurrent()->useCurrentOnUpdate();
             $table->softDeletes(); // カラム名の初期値は、deleted_at
             // Foreign key
-            // $table->foreign('id_card')->references('id_card')->on('manager');
+            $table->foreign('id_card')->references('id_card')->on('manager')->onDelete('cascade');
         });
 
             // Thêm giá trị vào bảng sau khi tạo

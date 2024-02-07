@@ -66,9 +66,9 @@ Route::post('/photos', [PhotoController::class, 'upload']);
 //group
 Route::get('/group/{id}', [GroupController::class, 'show']);
 Route::post('/group', [GroupController::class, 'store']);
-Route::get('/group', [GroupController::class, 'index']);
-Route::get('/groups/{page}', [GroupController::class, 'group']);
-Route::get('/group/{page}/{search}', [GroupController::class, 'searchGroup']);
+Route::get('/groups/{id}', [GroupController::class, 'index']);
+Route::get('/groups/{id}/{page}', [GroupController::class, 'group']);
+Route::get('/group/{id}/{page}/{search}', [GroupController::class, 'searchGroup']);
 Route::delete('/group/{id}', [GroupController::class, 'destroy']);
 
 //manage group

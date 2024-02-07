@@ -14,11 +14,13 @@ class GroupController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($id)
     {
         //
         //
-        $group = Group::all();
+        $group = DB::table('group')
+            ->where('id_card', '=', $id)
+            ->get();
         // $request->user();
         return response()->json(['data' => $group], 200);
     }
@@ -100,15 +102,17 @@ class GroupController extends Controller
         return response()->json(['message' => 'Contact deleted successfully'], 200);
     }
 
-    public function searchGroup($page, $search)
+    public function searchGroup($id, $page, $search)
     {
         $perPage = 10; // Số lượng mục trên mỗi trang
 
         $total = DB::table('group')
+            ->where('id_card', '=', $id)
             ->where('group_name', 'like', '%' . $search . '%')
             ->count();
 
         $group = DB::table('group')
+            ->where('id_card', '=', $id)
             ->where('group_name', 'like', '%' . $search . '%')
             ->skip(($page - 1) * $perPage)
             ->take($perPage)
@@ -119,7 +123,7 @@ class GroupController extends Controller
         return response()->json(['data' => $group, 'totalPages' => $totalPages], 200);
     }
 
-    public function group($page)
+    public function group($id, $page)
     {
         //
         //
@@ -130,6 +134,7 @@ class GroupController extends Controller
             ->count();
 
         $group = DB::table('group')
+            ->where('id_card', '=', $id)
             ->skip(($page - 1) * $perPage)
             ->take($perPage)
             ->get();
