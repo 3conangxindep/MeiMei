@@ -102,7 +102,7 @@ const Following = ({ searchTerm, onSearchChange }) => {
     const response = await fetch(`http://${API_BASE_URL}:8000/api/manage/group/${id}`);
     const responseData = await response.json();
     setSelectedItems(responseData.data);
-    
+
   };
 
   // Thêm một sự kiện lắng nghe click ở ngoài menu để đóng menu
@@ -127,8 +127,14 @@ const Following = ({ searchTerm, onSearchChange }) => {
         method: 'DELETE',
       });
       const responseData = await response.json();
-
       console.log('delete', responseData);
+
+      const res = await fetch(`http://${API_BASE_URL}:8000/api/manage/${contact_id}`, {
+        method: 'DELETE',
+      });
+      const resData = await res.json();
+      console.log('delete', responseData);
+
       setIsSaved(prevIsSaved => {
         // Sử dụng hàm callback để đảm bảo cập nhật đồng bộ và kích hoạt useEffect
         return !prevIsSaved;
@@ -288,16 +294,16 @@ const Following = ({ searchTerm, onSearchChange }) => {
       }
     } else {
       // if (group_id) {
-        const response = await fetch(`http://${API_BASE_URL}:8000/api/manage/${group_id}/${id_card}`, {
-          method: 'DELETE',
-        });
-        const responseData = await response.json();
+      const response = await fetch(`http://${API_BASE_URL}:8000/api/manage/${group_id}/${id_card}`, {
+        method: 'DELETE',
+      });
+      const responseData = await response.json();
 
-        console.log('delete', responseData);
-        setIsSaved(prevIsSaved => {
-          // Sử dụng hàm callback để đảm bảo cập nhật đồng bộ và kích hoạt useEffect
-          return !prevIsSaved;
-        });
+      console.log('delete', responseData);
+      setIsSaved(prevIsSaved => {
+        // Sử dụng hàm callback để đảm bảo cập nhật đồng bộ và kích hoạt useEffect
+        return !prevIsSaved;
+      });
       // }
     }
 

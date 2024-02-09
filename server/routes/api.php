@@ -78,6 +78,7 @@ Route::get('/manage/{group_id}/{id_card}', [ManageGroupController::class, 'check
 Route::post('/manage', [ManageGroupController::class, 'store']);
 Route::get('/manage', [ManageGroupController::class, 'index']);
 Route::delete('/manage/{group_id}/{id_card}', [ManageGroupController::class, 'destroy']);
+Route::delete('/manage/{id_card}', [ManageGroupController::class, 'deleteFollower']);
 
 //manager
 //Route::get('/manager/{id}', [ManagerController::class, 'show']);

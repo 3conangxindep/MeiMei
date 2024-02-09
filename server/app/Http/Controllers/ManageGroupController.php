@@ -108,6 +108,15 @@ class ManageGroupController extends Controller
 
     }
 
+    public function deleteFollower($id_card)
+    {
+        $follower = DB::table('manage_group')
+            ->where('id_card', $id_card)
+            ->delete();
+        // Records were deleted successfully
+        return response()->json(['message' => 'Contact deleted successfully'], 200);
+    }
+
     public function check($group_id, $id_card)
     {
         //
